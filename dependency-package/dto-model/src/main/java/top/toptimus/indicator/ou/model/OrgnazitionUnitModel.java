@@ -7,10 +7,7 @@ import top.toptimus.indicator.ou.base.IndicatorType;
 import top.toptimus.indicator.ou.dao.OrgnazitionUnitDao;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitDto;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * OU充血模型
@@ -106,6 +103,67 @@ public class OrgnazitionUnitModel {
     }
 
     /**
+     * 新增业务组织
+     *
+     * @param pOuId      上级业务组织id
+     * @param ouCode     业务组织编码
+     * @param ouName     业务组织名称
+     * @param createDate 创建时间
+     * @param createUser 创建人
+     * @return 业务组织DTO
+     */
+    public OrgnazitionUnitDto createOrgnazitionUnit(
+            String pOuId
+            , String ouCode
+            , String ouName
+            , Date createDate
+            , String createUser
+    ) {
+        //  新建组织树
+        OrgnazitionUnitDto orgnazitionUnitDto = new OrgnazitionUnitDto(
+                UUID.randomUUID().toString()
+                , ouCode
+                , ouName
+                , createDate
+                , createUser
+        );
+        if (StringUtils.isEmpty(pOuId)) {
+            //  没有上级业务组织，就是完全新建逻辑
+            if (this.orgnazitionUnitMap.isEmpty()) {
+                //  新增逻辑
+                this.orgnazitionUnitMap.put(
+                        orgnazitionUnitDto.getOuID()
+                        , new OrgnazitionUnitDao(
+                                orgnazitionUnitDto.buildLevel(0)    //  业务组织级别为0
+                        )
+                );
+                return orgnazitionUnitDto;
+            } else {
+                //  业务组织树不能重新建立
+                throw new RuntimeException("请选择业务组织的上级节点");
+            }
+        } else {
+            //  上级业务组织不为空
+            if (this.getOrgnazitionUnitMap().containsKey(pOuId)) {
+                //  当前map下能找到上级业务组织
+
+                //  新增逻辑
+                this.orgnazitionUnitMap.put(
+                        orgnazitionUnitDto.getOuID()
+                        , new OrgnazitionUnitDao(
+                                orgnazitionUnitDto.buildLevel(this.getOrgnazitionUnitMap().get(pOuId).getLevel() + 1)    //  业务组织级别为上级业务组织level+1
+                        )
+                );
+                return orgnazitionUnitDto;
+            } else {
+                throw new RuntimeException("请业务组织的上级节点错误");
+            }
+        }
+
+
+    }
+
+    /**
      * 取得上级业务组织
      *
      * @param ouId          业务组织dto id
@@ -167,6 +225,20 @@ public class OrgnazitionUnitModel {
      */
     public OrgnazitionUnitDao getOrgnazitionUnitDao(String ouId) {
         return this.getOrgnazitionUnitMap().get(ouId);
+    }
+
+    /**
+     * 取得业务组织顶层节点
+     *
+     * @return 业务组织属性
+     */
+    public OrgnazitionUnitDao getTopLevelOrgnazitionUnitDao() {
+        for (String ouId : this.getOrgnazitionUnitMap().keySet()) {
+            if (0 == this.getOrgnazitionUnitMap().get(ouId).getLevel()) {
+                return this.getOrgnazitionUnitMap().get(ouId);
+            }
+        }
+        throw new RuntimeException("业务组织树没有初始化");
     }
 
     /**

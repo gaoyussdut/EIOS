@@ -27,14 +27,40 @@ public class OrgnazitionUnitDto extends BaseOrgnazitionUnit {
      * @param createDate  创建时间
      * @param createUser  创建人
      * @param enableDate  启用时间
+     * @param level       级别
      * @param isDisabled  是否禁用
      * @param disableDate 禁用时间
      * @param disableUser 禁用人
      * @param description 描述
      */
-    public OrgnazitionUnitDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, Date enableDate, boolean isDisabled, Date disableDate, String disableUser, String description) {
-        super(ouCode, ouName, createDate, createUser, enableDate, isDisabled, disableDate, disableUser, description);
+    public OrgnazitionUnitDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, Date enableDate, int level, boolean isDisabled, Date disableDate, String disableUser, String description) {
+        super(ouCode, ouName, createDate, createUser, enableDate, level, isDisabled, disableDate, disableUser, description);
         this.ouID = ouID;
+    }
+
+    /**
+     * 业务组织基础信息
+     *
+     * @param ouID       ou id
+     * @param ouCode     ou编码
+     * @param ouName     ou名称
+     * @param createDate 创建时间
+     * @param createUser 创建人
+     */
+    public OrgnazitionUnitDto(String ouID, String ouCode, String ouName, Date createDate, String createUser) {
+        super(ouCode, ouName, createDate, createUser);
+        this.ouID = ouID;
+    }
+
+    /**
+     * 更新业务组织级别
+     *
+     * @param level 级别
+     * @return this
+     */
+    public OrgnazitionUnitDto buildLevel(int level) {
+        this.level = level;
+        return this;
     }
 
     /**

@@ -38,9 +38,14 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
         this.createDate = orgnazitionUnitDto.getCreateDate();
         this.createUser = orgnazitionUnitDto.getCreateUser();
         this.enableDate = orgnazitionUnitDto.getEnableDate();
+        this.level = orgnazitionUnitDto.getLevel();
         this.description = orgnazitionUnitDto.getDescription();
 
-        this.orgnazitionUnitAttributes.put(orgnazitionUnitDto.getOrgnazitionUnitAttribute().getIndicatorType(), orgnazitionUnitDto.getOrgnazitionUnitAttribute());
+        if (null != orgnazitionUnitDto.getOrgnazitionUnitAttribute())
+            this.orgnazitionUnitAttributes.put(
+                    orgnazitionUnitDto.getOrgnazitionUnitAttribute().getIndicatorType()
+                    , orgnazitionUnitDto.getOrgnazitionUnitAttribute()
+            );
         this.disableDate = orgnazitionUnitDto.getDisableDate();
         this.disableUser = orgnazitionUnitDto.getDisableUser();
 
@@ -61,6 +66,7 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
                     , this.createDate
                     , this.createUser
                     , this.enableDate
+                    , this.level
                     , this.isDisabled
                     , this.disableDate
                     , this.disableUser

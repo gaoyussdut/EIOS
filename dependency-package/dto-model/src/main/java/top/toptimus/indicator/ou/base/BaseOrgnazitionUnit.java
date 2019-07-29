@@ -15,6 +15,7 @@ public abstract class BaseOrgnazitionUnit {
     protected Date createDate;    //  创建时间
     protected String createUser;  //  创建人
     protected Date enableDate;  //  启用时间
+    protected int level;    //  级别
 
     /*
         禁用信息
@@ -24,4 +25,11 @@ public abstract class BaseOrgnazitionUnit {
     protected String disableUser;  //  禁用人
 
     protected String description; //  描述
+
+    public BaseOrgnazitionUnit(String ouCode, String ouName, Date createDate, String createUser) {
+        this.ouCode = ouCode;
+        this.ouName = ouName;
+        this.createDate = createDate;
+        this.createUser = createUser;
+    }
 }

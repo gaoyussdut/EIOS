@@ -6,10 +6,10 @@ import top.toptimus.indicator.indicatorBill.model.IndicatorBillRelModel;
 import top.toptimus.indicator.ou.base.IndicatorType;
 import top.toptimus.indicator.ou.dao.OrgnazitionUnitDao;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitAttribute;
-import top.toptimus.indicator.ou.dto.OrgnazitionUnitDto;
 import top.toptimus.indicator.ou.model.OrgnazitionUnitModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 public class TestOrg {
@@ -62,7 +62,32 @@ public class TestOrg {
 
     private static void testOu() {
         OrgnazitionUnitModel initData = generateOrgnazitionUnitModel();
+        //  测试构造函数
+        OrgnazitionUnitModel orgnazitionUnitModel = new OrgnazitionUnitModel(
+                new ArrayList<OrgnazitionUnitDao>() {{
+                    initData.getOrgnazitionUnitMap().keySet().forEach(ouId -> add(initData.getOrgnazitionUnitMap().get(ouId)));
+                }}
+        );
 
+        System.out.println("取得业务组织顶层节点");
+        System.out.println(JSON.toJSONString(
+                orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao()
+        ));
+
+        System.out.println("根据ID取得组织基本信息");
+        System.out.println(JSON.toJSONString(
+                orgnazitionUnitModel.getOrgnazitionUnitDao(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID())
+        ));
+
+        System.out.println("找下级组织列表");
+        System.out.println(JSON.toJSONString(
+                orgnazitionUnitModel.getChildOrgnazitionUnits("1", IndicatorType.Finance)
+        ));
+
+    }
+
+    private static void testOthers() {
+        OrgnazitionUnitModel initData = generateOrgnazitionUnitModel();
         //  测试构造函数
         OrgnazitionUnitModel orgnazitionUnitModel = new OrgnazitionUnitModel(
                 new ArrayList<OrgnazitionUnitDao>() {{
@@ -91,39 +116,33 @@ public class TestOrg {
     }
 
     private static OrgnazitionUnitModel generateOrgnazitionUnitModel() {
-        return new OrgnazitionUnitModel()
+        OrgnazitionUnitModel orgnazitionUnitModel = new OrgnazitionUnitModel();
+        return orgnazitionUnitModel
                 .updateOrgnazitionUnit(
-                        new OrgnazitionUnitDto(
-                                "1"
+                        orgnazitionUnitModel.createOrgnazitionUnit(
+                                null
                                 , "ouCode1"
                                 , "ouName1"
+                                , new Date()
                                 , "猪"
-                                , ""
                         ).buildOrgnazitionUnitAttribute(new OrgnazitionUnitAttribute(IndicatorType.Administration, true))
                 ).updateOrgnazitionUnit(
-                        new OrgnazitionUnitDto(
-                                "1"
-                                , "ouCode1"
-                                , "ouName1"
-                                , "猪"
-                                , ""
-                        ).buildOrgnazitionUnitAttribute(new OrgnazitionUnitAttribute(IndicatorType.Finance, true))
-                ).updateOrgnazitionUnit(
-                        new OrgnazitionUnitDto(
-                                "2"
+                        orgnazitionUnitModel.createOrgnazitionUnit(
+                                orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
                                 , "ouCode2"
                                 , "ouName2"
+                                , new Date()
                                 , "猪"
-                                , ""
                         ).buildOrgnazitionUnitAttribute(new OrgnazitionUnitAttribute("1", IndicatorType.Finance, false))
                 ).updateOrgnazitionUnit(
-                        new OrgnazitionUnitDto(
-                                "3"
+                        orgnazitionUnitModel.createOrgnazitionUnit(
+                                orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
                                 , "ouCode3"
                                 , "ouName3"
+                                , new Date()
                                 , "猪"
-                                , ""
                         ).buildOrgnazitionUnitAttribute(new OrgnazitionUnitAttribute("1", IndicatorType.Finance, false))
                 );
+
     }
 }
