@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.eclipse.xsd:org.eclipse.xsd:2.8.0-v20120319-0555">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/xsd/org.eclipse.xsd/2.8.0-v20120319-0555/org.eclipse.xsd-2.8.0-v20120319-0555.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/xsd/org.eclipse.xsd/2.8.0-v20120319-0555/org.eclipse.xsd-2.8.0-v20120319-0555-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/xsd/org.eclipse.xsd/2.8.0-v20120319-0555/org.eclipse.xsd-2.8.0-v20120319-0555-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

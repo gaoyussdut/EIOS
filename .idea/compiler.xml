@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="amqp-service" />
+        <module name="base-test" />
+        <module name="business-model" />
+        <module name="business-unit-service" />
+        <module name="camunda-bpmn-model" />
+        <module name="certificate-service" />
+        <module name="communication" />
+        <module name="dto-model" />
+        <module name="exception" />
+        <module name="formula-service" />
+        <module name="jmerkle" />
+        <module name="memorandvn-service" />
+        <module name="meta-service" />
+        <module name="nlp-service" />
+        <module name="org.talend.mdm.common" />
+        <module name="place-cache-service" />
+        <module name="processDefinition-service" />
+        <module name="rich-domain-model" />
+        <module name="rule-service" />
+        <module name="security-service" />
+        <module name="stock-service" />
+        <module name="task-service" />
+        <module name="token-service" />
+        <module name="token-sql-entity" />
+        <module name="transformation-service" />
+        <module name="utils" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="amqp-service" target="1.8" />
+      <module name="base-test" target="1.8" />
+      <module name="business-model" target="1.8" />
+      <module name="business-unit-service" target="1.8" />
+      <module name="camunda-bpmn-model" target="1.6" />
+      <module name="certificate-service" target="1.8" />
+      <module name="communication" target="1.8" />
+      <module name="dto-model" target="1.8" />
+      <module name="exception" target="1.8" />
+      <module name="formula-service" target="1.8" />
+      <module name="jmerkle" target="1.8" />
+      <module name="memorandvn-service" target="1.8" />
+      <module name="meta-service" target="1.8" />
+      <module name="nlp-service" target="1.8" />
+      <module name="org.talend.mdm.common" target="1.7" />
+      <module name="place-cache-service" target="1.8" />
+      <module name="processDefinition-service" target="1.8" />
+      <module name="rich-domain-model" target="1.8" />
+      <module name="rule-service" target="1.8" />
+      <module name="security-service" target="1.8" />
+      <module name="stock-service" target="1.8" />
+      <module name="task-service" target="1.8" />
+      <module name="token-service" target="1.8" />
+      <module name="token-sql-entity" target="1.8" />
+      <module name="toptimus" target="1.8" />
+      <module name="transformation-service" target="1.8" />
+      <module name="utils" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
