@@ -2,6 +2,7 @@ package top.toptimus.indicator;
 
 import com.alibaba.fastjson.JSON;
 import top.toptimus.indicator.indicatorBill.dao.IndicatorOuRelDao;
+import top.toptimus.indicator.indicatorBill.dto.IndicatorOuRelDto;
 import top.toptimus.indicator.ou.base.IndicatorType;
 import top.toptimus.indicator.ou.dao.OrgnazitionUnitDao;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitAttribute;
@@ -47,6 +48,19 @@ public class TestOrg {
                             )
                     );
                 }}
+        );
+
+        orgnazitionUnitModel.getIndicatorBillRelModel().buildIndicatorOURel(
+                new IndicatorOuRelDto(
+                        "rel3"
+                        , orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
+                        , orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
+                        , "meta1"
+                        , "meta2"
+                        , true
+                        , "procedureName11"
+                        , IndicatorType.Finance
+                )
         );
 
         System.out.println("根据ou id取得下推分发规则");

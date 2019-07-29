@@ -45,6 +45,16 @@ public class IndicatorBillRelModel {
     }
 
     /**
+     * 新增指标下推关系
+     *
+     * @param indicatorOuRelDto 指标单据meta和ou的关系配置
+     */
+    public void buildIndicatorOURel(IndicatorOuRelDto indicatorOuRelDto) {
+        this.indicatorOURelDaoMap.get(indicatorOuRelDto.getSourceOuId()).add(indicatorOuRelDto);    //  TODO    待测试
+        this.indicatorOuRelDtos.add(indicatorOuRelDto);
+    }
+
+    /**
      * 根据model缓存中的指标单据meta和ou的关系配置KV生成指标单据转换日志，用来存储
      *
      * @param relId         转换的配置项id

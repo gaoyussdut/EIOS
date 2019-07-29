@@ -274,8 +274,7 @@ public class OrgnazitionUnitModel {
      *
      * @param indicatorOURelDaos 指标单据meta和ou的关系配置
      */
-    public OrgnazitionUnitModel buildIndicatorBillRelModel(List<IndicatorOuRelDao> indicatorOURelDaos) {
+    public void buildIndicatorBillRelModel(List<IndicatorOuRelDao> indicatorOURelDaos) {
         this.indicatorBillRelModel = new IndicatorBillRelModel(indicatorOURelDaos);
-        return this;
     }
 }
