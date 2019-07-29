@@ -1,0 +1,11 @@
+{
+  "select": {
+    "from": ["Type1"],
+    "where": {
+      "is": [
+        {"field": "Type1/field1"},
+        {"type": "Contained2"}
+      ]
+    }
+  }
+}

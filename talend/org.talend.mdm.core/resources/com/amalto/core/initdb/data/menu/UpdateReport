@@ -1,0 +1,22 @@
+<menu-pOJO>
+    <menu-entries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.amalto.core.objects.menu.ejb.MenuEntryPOJO">
+        <descriptions xsi:type="java:org.exolab.castor.mapping.MapItem">
+            <key xsi:type="java:java.lang.String">en</key>
+            <value xsi:type="java:java.lang.String">Journal</value>
+        </descriptions>
+        <descriptions xsi:type="java:org.exolab.castor.mapping.MapItem">
+            <key xsi:type="java:java.lang.String">fr</key>
+            <value xsi:type="java:java.lang.String">Journal</value>
+        </descriptions>
+        <application>Journal</application>
+        <context>journal</context>
+        <id>UpdateReport</id>
+    </menu-entries>
+    <name>UpdateReport</name>
+    <description>Update Report</description>
+    <PK>
+        <ids>UpdateReport</ids>
+        <unique-id>UpdateReport</unique-id>
+    </PK>
+    <digest>3588b2b3afc58811b275a7c7417e845d</digest>
+</menu-pOJO>

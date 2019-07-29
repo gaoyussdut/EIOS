@@ -1,0 +1,560 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" blockDefault="" elementFormDefault="unqualified" finalDefault="">  
+  <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>  
+  <xsd:simpleType name="PICTURE"> 
+    <xsd:restriction base="xsd:string"/> 
+  </xsd:simpleType>  
+  <xsd:simpleType name="URL"> 
+    <xsd:restriction base="xsd:string"/> 
+  </xsd:simpleType>  
+  <xsd:simpleType name="UUID"> 
+    <xsd:restriction base="xsd:string"/> 
+  </xsd:simpleType>  
+  <xsd:simpleType name="AUTO_INCREMENT"> 
+    <xsd:restriction base="xsd:string"/> 
+  </xsd:simpleType>  
+  <xsd:simpleType name="prefix"> 
+    <xsd:restriction base="xsd:string"> 
+      <xsd:enumeration value="Mr"/>  
+      <xsd:enumeration value="Mrs"/>  
+      <xsd:enumeration value="Ms"/>  
+      <xsd:enumeration value="Dr"/>  
+      <xsd:enumeration value="Sir"/>  
+      <xsd:whiteSpace value="preserve"/> 
+    </xsd:restriction> 
+  </xsd:simpleType>  
+  <xsd:simpleType name="suffix"> 
+    <xsd:restriction base="xsd:string"> 
+      <xsd:enumeration value="II"/>  
+      <xsd:enumeration value="III"/>  
+      <xsd:enumeration value="Jr"/>  
+      <xsd:enumeration value="Sr"/>  
+      <xsd:enumeration value="PhD"/> 
+    </xsd:restriction> 
+  </xsd:simpleType>    
+  <xsd:element name="Region"> 
+    <xsd:annotation> 
+      <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+      <xsd:appinfo source="X_Label_EN">Territory</xsd:appinfo>  
+      <xsd:appinfo source="X_Label_FR">Territoire</xsd:appinfo>  
+      <xsd:appinfo source="X_PrimaryKeyInfo">Region/Region</xsd:appinfo>  
+      <xsd:appinfo source="X_PrimaryKeyInfo">Region/Country</xsd:appinfo> 
+    </xsd:annotation>  
+    <xsd:complexType> 
+      <xsd:all> 
+        <xsd:element maxOccurs="1" minOccurs="1" name="RegionID" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_EN">Region ID</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">ID Territoire</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="Region" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_EN">Territory</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">Territoire</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="Country" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_EN">Country</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">Pays</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="Headquarters" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_EN">Headquarters</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">Siège Social</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="Parent" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Region/RegionID</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_FKIntegrity">false</xsd:appinfo>  
+            <xsd:appinfo source="X_FKIntegrity_Override">false</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKeyInfo">Region/Region</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKeyInfo">Region/Country</xsd:appinfo>  
+            <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_EN">Parent</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">Parent</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element> 
+      </xsd:all> 
+    </xsd:complexType>  
+    <xsd:unique name="Region"> 
+      <xsd:selector xpath="."/>  
+      <xsd:field xpath="RegionID"/> 
+    </xsd:unique> 
+  </xsd:element>      
+  <xsd:simpleType name="loc_type"> 
+    <xsd:restriction base="xsd:string"> 
+      <xsd:enumeration value="Primary"/>  
+      <xsd:enumeration value="Billing"/>  
+      <xsd:enumeration value="Shipping"/>  
+      <xsd:enumeration value="Sales"/>  
+      <xsd:enumeration value="Other"/> 
+    </xsd:restriction> 
+  </xsd:simpleType>        
+  <xsd:element name="Employee"> 
+    <xsd:annotation> 
+      <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+      <xsd:appinfo source="X_Write">DS_Manager_MWest</xsd:appinfo>  
+      <xsd:appinfo source="X_Label_EN">Sales Agents</xsd:appinfo>  
+      <xsd:appinfo source="X_Schematron">&lt;pattern name="LOGIN" &gt; &lt;rule context="LoginID"&gt;&lt;assert test=". =concat(../Home_Address/country,substring(../Personal_Info/First_Name,1,3),substring(../Personal_Info/Last_Name,1,2))"&gt;&lt;![CDATA[[EN:Login = Country + first 3 of first name + first 2 of last name]]]&gt;&lt;/assert&gt;&lt;/rule&gt; &lt;/pattern&gt;</xsd:appinfo>  
+      <xsd:appinfo source="X_Schematron">&lt;pattern name="StartTerm" &gt; &lt;rule context="/"&gt;&lt;assert test="fn:normalizeSpace(Termination_Date)=&amp;apos;&amp;apos; or translate(Start_Date,&amp;apos;-&amp;apos;,&amp;apos;&amp;apos;) &amp;lt; translate(Termination_Date,&amp;apos;-&amp;apos;,&amp;apos;&amp;apos;)"&gt;&lt;![CDATA[[EN:Termination Date must be Greater then the Start Date]]]&gt;&lt;/assert&gt;&lt;/rule&gt; &lt;/pattern&gt;</xsd:appinfo>  
+      <xsd:appinfo source="X_Label_FR">Commerciaux</xsd:appinfo>  
+      <xsd:appinfo source="X_PrimaryKeyInfo">Employee/Personal_Info/Last_Name</xsd:appinfo>  
+      <xsd:appinfo source="X_PrimaryKeyInfo">Employee/Personal_Info/First_Name</xsd:appinfo> 
+    </xsd:annotation>     
+        <xsd:complexType> 
+            <xsd:sequence> 
+        <xsd:element maxOccurs="1" minOccurs="1" name="EEID" type="AUTO_INCREMENT"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Label_EN">Enterprise Employee ID</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_Manager_MWest</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">Employé ID</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="Emp_Photo" type="PICTURE"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_Manager_MWest</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_EN">Photo</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">Photo</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="1" name="Emp_Status" type="status"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Label_EN">Employee Status</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_Manager_MWest</xsd:appinfo>  
+            <xsd:appinfo source="X_Default_Value_Rule">"Active"</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">Statut Employé</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="1" name="Pay_Code" type="PayCode"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Label_EN">Commision Code</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_Manager_MWest</xsd:appinfo>  
+            <xsd:appinfo source="X_Default_Value_Rule">"1"</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">Code Commission</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="LoginID" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_Manager_MWest</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_EN">Login ID</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">ID Login</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="1" name="Start_Date" type="xsd:date"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_Manager_MWest</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_EN">Start Date</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">Date Début</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="Termination_Date" type="xsd:date"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_Manager_MWest</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_EN">Termination</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">Date Fin</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="Personal_Info" type="person"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_Manager_MWest</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_EN">Personal Info</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">Infos Personnelles</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="Home_Address" type="address"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_Manager_MWest</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_EN">Home Address</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_FR">Adresse Foyer</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="Locations" type="xsd:string"> 
+          <xsd:annotation> 
+              
+            <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">DS_Manager_MWest</xsd:appinfo>  
+            <xsd:appinfo source="X_Label_EN">Office Location</xsd:appinfo>  
+            <xsd:appinfo source="X_FKIntegrity">true</xsd:appinfo>  
+            <xsd:appinfo source="X_FKIntegrity_Override">false</xsd:appinfo>  
+              
+              
+              
+            <xsd:appinfo source="X_Label_FR">Bureau</xsd:appinfo> 
+          <xsd:appinfo source="X_ForeignKey">Office_Locations/LocationID</xsd:appinfo>
+
+
+<xsd:appinfo source="X_ForeignKeyInfo">Office_Locations/LocationName</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKeyInfo">Office_Locations/LocationType</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKeyInfo">Office_Locations/address_1</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKeyInfo">Office_Locations/address_2</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKeyInfo">Office_Locations/city</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKeyInfo">Office_Locations/state</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKeyInfo">Office_Locations/postalcode</xsd:appinfo>
+<xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+</xsd:annotation> 
+        </xsd:element> 
+                <xsd:element maxOccurs="1" minOccurs="0" name="Territory" type="xsd:string">
+<xsd:annotation>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+<xsd:appinfo source="X_Write">DS_Manager_MWest</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKey">Region/RegionID</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKeyInfo">Region/Region</xsd:appinfo>
+<xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+            </xsd:sequence> 
+    </xsd:complexType>
+        <xsd:unique name="Employee">
+<xsd:selector xpath="."/>
+<xsd:field xpath="EEID"/>
+</xsd:unique>
+    </xsd:element>    
+  <xsd:simpleType name="PayCode"> 
+    <xsd:restriction base="xsd:string"> 
+      <xsd:enumeration value="1"/>  
+      <xsd:enumeration value="2"/>  
+      <xsd:enumeration value="3"/>  
+      <xsd:enumeration value="4"/> 
+    </xsd:restriction> 
+  </xsd:simpleType>  
+  <xsd:complexType name="address"> 
+    <xsd:all> 
+      <xsd:element maxOccurs="1" minOccurs="0" name="address1" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Rue Ligne 1</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Address Line 1</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="address2" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Rue Ligne 2</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Address Line 2</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="city" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Ville</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">City</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="state" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Etat</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">State</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="postalcode" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Code Postal</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Postal Code</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="1" name="country" type="country"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Pays</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Country</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="latitude" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Latitude</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Latitude</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="longitude" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Longitude</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Longitude</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="map" type="URL"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Carte Google</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Google Map</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:all> 
+  </xsd:complexType>  
+  <xsd:simpleType name="status"> 
+    <xsd:restriction base="xsd:string"> 
+      <xsd:enumeration value="Pending"/>  
+      <xsd:enumeration value="Terminated"/>  
+      <xsd:enumeration value="Rejected"/>  
+      <xsd:enumeration value="Active"/> 
+    </xsd:restriction> 
+  </xsd:simpleType>  
+  <xsd:complexType name="person"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="1" minOccurs="0" name="First_Name" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Prénom</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">First Name</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="Last_Name" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Nom de Famille</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Last Name</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="Middle_Name" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Deuxième Prénom</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Received Name</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="Suffix" type="suffix"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Suffixe</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Suffix</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="Prefix" type="prefix"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Préfixe</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Prefix</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="Gender" type="gender"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Sexe</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Gender</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="DOB" type="xsd:date"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Date de Naissance</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Date of Birth</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="Mobil_Phone" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Tél. Portable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Mobile Phone</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="Home_Phone" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Tél. Fixe</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Home Phone</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="Email" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Label_FR">Email</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">General_Manager#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Workflow">Manager_MWest#Account_Priority_1.0#Writable</xsd:appinfo>  
+          <xsd:appinfo source="X_Label_EN">Email</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:sequence> 
+  </xsd:complexType>  
+  <xsd:simpleType name="gender"> 
+    <xsd:restriction base="xsd:string"> 
+      <xsd:enumeration value="UNK"/>  
+      <xsd:enumeration value="MALE"/>  
+      <xsd:enumeration value="FEMALE"/> 
+    </xsd:restriction> 
+  </xsd:simpleType>      
+  <xsd:simpleType name="risk_profile"> 
+    <xsd:restriction base="xsd:string"> 
+      <xsd:enumeration value="HIGH"/>  
+      <xsd:enumeration value="MEDIUM"/>  
+      <xsd:enumeration value="LOW"/>  
+      <xsd:enumeration value="DO NOT ALLOW"/> 
+    </xsd:restriction> 
+  </xsd:simpleType>         
+    <xsd:element name="Office_Locations">
+<xsd:annotation>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+</xsd:annotation>
+<xsd:complexType>
+<xsd:all>
+<xsd:element maxOccurs="1" minOccurs="1" name="LocationID" type="AUTO_INCREMENT">
+<xsd:annotation>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="1" name="LocationType" type="loc_type">
+<xsd:annotation>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="LocationName" type="xsd:string">
+<xsd:annotation>
+<xsd:appinfo source="X_Description_EN">Building, Suite, ec</xsd:appinfo>
+<xsd:appinfo source="X_Label_EN">Location Name</xsd:appinfo>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="address_1" type="xsd:string">
+<xsd:annotation>
+<xsd:appinfo source="X_Label_EN">Address Line 1</xsd:appinfo>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="address_2" type="xsd:string">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+<xsd:appinfo source="X_Label_EN">Address Line 2</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="city" type="xsd:string">
+<xsd:annotation>
+<xsd:appinfo source="X_Label_FR">Ville</xsd:appinfo>
+<xsd:appinfo source="X_Label_EN">City</xsd:appinfo>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="state" type="xsd:string">
+<xsd:annotation>
+<xsd:appinfo source="X_Label_FR">Etat</xsd:appinfo>
+<xsd:appinfo source="X_Label_EN">State</xsd:appinfo>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="postalcode" type="xsd:string">
+<xsd:annotation>
+<xsd:appinfo source="X_Label_FR">Code Postal</xsd:appinfo>
+<xsd:appinfo source="X_Label_EN">Postal Code</xsd:appinfo>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="country" type="xsd:string">
+<xsd:annotation>
+<xsd:appinfo source="X_Label_FR">Pays</xsd:appinfo>
+<xsd:appinfo source="X_Label_EN">Country</xsd:appinfo>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="latitude" type="xsd:string">
+<xsd:annotation>
+<xsd:appinfo source="X_Label_FR">Latitude</xsd:appinfo>
+<xsd:appinfo source="X_Label_EN">Latitude</xsd:appinfo>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="longitude" type="xsd:string">
+<xsd:annotation>
+<xsd:appinfo source="X_Label_FR">Longitude</xsd:appinfo>
+<xsd:appinfo source="X_Label_EN">Longitude</xsd:appinfo>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="map" type="URL">
+<xsd:annotation>
+<xsd:appinfo source="X_Label_FR">Carte Google</xsd:appinfo>
+<xsd:appinfo source="X_Label_EN">Google Map</xsd:appinfo>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="process_id" type="xsd:string">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+<xsd:appinfo source="X_Label_EN">DSC Task ID</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Territory" type="xsd:string">
+<xsd:annotation>
+<xsd:appinfo source="X_Write">DS_General_Manager</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKey">Region/RegionID</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKeyInfo">Region/Region</xsd:appinfo>
+<xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+            </xsd:all>
+</xsd:complexType>
+<xsd:unique name="Office_Locations">
+<xsd:selector xpath="."/>
+<xsd:field xpath="LocationID"/>
+</xsd:unique>
+</xsd:element>
+    <xsd:simpleType name="country">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="US"/>
+<xsd:enumeration value="FR"/>
+<xsd:enumeration value="GB"/>
+<xsd:enumeration value="DE"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:schema>

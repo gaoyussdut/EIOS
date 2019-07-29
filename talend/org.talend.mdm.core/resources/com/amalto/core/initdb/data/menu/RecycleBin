@@ -1,0 +1,22 @@
+<menu-pOJO>
+    <menu-entries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.amalto.core.objects.menu.ejb.MenuEntryPOJO">
+        <descriptions xsi:type="java:org.exolab.castor.mapping.MapItem">
+            <key xsi:type="java:java.lang.String">en</key>
+            <value xsi:type="java:java.lang.String">Recycle Bin</value>
+        </descriptions>
+        <descriptions xsi:type="java:org.exolab.castor.mapping.MapItem">
+            <key xsi:type="java:java.lang.String">fr</key>
+            <value xsi:type="java:java.lang.String">Corbeille</value>
+        </descriptions>
+        <application>RecycleBin</application>
+        <context>recyclebin</context>
+        <id>RecycleBin</id>
+    </menu-entries>
+    <name>RecycleBin</name>
+    <description>RecycleBin</description>
+    <PK>
+        <ids>RecycleBin</ids>
+        <unique-id>RecycleBin</unique-id>
+    </PK>
+    <digest>c6ab2574241d7d7c4bf641638c70f974</digest>
+</menu-pOJO>

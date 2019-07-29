@@ -1,0 +1,497 @@
+<!--
+  ~ Copyright (C) 2006-2016 Talend Inc. - www.talend.com
+  ~
+  ~ This source code is available under agreement available at
+  ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+  ~
+  ~ You should have received a copy of the agreement
+  ~ along with this program; if not, write to Talend SA
+  ~ 9 rue Pages 92150 Suresnes, France
+  -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>
+    <xsd:element name="PointOfSale">
+        <xsd:annotation>
+			<xsd:appinfo source="X_Label_EN">Point of sale</xsd:appinfo>
+			<xsd:appinfo source="X_Label_FR">Point de vente</xsd:appinfo>
+			<xsd:appinfo source="X_Label_RU">Торговая точка</xsd:appinfo>		
+			<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+			<xsd:appinfo source="X_Description_EN">Point of Sale Desc</xsd:appinfo>
+			<xsd:appinfo source="X_Description_FR">Point de vente Desc</xsd:appinfo>
+		</xsd:annotation>
+        <xsd:complexType>
+			<xsd:all>
+				<xsd:element maxOccurs="1" minOccurs="1" name="PointOfSaleId" type="AUTO_INCREMENT">
+					<xsd:annotation>
+						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element maxOccurs="1" minOccurs="0" name="Name" type="MULTI_LINGUAL">
+					<xsd:annotation>				
+						<xsd:appinfo source="X_Label_EN">POS Name</xsd:appinfo>
+						<xsd:appinfo source="X_Label_FR">Nom PV</xsd:appinfo>				
+						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+						<xsd:appinfo source="X_Description_EN">Name Desc</xsd:appinfo>
+						<xsd:appinfo source="X_Description_FR">Nom Desc</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element maxOccurs="1" minOccurs="0" name="BrandFk" type="String10Type">
+					<xsd:annotation>
+						<xsd:appinfo source="X_ForeignKey">Brand/BrandId</xsd:appinfo>
+						<xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+						<xsd:appinfo source="X_ForeignKeyInfo">Brand/Name</xsd:appinfo>
+						<xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>						
+						<xsd:appinfo source="X_Label_EN">Brand</xsd:appinfo>
+						<xsd:appinfo source="X_Label_FR">Marque</xsd:appinfo>					
+						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+						<xsd:appinfo source="X_Description_EN">Brand Desc</xsd:appinfo>
+						<xsd:appinfo source="X_Description_FR">Marque Desc</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element maxOccurs="1" minOccurs="0" name="SAP1" type="String50Type">
+					<xsd:annotation>
+					
+						<xsd:appinfo source="X_Label_EN">SAP Code 1</xsd:appinfo>
+						<xsd:appinfo source="X_Label_FR">SAP Code 1</xsd:appinfo>
+						
+						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element maxOccurs="1" minOccurs="0" name="SAP2" type="String50Type">
+					<xsd:annotation>
+						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element maxOccurs="1" minOccurs="0" name="StatusFk" type="xsd:string">
+					<xsd:annotation>
+						<xsd:appinfo source="X_ForeignKey">Status/StatusId</xsd:appinfo>
+						<xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+						<xsd:appinfo source="X_ForeignKeyInfo">Status/Name</xsd:appinfo>
+						<xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+						
+						<xsd:appinfo source="X_Label_EN">Status</xsd:appinfo>
+						<xsd:appinfo source="X_Label_FR">Status</xsd:appinfo>
+						
+						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element maxOccurs="1" minOccurs="0" name="Address" type="AddressType">
+					<xsd:annotation>
+						<xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>						
+						<xsd:appinfo source="X_Label_EN">Address</xsd:appinfo>
+						<xsd:appinfo source="X_Label_FR">Adresse</xsd:appinfo>
+						<xsd:appinfo source="X_Label_RU">адрес</xsd:appinfo>						
+						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+						<xsd:appinfo source="X_Description_EN">Address Desc</xsd:appinfo>  
+            			<xsd:appinfo source="X_Description_FR">Adresse Desc</xsd:appinfo> 
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element maxOccurs="1" minOccurs="0" name="POSContactDetails" type="ContactDetailsType">
+					<xsd:annotation>
+						<xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+						
+						<xsd:appinfo source="X_Label_EN">Contact Details</xsd:appinfo>
+						<xsd:appinfo source="X_Label_FR">Détails du contact</xsd:appinfo>
+						
+						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element maxOccurs="1" minOccurs="0" name="ManagerContactDetails" type="ManagerContactDetailsType2">
+					<xsd:annotation>
+					
+						<xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+						<xsd:appinfo source="X_Label_EN">Manager Details</xsd:appinfo>
+						<xsd:appinfo source="X_Label_FR">Informations sur le gérant</xsd:appinfo>
+						
+						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+            </xsd:all>
+		</xsd:complexType>
+<xsd:unique name="PointOfSale">
+	<xsd:selector xpath="."/>
+	<xsd:field xpath="PointOfSaleId"/>
+</xsd:unique>
+</xsd:element>
+<xsd:simpleType name="MULTI_LINGUAL">
+	<xsd:restriction base="xsd:string">
+    <xsd:maxLength value="1024"/>
+    </xsd:restriction>
+</xsd:simpleType>
+<xsd:simpleType name="AUTO_INCREMENT">
+	<xsd:restriction base="xsd:string"/>
+</xsd:simpleType>
+<xsd:element name="Brand">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Brand</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Marque</xsd:appinfo>
+<xsd:appinfo source="X_Label_RU">бренд</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+<xsd:complexType>
+<xsd:all>
+<xsd:element name="BrandId" type="AUTO_INCREMENT">
+
+<xsd:annotation>
+	<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+	<xsd:appinfo source="X_Label_EN">BrandId</xsd:appinfo>  
+    <xsd:appinfo source="X_Label_FR">MarqueId</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="1" name="Name" type="MULTI_LINGUAL">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_FR">Nom</xsd:appinfo>
+<xsd:appinfo source="X_Label_EN">Name</xsd:appinfo>
+<xsd:appinfo source="X_Label_RU">имя</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+</xsd:all>
+</xsd:complexType>
+<xsd:unique name="Brand">
+<xsd:selector xpath="."/>
+<xsd:field xpath="BrandId"/>
+</xsd:unique>
+</xsd:element>
+    <xsd:simpleType name="String10Type">
+<xsd:restriction base="xsd:string">
+<xsd:maxLength value="10"/>
+</xsd:restriction>
+</xsd:simpleType>
+    <xsd:simpleType name="String50Type">
+<xsd:restriction base="xsd:string">
+<xsd:maxLength value="50"/>
+</xsd:restriction>
+</xsd:simpleType>
+    <xsd:element name="Status">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Status</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Statut</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+<xsd:complexType>
+<xsd:all>
+<xsd:element name="StatusId" type="xsd:string">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="Name" type="xsd:string">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Name</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Nom</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+</xsd:all>
+</xsd:complexType>
+<xsd:unique name="Status">
+<xsd:selector xpath="."/>
+<xsd:field xpath="StatusId"/>
+</xsd:unique>
+</xsd:element>
+    <xsd:element name="Country">
+
+<xsd:complexType>
+<xsd:all>
+<xsd:element name="CountryId" type="String3Type">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Iso 3</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Iso 3</xsd:appinfo>
+
+<xsd:appinfo source="X_Hide">POS_Marketing</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ISO2" type="String2Type">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Iso 2</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Iso 2</xsd:appinfo>
+
+<xsd:appinfo source="X_Hide">POS_Marketing</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ISO_NAME" type="MULTI_LINGUAL">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Country Name</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Nom Pays</xsd:appinfo>
+
+</xsd:annotation>
+</xsd:element>
+</xsd:all>
+</xsd:complexType>
+<xsd:unique name="Country">
+<xsd:selector xpath="."/>
+<xsd:field xpath="CountryId"/>
+</xsd:unique>
+</xsd:element>
+    <xsd:complexType name="AddressType">
+<xsd:all>
+<xsd:element maxOccurs="1" minOccurs="0" name="Address1" type="String255Type">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Address 1</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Adresse 1</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="Address2" type="String255Type">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Address 2</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Adresse 2</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="Town" type="String255Type">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Town</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Ville</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="State" type="String255Type">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">State</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Région</xsd:appinfo>
+<xsd:appinfo source="X_Label_RU">область</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="Postcode" type="String50Type">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Zip Code</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Code Postal</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="CountryFk" type="String10Type">
+<xsd:annotation>
+<xsd:appinfo source="X_ForeignKey">Country/CountryId</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKeyInfo">Country/ISO_NAME</xsd:appinfo>
+<xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+
+<xsd:appinfo source="X_Label_EN">Country</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Pays</xsd:appinfo>
+<xsd:appinfo source="X_Label_RU">страна</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Long" type="xsd:string">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Lat" type="xsd:string">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+        </xsd:all>
+</xsd:complexType>
+    <xsd:simpleType name="String255Type">
+<xsd:restriction base="xsd:string"/>
+</xsd:simpleType>
+    <xsd:complexType name="ContactDetailsType">
+        <xsd:annotation>
+<xsd:appinfo source="X_Label_EN">Informations</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Informations</xsd:appinfo>
+</xsd:annotation>
+        <xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="1" name="ContactDetail" type="ContactDetailType">
+<xsd:annotation>
+<xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+
+<xsd:appinfo source="X_Label_EN">Informations</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Informations</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+</xsd:sequence>
+</xsd:complexType>
+    <xsd:complexType name="ContactDetailType">
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="Method" type="MethodType">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Method</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Méthode</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="1" name="Value" type="String255Type">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Value</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Valeur</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+</xsd:sequence>
+</xsd:complexType>
+    <xsd:simpleType name="MethodType">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Phone"/>
+<xsd:enumeration value="Fax"/>
+<xsd:enumeration value="Email"/>
+<xsd:maxLength value="50"/>
+</xsd:restriction>
+</xsd:simpleType>
+    <xsd:element name="Product">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Products</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Produits</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+<xsd:complexType>
+<xsd:all>
+<xsd:element name="ProductId" type="AUTO_INCREMENT">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="1" name="Name" type="String255Type">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Name</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Nom</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="1" name="Family" type="FamilyType">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Family</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Famille</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+</xsd:all>
+</xsd:complexType>
+<xsd:unique name="Product">
+<xsd:selector xpath="."/>
+<xsd:field xpath="ProductId"/>
+</xsd:unique>
+</xsd:element>
+    <xsd:element name="POS_Product_Price">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">POS Product Price</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Prix Produit par PV</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+<xsd:complexType>
+<xsd:all>
+<xsd:element name="POS_ProductId" type="AUTO_INCREMENT">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="1" name="POSFk" type="String10Type">
+<xsd:annotation>
+	<xsd:appinfo source="X_ForeignKey">PointOfSale/PointOfSaleId</xsd:appinfo>
+	<xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+	<xsd:appinfo source="X_ForeignKeyInfo">PointOfSale/Name</xsd:appinfo>
+	<xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+	
+	<xsd:appinfo source="X_Label_EN">Point of Sale</xsd:appinfo>
+	<xsd:appinfo source="X_Label_FR">Point de vente</xsd:appinfo>
+	
+	<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>		
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="1" name="ProductFk" type="String10Type">
+<xsd:annotation>
+<xsd:appinfo source="X_ForeignKey">Product/ProductId</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+<xsd:appinfo source="X_ForeignKeyInfo">Product/Name</xsd:appinfo>
+<xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+
+<xsd:appinfo source="X_Label_EN">Product</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Produit</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="Price" type="xsd:decimal">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Label_EN">Price</xsd:appinfo>
+<xsd:appinfo source="X_Label_FR">Prix</xsd:appinfo>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+</xsd:all>
+</xsd:complexType>
+<xsd:unique name="POS_Product_Price">
+<xsd:selector xpath="."/>
+<xsd:field xpath="POS_ProductId"/>
+</xsd:unique>
+</xsd:element>
+    <xsd:simpleType name="FamilyType">
+<xsd:restriction base="xsd:string">
+<xsd:maxLength value="15"/>
+            <xsd:enumeration value="CARBURANTS"/>
+        </xsd:restriction>
+</xsd:simpleType>
+    <xsd:simpleType name="String2Type">
+<xsd:restriction base="xsd:string">
+<xsd:maxLength value="2"/>
+</xsd:restriction>
+</xsd:simpleType>
+    <xsd:simpleType name="String3Type">
+<xsd:restriction base="xsd:string">
+<xsd:maxLength value="3"/>
+</xsd:restriction>
+</xsd:simpleType>
+    <xsd:complexType name="ManagerContactDetailsType2">
+<xsd:all>
+<xsd:element maxOccurs="1" minOccurs="1" name="ManagerName" type="xsd:string">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ContactDetails" type="ContactDetailsType">
+<xsd:annotation>
+
+<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+</xsd:all>
+</xsd:complexType>
+</xsd:schema>

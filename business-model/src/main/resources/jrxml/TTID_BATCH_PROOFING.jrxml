@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="new" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20"
+              topMargin="20" bottomMargin="20" uuid="ad1cd7db-d514-4b87-bf09-06f1d5196b00">
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <field name="proofing_batch_number" class="java.lang.String"/>
+    <field name="material_demand_note_wuliaoxuqiu_id" class="java.lang.String"/>
+    <field name="material_demand_note_material_demand_quantity" class="java.lang.String"/>
+    <field name="proofing_planned_finish_time" class="java.lang.String"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="79" splitType="Stretch"/>
+    </title>
+    <pageHeader>
+        <band height="42" splitType="Stretch">
+            <textField>
+                <reportElement key="" x="0" y="2" width="100" height="30" uuid="33c7162f-9440-4ab5-93cc-b153bf550853"/>
+                <textElement>
+                    <font fontName="华文宋体"/>
+                </textElement>
+                <textFieldExpression><![CDATA["编码:"+$F{proofing_batch_number}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="120" y="0" width="100" height="30" uuid="3c80ca89-3695-490f-b9a5-00010157c288"/>
+                <textFieldExpression><![CDATA[$F{proofing_planned_finish_time}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageHeader>
+    <columnHeader>
+        <band height="61" splitType="Stretch"/>
+    </columnHeader>
+    <detail>
+        <band height="125" splitType="Stretch">
+            <textField>
+                <reportElement x="10" y="40" width="100" height="20" uuid="6ccfdf35-64d6-4744-9456-4592126eb0df"/>
+                <box>
+                    <topPen lineWidth="1.0"/>
+                    <leftPen lineWidth="1.0"/>
+                    <bottomPen lineWidth="1.0"/>
+                    <rightPen lineWidth="1.0"/>
+                </box>
+                <textElement>
+                    <font fontName="微软雅黑"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{material_demand_note_wuliaoxuqiu_id}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="110" y="40" width="100" height="20" uuid="0caf763d-193a-4d06-b00b-734e7ded685e"/>
+                <box>
+                    <topPen lineWidth="1.0"/>
+                    <leftPen lineWidth="1.0"/>
+                    <bottomPen lineWidth="1.0"/>
+                    <rightPen lineWidth="1.0"/>
+                </box>
+                <textFieldExpression><![CDATA[$F{material_demand_note_material_demand_quantity}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="10" y="20" width="100" height="20" forecolor="#000000"
+                               uuid="3d9480bc-618c-418c-9102-a3a68304e740"/>
+                <box>
+                    <pen lineWidth="1.0" lineStyle="Solid"/>
+                </box>
+                <textElement textAlignment="Center">
+                    <font isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["ID"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="110" y="20" width="100" height="20" forecolor="#000000"
+                               uuid="8493ed00-de55-4e22-9187-a7373e4e5785"/>
+                <box>
+                    <pen lineWidth="1.0" lineStyle="Solid"/>
+                </box>
+                <textElement textAlignment="Center">
+                    <font isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["性别"]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="45" splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="54" splitType="Stretch">
+            <textField>
+                <reportElement x="180" y="10" width="100" height="30" uuid="edf34706-b24d-4481-9e51-05dcb512705a"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement x="280" y="10" width="100" height="30" uuid="3966b93b-17c8-4c38-bd7a-e9ffbe8c83a4"/>
+                <textElement textAlignment="Left"/>
+                <textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band height="42" splitType="Stretch"/>
+    </summary>
+</jasperReport>

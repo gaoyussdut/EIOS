@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amq="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+	<!-- Connection Factory definition -->
+	<bean id="jmsConnectionFactory" class="com.amalto.core.util.ActiveMQConnectionFactoryExtension">
+		<property name="brokerURL" value="${mdm.routing.engine.broker.url}"/>
+		<property name="userName" value="${mdm.routing.engine.broker.userName}"/>
+		<property name="password" value="${mdm.routing.engine.broker.password}"/>
+	</bean>
+
+	<!-- Destinations definition -->
+	<!-- Used by RoutingEngine to receive asynchronous triggers events -->
+	<bean id="routingEventsQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="org.talend.mdm.server.routing.events"/>
+	</bean>
+	
+	<!-- Expired triggers events -->
+	<bean id="expiredRoutingEventsTopic" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="ActiveMQ.Advisory.Expired.Queue.org.talend.mdm.server.routing.events"/>
+	</bean>
+
+	<!-- FullText indexes replication topic -->
+	<bean id="indexReplicationTopic" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="org.talend.mdm.server.index.replication" />
+	</bean>
+	
+	<!-- Staging tasks cancellation topic -->
+	<bean id="stagingTaskCancellationTopic" class="org.apache.activemq.command.ActiveMQTopic" lazy-init="true">
+		<constructor-arg value="org.talend.mdm.server.staging.cancel" />
+	</bean>
+	
+	<!-- Initialize internal ActiveMQ broker -->
+	<amq:broker brokerName="localhost" dataDirectory="${mdm.root}/data/activemq-data/localhost" useShutdownHook="false">
+        <amq:managementContext>
+            <amq:managementContext createConnector="false" />
+        </amq:managementContext>
+        <amq:persistenceAdapter>
+            <amq:kahaDB directory="${mdm.root}/data/activemq-data/localhost/kahadb" />
+        </amq:persistenceAdapter>
+    </amq:broker>
+
+
+</beans>

@@ -1,0 +1,8 @@
+<Agency xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Name>Portland</Name>
+<City>Portland</City>
+<State>ME</State>
+<Zip>04102</Zip>
+<Region>EAST</Region>
+<MoreInfo>Map@@http://maps.google.com/maps?q=43.658632,-70.2911&amp;ll=43.658632,-70.2911&amp;z=9</MoreInfo>
+</Agency>

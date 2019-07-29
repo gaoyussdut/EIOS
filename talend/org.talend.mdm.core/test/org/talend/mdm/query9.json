@@ -1,0 +1,13 @@
+{
+  "select": {
+    "from": ["Type1"],
+    "where": {
+      "not": {
+        "eq": [
+          {"field": "Type1/id"},
+          {"value": "1"}
+        ]
+      }
+    }
+  }
+}

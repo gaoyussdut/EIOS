@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">  
+  <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>  
+  <xsd:element name="Catalog"> 
+    <xsd:annotation> 
+      <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+    </xsd:annotation>  
+    <xsd:complexType> 
+      <xsd:all> 
+        <xsd:element maxOccurs="1" minOccurs="1" name="CatalogId" type="AUTO_INCREMENT"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+      </xsd:all> 
+    </xsd:complexType>  
+    <xsd:unique name="Catalog"> 
+      <xsd:selector xpath="."/>  
+      <xsd:field xpath="CatalogId"/> 
+    </xsd:unique> 
+  </xsd:element>  
+  <xsd:simpleType name="AUTO_INCREMENT"> 
+    <xsd:restriction base="xsd:string"/> 
+  </xsd:simpleType>  
+  <xsd:element name="Geschaeftspartner"> 
+    <xsd:annotation> 
+      <xsd:appinfo source="X_Schematron">&lt;pattern name="DeathAfterBirth" &gt; &lt;rule context="."&gt;&lt;assert test="translate(birthdate,&amp;quot; &amp;quot;,&amp;quot;&amp;quot;) = &amp;quot;&amp;quot; or number(translate(birthdate,&amp;quot;-&amp;quot;,&amp;quot;&amp;quot;)) &amp;lt; number(translate(deathdate,&amp;quot;-&amp;quot;,&amp;quot;&amp;quot;))"&gt;&lt;![CDATA[[DE:Mann kann nicht sterbern bevor geburt]]]&gt;&lt;/assert&gt;&lt;/rule&gt; &lt;/pattern&gt;</xsd:appinfo>  
+      <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+    </xsd:annotation>  
+    <xsd:complexType> 
+      <xsd:all> 
+        <xsd:element maxOccurs="1" minOccurs="1" name="businessobject_id" type="xsd:long"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="archiverecords" type="ListArchiveintraegeType"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element> 
+      </xsd:all> 
+    </xsd:complexType>  
+    <xsd:unique name="Geschaeftspartner"> 
+      <xsd:selector xpath="."/>  
+      <xsd:field xpath="businessobject_id"/> 
+    </xsd:unique> 
+  </xsd:element>  
+  <xsd:complexType name="ListArchiveintraegeType"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="archiverecord_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Archiveintrag/businessobject_id</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:sequence> 
+  </xsd:complexType>  
+  <xsd:element name="Archiveintrag"> 
+    <xsd:annotation> 
+      <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+    </xsd:annotation>  
+    <xsd:complexType> 
+      <xsd:all> 
+        <xsd:element maxOccurs="1" minOccurs="1" name="businessobject_id" type="xsd:long"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Label_DE">GO_ID</xsd:appinfo>  
+            <xsd:appinfo source="X_Description_DE">Primary key und ForeignKey zur Basisklasse, identisch mit ID in BusinessObject</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="status" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="techstatus" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="1" name="archiverecord_type_id" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="archivist_id" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Geschaeftspartner/businessobject_id</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="process_id" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="1" name="artefact" type="ListArtefactType"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element> 
+      </xsd:all> 
+    </xsd:complexType>  
+    <xsd:unique name="Archiveintrag"> 
+      <xsd:selector xpath="."/>  
+      <xsd:field xpath="businessobject_id"/> 
+    </xsd:unique> 
+  </xsd:element>  
+  <xsd:complexType name="ListClassificationsType"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="catalog_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:sequence> 
+  </xsd:complexType>  
+  <xsd:complexType name="ListArtefactType"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="1" minOccurs="1" name="communication_channel" type="communication_channel"> 
+        <xsd:annotation>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="1" name="format_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:sequence> 
+  </xsd:complexType>  
+  <xsd:complexType name="communication_channel"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="1" minOccurs="1" name="communication_type_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:sequence> 
+  </xsd:complexType>  
+  <xsd:element name="Basisprodukt"> 
+    <xsd:annotation> 
+      <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+    </xsd:annotation>  
+    <xsd:complexType> 
+      <xsd:all> 
+        <xsd:element maxOccurs="1" minOccurs="1" name="businessobject_id" type="xsd:long"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="status" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="techstatus" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="repertoire_manager_id" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Geschaeftspartner/businessobject_id</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="1" name="source_id" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Geschaeftspartner/businessobject_id</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="1" name="genre_id" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="1" name="mediatype_id" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="participations" type="ListMitwirkungenType"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="titles" type="ListTitlesType"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="archiverecords" type="ListarchiverecordType"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="relatedtitles" type="ListRelatedTitlesType"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element> 
+      </xsd:all> 
+    </xsd:complexType>  
+    <xsd:unique name="Basisprodukt"> 
+      <xsd:selector xpath="."/>  
+      <xsd:field xpath="businessobject_id"/> 
+    </xsd:unique> 
+  </xsd:element>  
+  <xsd:element name="Mitwirung"> 
+    <xsd:annotation> 
+      <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+    </xsd:annotation>  
+    <xsd:complexType> 
+      <xsd:all> 
+        <xsd:element maxOccurs="1" minOccurs="1" name="businessobject_id" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="status" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="techstatus" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="1" name="product_id" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Basisprodukt/businessobject_id</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="1" name="businesspartner_id" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Geschaeftspartner/businessobject_id</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="1" name="source_id" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Geschaeftspartner/businessobject_id</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="1" name="role_id" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="function_id" type="xsd:string"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="involvedMembers" type="ListinvolvedMembersType"> 
+          <xsd:annotation> 
+            <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+          </xsd:annotation> 
+        </xsd:element> 
+      </xsd:all> 
+    </xsd:complexType>  
+    <xsd:unique name="Mitwirung"> 
+      <xsd:selector xpath="."/>  
+      <xsd:field xpath="businessobject_id"/> 
+    </xsd:unique> 
+  </xsd:element>  
+  <xsd:complexType name="ListinvolvedMembersType"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="involvedMember" type="involvedMemberType"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:sequence> 
+  </xsd:complexType>  
+  <xsd:complexType name="involvedMemberType"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="1" minOccurs="1" name="member_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Geschaeftspartner/businessobject_id</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="classification" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="archiverecords" type="ListarchiverecordType"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:sequence> 
+  </xsd:complexType>  
+  <xsd:complexType name="ListarchiverecordType"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="archiverecord_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Archiveintrag/businessobject_id</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:sequence> 
+  </xsd:complexType>  
+  <xsd:complexType name="ListMitwirkungenType"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="businessobject_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Mitwirung/businessobject_id</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:sequence> 
+  </xsd:complexType>  
+  <xsd:complexType name="ListTitlesType"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="1" minOccurs="1" name="title" type="TitleType"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:sequence> 
+  </xsd:complexType>  
+  <xsd:complexType name="TitleType"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="1" minOccurs="1" name="language_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>   
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="region_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="titlesupplement_type_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="musicalgenre_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="musicalkey_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="0" name="titletype_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:sequence> 
+  </xsd:complexType>  
+  <xsd:complexType name="ListRelatedTitlesType"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="title" type="RelatedTitlesType"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:sequence> 
+  </xsd:complexType>  
+  <xsd:complexType name="RelatedTitlesType"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="1" minOccurs="1" name="related_to_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Basisprodukt/businessobject_id</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element>  
+      <xsd:element maxOccurs="1" minOccurs="1" name="productrelationtype_id" type="xsd:string"> 
+        <xsd:annotation> 
+          <xsd:appinfo source="X_ForeignKey">Catalog/CatalogId</xsd:appinfo>  
+          <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>  
+          <xsd:appinfo source="X_Write">Administrator</xsd:appinfo> 
+        </xsd:annotation> 
+      </xsd:element> 
+    </xsd:sequence> 
+  </xsd:complexType> 
+</xsd:schema>

@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Commmon Plug-in
+Bundle-SymbolicName: org.talend.mdm.commmon;singleton:=true
+Bundle-Version: 7.1.1.qualifier
+Require-Bundle: org.eclipse.xsd,
+ org.apache.commons.lang,
+ org.apache.commons.collections,
+ org.apache.commons.jxpath,
+ org.apache.commons.configuration,
+ org.talend.utils
+Import-Package: org.apache.log4j
+Bundle-ActivationPolicy: lazy
+Export-Package: org.talend.mdm.commmon.metadata,
+ org.talend.mdm.commmon.metadata.validation,
+ org.talend.mdm.commmon.util.core,
+ org.talend.mdm.commmon.util.hash,
+ org.talend.mdm.commmon.util.hash.impl,
+ org.talend.mdm.commmon.util.webapp,
+ org.talend.mdm.commmon.util.workbench

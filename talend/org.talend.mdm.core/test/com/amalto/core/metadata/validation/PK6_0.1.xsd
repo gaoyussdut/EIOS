@@ -1,0 +1,29 @@
+<!--
+  ~ Copyright (C) 2006-2013 Talend Inc. - www.talend.com
+  ~
+  ~ This source code is available under agreement available at
+  ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+  ~
+  ~ You should have received a copy of the agreement
+  ~ along with this program; if not, write to Talend SA
+  ~ 9 rue Pages 92150 Suresnes, France
+  -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>
+    <xsd:element name="fac">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="subelement" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ac" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="bc" type="xsd:string"/>
+                <xsd:element maxOccurs="unbounded" minOccurs="0" name="cc" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="fac">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="subelement"/>
+            <xsd:field xpath="cc"/>
+        </xsd:unique>
+    </xsd:element>
+</xsd:schema>

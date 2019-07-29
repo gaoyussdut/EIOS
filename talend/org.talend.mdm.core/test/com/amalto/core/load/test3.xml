@@ -1,0 +1,44 @@
+<!--
+  ~ Copyright (C) 2006-2012 Talend Inc. - www.talend.com
+  ~
+  ~ This source code is available under agreement available at
+  ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+  ~
+  ~ You should have received a copy of the agreement
+  ~ along with this program; if not, write to Talend SA
+  ~ 9 rue Pages 92150 Suresnes, France
+  -->
+
+<Product>
+    <Id>1</Id>
+    <Name>dolor ac</Name>
+    <ShortDescription>porttitor pharetra quis sed risus.</ShortDescription>
+    <LongDescription>Ut orci ipsum, pharetra eget imperdiet in, adipiscing in ante. Cras vel urna eu enim volutpat
+        mattis. Pellentesque scelerisque tellus non mauris pulvinar vitae ullamcorper nibh consequat. Mauris elementum,
+        turpis vel pretium pulvinar, nunc lorem fringilla magna, at imperdiet elit lectus et nunc. Integer eu urna est.
+        Suspendisse sollicitudin sagittis rhoncus. Quisque ut lorem augue, nec tempus nunc. Praesent molestie ultrices
+        dapibus. Cras mattis ullamcorper velit vitae lacinia. Sed ultrices congue porta. Aenean hendrerit pharetra ante,
+        sit amet sodales dolor volutpat nec. Morbi ultricies sodales viverra. Integer accumsan hendrerit laoreet. Proin
+        lectus augue, tempor at pellentesque ac, facilisis in tortor. Integer in libero ipsum. Sed rhoncus rutrum
+        semper. Praesent ipsum metus, sodales vitae tincidunt eget, fringilla non purus. Integer quis diam turpis.
+        Vestibulum a massa est, a porta sapien. Vivamus tempus pharetra ligula non fringilla. Phasellus suscipit pretium
+        urna vehicula pellentesque. Aenean interdum, risus id ornare elementum, nulla
+    </LongDescription>
+    <Features>
+        <Sizes>
+            <Size>Large</Size>
+            <Size>X-Large</Size>
+        </Sizes>
+        <Colors>
+            <Color>Lemon</Color>
+            <Color>Khaki</Color>
+        </Colors>
+    </Features>
+    <Availability>9294</Availability>
+    <Price>12.006772</Price>
+    <Family>[1]</Family>
+    <Supplier>[1]</Supplier>
+    <CreationDate>2006-07-13</CreationDate>
+    <RemovalDate>2012-01-24</RemovalDate>
+    <Status>Removed</Status>
+</Product>

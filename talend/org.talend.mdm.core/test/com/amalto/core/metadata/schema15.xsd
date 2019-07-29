@@ -1,0 +1,394 @@
+<!--
+  ~ Copyright (C) 2006-2012 Talend Inc. - www.talend.com
+  ~
+  ~ This source code is available under agreement available at
+  ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+  ~
+  ~ You should have received a copy of the agreement
+  ~ along with this program; if not, write to Talend SA
+  ~ 9 rue Pages 92150 Suresnes, France
+  -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>
+    <xsd:complexType name="Department">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="id" type="AUTO_INCREMENT">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="code" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="active" type="xsd:boolean"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="insCompany" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">InsuranceCompanyPlain/id</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:element name="Department" type="Department">
+        <xsd:unique name="Department">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="code"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="Activator">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="code" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="department" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">Department/code</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="active" type="xsd:boolean"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="id" type="AUTO_INCREMENT"/>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:element name="Activator" type="Activator">
+        <xsd:unique name="Activator">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="code"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="ActivationPoint" type="ActivationPoint">
+        <xsd:unique name="ActivationPoint">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="code"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="ActivationPoint">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="code" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="activator" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">Activator/code</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="active" type="xsd:boolean"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="id" type="AUTO_INCREMENT"/>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:simpleType name="AUTO_INCREMENT">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:element name="LegalPerson" type="LegalPerson">
+        <xsd:unique name="LegalPerson">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="LegalPerson">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="id" type="AUTO_INCREMENT"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="activator" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">Activator</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="unbounded" minOccurs="1" name="phone" type="Phone">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="address" type="Address">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="email" type="Email">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="fax" type="Fax">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="fullName" type="strLong">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="shortName" type="strShort">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="workMode" type="strShort">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="active" type="xsd:boolean">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="insCompany" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="ownership" type="strShort">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="is_franchising" type="xsd:boolean">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="risk_group" type="strShort">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="credit_limit" type="money">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="visibility_group" type="strShort"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="1" name="paymentDetail" type="PaymentDetails">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+
+
+    </xsd:complexType>
+    <xsd:simpleType name="strShort">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="strLong">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="200"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="money">
+        <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="4"/>
+            <xsd:totalDigits value="20"/>
+            <xsd:minInclusive value="0.0001"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="Phone">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="num" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="comment" type="xsd:string"/>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="Address">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="kladrCode" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="fullAddress" type="xsd:string"/>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="Email">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="address" type="xsd:string"/>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="Fax">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="num" type="xsd:string"/>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="BusinessPerson">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="id" type="AUTO_INCREMENT"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="activator" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey">Activator</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="unbounded" minOccurs="1" name="phone" type="Phone">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="address" type="Address">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="email" type="Email">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="fax" type="Fax">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="fullName" type="strLong">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="shortName" type="strShort">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="workMode" type="strShort">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="active" type="xsd:boolean">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="insCompany" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="ownership" type="strShort">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="is_franchising" type="xsd:boolean">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="risk_group" type="strShort">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="credit_limit" type="money">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="visibility_group" type="strShort"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="1" name="paymentDetail" type="PaymentDetails">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="BusinessPerson" type="BusinessPerson">
+        <xsd:unique name="BusinessPerson">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="PaymentDetails">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="startDate" type="xsd:date"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="endDate" type="xsd:date"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="corrAccount" type="numStr40">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="bankAccount" type="numStr40"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="bik" type="numStr40"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="inn" type="numStr12"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="bankName" type="strLong"/>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:simpleType name="numStr40">
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="40"/>
+            <xsd:pattern value="\d+"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="numStr12">
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="12"/>
+            <xsd:pattern value="\d+"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="Department2">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="code" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="active" type="xsd:boolean"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="id" type="AUTO_INCREMENT">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="reqattr" type="xsd:string"/>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:element name="Department2" type="Department2">
+        <xsd:unique name="Department2">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="code"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="InsuranceCompanyPlain">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="id" type="AUTO_INCREMENT"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="fullName" type="strLong">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="shortName" type="strShort">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="workMode" type="strShort">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="active" type="xsd:boolean">
+                <xsd:annotation/>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="code" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="isDefault" type="xsd:boolean"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="licence" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="1" name="paymentDetail" type="PaymentDetails">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+
+
+    </xsd:complexType>
+    <xsd:complexType name="InsuranceCompanyActivator">
+        <xsd:complexContent>
+            <xsd:extension base="InsuranceCompanyPlain">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="activator" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="InsuranceCompanyPlain" type="InsuranceCompanyPlain">
+        <xsd:unique name="InsuranceCompanyPlain">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="Company" type="Company">
+        <xsd:unique name="Company">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="code"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="Company">
+        <xsd:complexContent>
+            <xsd:extension base="Party">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="name" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="Individual" type="Individual">
+        <xsd:unique name="Individual">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="code"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="Individual">
+        <xsd:complexContent>
+            <xsd:extension base="Party">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="firstName" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="lastName" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="Party" type="Party">
+        <xsd:unique name="Party">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="code"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="Party">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="code" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Product" type="Product">
+        <xsd:unique name="Product">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="subelement"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="Product">
+        <xsd:all>
+            <xsd:element name="subelement" type="xsd:string"/>
+        </xsd:all>
+    </xsd:complexType>
+</xsd:schema>

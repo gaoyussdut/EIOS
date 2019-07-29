@@ -1,0 +1,58 @@
+<!--
+  ~ Copyright (C) 2006-2015 Talend Inc. - www.talend.com
+  ~
+  ~ This source code is available under agreement available at
+  ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+  ~
+  ~ You should have received a copy of the agreement
+  ~ along with this program; if not, write to Talend SA
+  ~ 9 rue Pages 92150 Suresnes, France
+  -->
+<datasources xmlns="http://www.talend.com/mdm/datasources">
+
+    <!-- H2 DATASOURCE -->
+    <datasource name="H2-Default">
+        <master>
+            <type>RDBMS</type>
+            <rdbms-configuration>
+                <dialect>H2</dialect>
+                <connection-driver-class>org.h2.Driver</connection-driver-class>
+                <connection-url>jdbc:h2://D:\MDM\Talend-MDMServer-DEV-6.1/data/H2-Default/${container}_MASTER;DB_CLOSE_ON_EXIT=FALSE</connection-url>
+                <connection-username>sa</connection-username>
+                <connection-password>sa</connection-password>
+                <fulltext-index-directory>D:\MDM\Talend-MDMServer-DEV-6.1\data\indexes\H2-Default</fulltext-index-directory>
+                <schema-generation>update</schema-generation>
+                <properties>
+                    <property name="hibernate.show_sql">false</property>
+                </properties>
+            </rdbms-configuration>
+        </master>       
+    </datasource>
+
+    <!-- PostgreSQL DATASOURCE -->
+    <datasource name="PostgreSQL-Default">
+        <master>
+            <type>RDBMS</type>
+            <rdbms-configuration>
+                <dialect>Postgres</dialect>
+                <connection-driver-class>org.postgresql.Driver</connection-driver-class>
+                <connection-url>jdbc:postgresql://localhost:5432/${container}_MASTER</connection-url>
+                <connection-username>postgres</connection-username>
+                <connection-password>talend123</connection-password>
+                <connection-pool-minsize>5</connection-pool-minsize>
+                <connection-pool-maxsize>50</connection-pool-maxsize>
+                <fulltext-index-directory>D:\MDM\Talend-MDMServer-DEV-6.1\data\indexes\PostgreSQL-Default</fulltext-index-directory>
+                <schema-generation>update</schema-generation>
+                <properties>
+                    <property name="hibernate.show_sql">false</property>
+                </properties>
+                <init>
+                    <database-name>${container}_MASTER</database-name>
+                    <connection-url>jdbc:postgresql://localhost:5432/</connection-url>
+                    <connection-username>postgres</connection-username>
+                    <connection-password>talend123</connection-password>
+                </init>
+            </rdbms-configuration>
+        </master>        
+    </datasource>   
+</datasources>

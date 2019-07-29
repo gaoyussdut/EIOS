@@ -1,0 +1,76 @@
+#### 开发环境配置
+spring:
+  profiles: dev
+##### Basic
+server:
+  port: 8080
+##### Spring
+spring:
+  application:
+    name: Demo
+  ### Redis
+  redis:
+    database: 1
+    host: 192.168.1.105
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+#  ### postgresql
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://192.168.1.71:5432/fpdb
+#    username: fp
+#    password: fp@123
+#  ### Data
+  ### postgresql
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.1.71:5432/fangsheng0613
+    username: fp
+    password: fp@123
+  ### Data
+  data:
+    # Cassandra
+    cassandra:
+      keyspace-name: newfront
+      contact-points: 192.168.1.101
+      port: 9042
+      repositories:
+        type: auto
+      schema-action: create_if_not_exists
+    # Elasticsearch
+    elasticsearch:
+      cluster-nodes: 192.168.1.71:9300
+      # 不加 cluster-name 属性会报错:
+      #   NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{jyzih8cJQj6axOEAERo7ew}{192.168.1.97}{192.168.1.97:9300}]]
+      # 其他解决方案暂不清楚
+      cluster-name: my-application
+      repositories:
+        enabled: true
+
+
+  ### RabbitMQ
+  rabbitmq:
+    host: 192.168.1.163
+    port: 5672
+    virtual-host: jianghao
+    username: jianghao
+    password: jianghao
+    connection-timeout: 5000ms
+  ### Kafka
+  kafka:
+    producer:
+      retries: 0
+      buffer-memory: 40960
+      batch-size: 4096
+    bootstrap-servers: 192.168.1.163:9092
+    consumer:
+      group-id: test-group
+##### Log
+logging:
+  level:
+    root: info

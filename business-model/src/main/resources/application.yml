@@ -1,0 +1,6 @@
+#### 使用某个环境启动
+#### dev开发环境 local本地环境 prod生产环境 test测试环境
+spring:
+  profiles:
+    active: dev
+

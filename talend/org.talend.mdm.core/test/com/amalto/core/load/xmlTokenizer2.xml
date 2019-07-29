@@ -1,0 +1,46 @@
+<menu-pOJO>
+    <menu-entries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.amalto.core.objects.menu.ejb.MenuEntryPOJO">
+        <descriptions xsi:type="java:org.exolab.castor.mapping.MapItem">
+            <key xsi:type="java:java.lang.String">en</key>
+            <value xsi:type="java:java.lang.String">Browse Records</value>
+        </descriptions>
+        <descriptions xsi:type="java:org.exolab.castor.mapping.MapItem">
+            <key xsi:type="java:java.lang.String">fr</key>
+            <value xsi:type="java:java.lang.String">Accès aux données</value>
+        </descriptions>
+        <application>ItemsBrowser2</application>
+        <context>itemsbrowser2</context>
+        <id>Browse items2</id>
+    </menu-entries>
+    <name>Browse items2</name>
+    <description>Browse records 2</description>
+    <PK>
+        <ids>Browse items2</ids>
+        <unique-id>Browse items2</unique-id>
+    </PK>
+    <last-synch>test</last-synch>
+    <last-error/>
+</menu-pOJO>
+<menu-pOJO>
+    <menu-entries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.amalto.core.objects.menu.ejb.MenuEntryPOJO">
+        <descriptions xsi:type="java:org.exolab.castor.mapping.MapItem">
+            <key xsi:type="java:java.lang.String">en</key>
+            <value xsi:type="java:java.lang.String">Browse Views</value>
+        </descriptions>
+        <descriptions xsi:type="java:org.exolab.castor.mapping.MapItem">
+            <key xsi:type="java:java.lang.String">fr</key>
+            <value xsi:type="java:java.lang.String">Accès aux vues</value>
+        </descriptions>
+        <application>ViewBrowser</application>
+        <context>viewbrowser</context>
+        <id>Browse views</id>
+    </menu-entries>
+    <name>Browse views</name>
+    <description>Browse entity views</description>
+    <PK>
+        <ids>Browse views</ids>
+        <unique-id>Browse views</unique-id>
+    </PK>
+    <last-synch>test</last-synch>
+    <last-error/>
+</menu-pOJO>

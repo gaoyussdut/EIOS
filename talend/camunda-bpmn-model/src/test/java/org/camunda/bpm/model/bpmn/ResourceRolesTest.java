@@ -1,0 +1,83 @@
+/* Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.camunda.bpm.model.bpmn;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Collection;
+
+import org.camunda.bpm.model.bpmn.instance.*;
+import org.camunda.bpm.model.xml.instance.ModelElementInstance;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+/**
+ * @author Dario Campagna
+ */
+public class ResourceRolesTest {
+
+  private static BpmnModelInstance modelInstance;
+
+  @BeforeClass
+  public static void parseModel() {
+    modelInstance = Bpmn.readModelFromStream(ResourceRolesTest.class.getResourceAsStream("ResourceRolesTest.bpmn"));
+  }
+
+  @Test
+  public void testGetPerformer() {
+    Definitions definitions = modelInstance.getDefinitions();
+    definitions.getRootElements();
+    UserTask userTask = modelInstance.getModelElementsByType(UserTask.class).iterator().next();
+    UserTask userTask2 = modelInstance.getModelElementsByType(UserTask.class).iterator().next();
+    //UserTask userTask = modelInstance.getModelElementById("_3");
+    Collection<ResourceRole> resourceRoles = userTask.getResourceRoles();
+    assertThat(resourceRoles.size()).isEqualTo(1);
+    ResourceRole resourceRole = resourceRoles.iterator().next();
+    assertThat(resourceRole instanceof Performer).isTrue();
+    assertThat(resourceRole.getName()).isEqualTo("Task performer");
+  }
+
+  @Test
+  public void testGetTaskname() {
+    ModelElementInstance modelElementInstance = modelInstance.getDocumentElement();
+    modelElementInstance.getChildElementsByType(UserTask.class);
+    Collection<UserTask> a= modelInstance.getModelElementsByType(UserTask.class);
+
+    for (UserTask userTask : a) {
+      System.out.println(userTask.getAttributeValue("id"));
+              System.out.println(userTask.getAttributeValue("name"));
+    }
+  }
+
+  @Test
+  public void testGetHumanPerformer() {
+    UserTask userTask = modelInstance.getModelElementById("_7");
+    Collection<ResourceRole> resourceRoles = userTask.getResourceRoles();
+    assertThat(resourceRoles.size()).isEqualTo(1);
+    ResourceRole resourceRole = resourceRoles.iterator().next();
+    assertThat(resourceRole instanceof HumanPerformer).isTrue();
+    assertThat(resourceRole.getName()).isEqualTo("Task human performer");
+  }
+
+  @Test
+  public void testGetPotentialOwner() {
+    UserTask userTask = modelInstance.getModelElementById("_9");
+    Collection<ResourceRole> resourceRoles = userTask.getResourceRoles();
+    assertThat(resourceRoles.size()).isEqualTo(1);
+    ResourceRole resourceRole = resourceRoles.iterator().next();
+    assertThat(resourceRole instanceof PotentialOwner).isTrue();
+    assertThat(resourceRole.getName()).isEqualTo("Task potential owner");
+  }
+
+}

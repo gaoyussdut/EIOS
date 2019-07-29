@@ -1,0 +1,75 @@
+<!--
+  ~ Copyright (C) 2006-2013 Talend Inc. - www.talend.com
+  ~
+  ~ This source code is available under agreement available at
+  ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+  ~
+  ~ You should have received a copy of the agreement
+  ~ along with this program; if not, write to Talend SA
+  ~ 9 rue Pages 92150 Suresnes, France
+  -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">  
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>  
+    <xsd:element name="BrowseItem"> 
+        <xsd:complexType> 
+            <xsd:all maxOccurs="1" minOccurs="1"> 
+                <xsd:element maxOccurs="1" minOccurs="1" name="CriteriaName" type="xsd:string"/>  
+                <xsd:element maxOccurs="1" minOccurs="1" name="ViewPK" type="xsd:string"/>  
+                <xsd:element maxOccurs="1" minOccurs="1" name="Owner" type="xsd:string"/>  
+                <xsd:element maxOccurs="1" minOccurs="1" name="Shared" type="xsd:boolean"/>  
+                <xsd:element maxOccurs="1" minOccurs="1" name="WhereCriteria" nillable="false"> 
+                    <xsd:complexType mixed="false"> 
+                        <xsd:sequence maxOccurs="1" minOccurs="1"> 
+                            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Criteria" nillable="false"> 
+                                <xsd:complexType mixed="false"> 
+                                    <xsd:sequence maxOccurs="1" minOccurs="1"> 
+                                        <xsd:element maxOccurs="1" minOccurs="1" name="Field" nillable="false" type="xsd:string"/>  
+                                        <xsd:element maxOccurs="1" minOccurs="1" name="Operator" nillable="false" type="xsd:string"/>  
+                                        <xsd:element maxOccurs="1" minOccurs="1" name="Value" nillable="false" type="xsd:string"/>  
+                                        <xsd:element maxOccurs="1" minOccurs="0" name="Join" type="xsd:string"/> 
+                                    </xsd:sequence> 
+                                </xsd:complexType> 
+                            </xsd:element> 
+                        </xsd:sequence> 
+                    </xsd:complexType> 
+                </xsd:element> 
+                <xsd:element maxOccurs="1" minOccurs="0" name="SearchCriteria" nillable="false" type="text"/>  
+            </xsd:all> 
+        </xsd:complexType>  
+        <xsd:unique name="BrowseItem"> 
+            <xsd:selector xpath="."/>  
+            <xsd:field xpath="CriteriaName"/> 
+        </xsd:unique> 
+    </xsd:element> 
+     <xsd:element name="HierarchySearchItem">
+  <xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="HierarchySearchName" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="Owner" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="Separator" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="HierarchyRelation" type="xsd:boolean"/>
+                <xsd:element maxOccurs="unbounded" minOccurs="1" name="HierarchySearchCriterias">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="Concept" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="View" type="xsd:string"/>
+<xsd:element maxOccurs="unbounded" minOccurs="1" name="LabelXpath" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="FkXpath" type="xsd:string"/>
+                            <xsd:element maxOccurs="1" minOccurs="0" name="FilterCriteria" type="text"/>
+                        </xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+            </xsd:sequence>
+</xsd:complexType>
+<xsd:unique name="HierarchySearchItem">
+<xsd:selector xpath="."/>
+<xsd:field xpath="HierarchySearchName"/>
+</xsd:unique>
+</xsd:element>
+    <xsd:simpleType name="text">
+<xsd:restriction base="xsd:string">
+<xsd:maxLength value="2147483647"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:schema>

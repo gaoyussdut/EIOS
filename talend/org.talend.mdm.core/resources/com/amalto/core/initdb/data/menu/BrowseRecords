@@ -1,0 +1,22 @@
+<menu-pOJO>
+    <menu-entries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.amalto.core.objects.menu.ejb.MenuEntryPOJO">
+        <descriptions xsi:type="java:org.exolab.castor.mapping.MapItem">
+            <key xsi:type="java:java.lang.String">en</key>
+            <value xsi:type="java:java.lang.String">Master Data Browser</value>
+        </descriptions>
+        <descriptions xsi:type="java:org.exolab.castor.mapping.MapItem">
+            <key xsi:type="java:java.lang.String">fr</key>
+            <value xsi:type="java:java.lang.String">Explorateur des données Master</value>
+        </descriptions>
+        <application>BrowseRecords</application>
+        <context>browserecords</context>
+        <id>BrowseRecords</id>
+    </menu-entries>
+    <name>BrowseRecords</name>
+    <description>BrowseRecords</description>
+    <PK>
+        <ids>BrowseRecords</ids>
+        <unique-id>BrowseRecords</unique-id>
+    </PK>
+    <digest>c644f86cb428b1f2c161fbe310f9b96a</digest>
+</menu-pOJO>

@@ -1,0 +1,60 @@
+{
+  "tokenId": "524e8c36-e733-4e57-a990-abe9ad7b83ea",
+  "fields": [
+    {
+      "dataType": "STRING",
+      "key": "xuhao",
+      "jsonData": "01"
+    },
+    {
+      "dataType": "STRING",
+      "key": "wuliaobianma",
+      "jsonData": "test001"
+    },
+    {
+      "dataType": "STRING",
+      "key": "wuliaomingcheng",
+      "jsonData": "CT设备"
+    },
+    {
+      "dataType": "STRING",
+      "key": "guigexinghao",
+      "jsonData": "1.3m"
+    },
+    {
+      "dataType": "STRING",
+      "key": "danwei",
+      "jsonData": "个"
+    },
+    {
+      "dataType": "DECIMAL",
+      "key": "shuliang",
+      "jsonData": "100.0000"
+    },
+    {
+      "dataType": "DATE",
+      "key": "jianyicaigouriqi",
+      "jsonData": "2019-02-19 00:00:00.0"
+    },
+    {
+      "dataType": "STRING",
+      "key": "yongtu",
+      "jsonData": "医务"
+    },
+    {
+      "dataType": "DECIMAL",
+      "key": "dingdanshuliang",
+      "jsonData": "100.0000"
+    },
+    {
+      "dataType": "STRING",
+      "key": "gongyingshang",
+      "jsonData": "昱石"
+    },
+    {
+      "dataType": "DATE",
+      "key": "daohuoriqi",
+      "jsonData": "2019-02-19 00:00:00.0"
+    }
+  ]
+}

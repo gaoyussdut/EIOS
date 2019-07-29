@@ -1,0 +1,10 @@
+{
+  "select": {
+    "from": ["Type1"],
+    "where": {
+      "full_text": [
+        {"value": "1"}
+      ]
+    }
+  }
+}

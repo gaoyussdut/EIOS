@@ -1,0 +1,1136 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>
+    <xsd:element name="Customer">
+        <xsd:annotation>
+            <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+            <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="CustomerUUID" type="UUID">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="AccountID" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="CourtesyTitle" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey">LOV_Courtesy</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">LOV_Courtesy/CourtesyTitle</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Local" type="CustomerDetails">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_AutoExpand">false</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="International" type="CustomerDetails">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Normalize" type="CustomerDetails">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Nationality" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey">LOV_Nationality</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">LOV_Nationality/NationalityLabel</xsd:appinfo>
+                        <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="MainCountry" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_ForeignKey">LOV_Nationality</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">LOV_Nationality/CountryLabel</xsd:appinfo>
+                        <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="BirthDay" type="TwoDigit">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="BirthMonth" type="TwoDigit">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="BirthYear" type="FourDigit">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="CustomerType">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:maxLength value="1"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="PrimaryBoutique" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_ForeignKey">LOV_Boutique</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">LOV_Boutique/BoutiqueLabel</xsd:appinfo>
+                        <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Subsdiary" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_ForeignKey">LOV_Subsdiary</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">LOV_Subsdiary/SubsdiaryLabel</xsd:appinfo>
+                        <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Communication" type="CommCustomer">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Addresses">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Address" type="Address">
+                                <xsd:annotation>
+                                    <xsd:appinfo source="X_AutoExpand">false</xsd:appinfo>
+                                    <xsd:appinfo source="X_Label_EN">Address - {concat(International/AddressLine1,'
+                                        ',International/PostalCode,' ',/International/City,' ',/International/Country)}
+                                    </xsd:appinfo>
+                                    <xsd:appinfo source="X_Label_FR">Adresse - {concat(International/AddressLine1,'
+                                        ',International/PostalCode,' ',/International/City,' ',/International/Country)}
+                                    </xsd:appinfo>
+                                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                                </xsd:annotation>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="CrossRefApplications" type="CrossRefApp">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Completeness">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="0"/>
+                            <xsd:enumeration value="1"/>
+                            <xsd:enumeration value="2"/>
+                            <xsd:enumeration value="3"/>
+                            <xsd:enumeration value="4"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Owner" type="xsd:boolean">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="PreferedCollection" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="CreatedDate" type="xsd:dateTime">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="UpdatedDate" type="xsd:dateTime">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="Customer">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="CustomerUUID"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="LOV_Courtesy">
+        <xsd:annotation>
+            <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="CourtesyId" type="AUTO_INCREMENT">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="CourtesyCode" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="CourtesyTitle" type="MULTI_LINGUAL">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="isMale" type="xsd:boolean">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="isPerson" type="xsd:boolean">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="LOV_Courtesy">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="CourtesyId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="LOV_CommunicationType">
+        <xsd:annotation>
+            <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="CommunicationTypeId" type="AUTO_INCREMENT">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Label_EN">Communication Type ID</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_FR">Type Communication ID</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="CommunicationTypeCode" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="CommunicationTypeLabel" type="MULTI_LINGUAL">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Details">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:all>
+                            <xsd:element maxOccurs="1" minOccurs="0" name="isFax" type="xsd:boolean">
+                                <xsd:annotation>
+                                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element maxOccurs="1" minOccurs="0" name="isLandLine" type="xsd:boolean">
+                                <xsd:annotation>
+                                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element maxOccurs="1" minOccurs="0" name="isMobilePhone" type="xsd:boolean">
+                                <xsd:annotation>
+                                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element maxOccurs="1" minOccurs="0" name="isEmail" type="xsd:boolean">
+                                <xsd:annotation>
+                                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element maxOccurs="1" minOccurs="0" name="isWeb" type="xsd:string">
+                                <xsd:annotation>
+                                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element maxOccurs="1" minOccurs="0" name="isPrivate" type="xsd:boolean">
+                                <xsd:annotation>
+                                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                                </xsd:annotation>
+                            </xsd:element>
+                        </xsd:all>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="LOV_CommunicationType">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="CommunicationTypeId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="LOV_ConnectedApplication">
+        <xsd:annotation>
+            <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ApplicationId" type="AUTO_INCREMENT">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ApplicationName" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Description" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="LOV_ConnectedApplication">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="ApplicationId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:simpleType name="AUTO_INCREMENT">
+        <xsd:restriction base="xsd:int"/>
+    </xsd:simpleType>
+    <xsd:simpleType name="UUID">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:complexType name="CrossRefApp">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="1" name="ConnectedApplication" type="ConnApp">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ConnApp">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Application" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey">LOV_ConnectedApplication</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">LOV_ConnectedApplication/ApplicationName</xsd:appinfo>
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Key" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Notes" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Link" type="URL">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:simpleType name="URL">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:complexType name="CommCustomer">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="0" name="LanguagePreference" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Label_EN">Language preference</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_FR">langue préférée</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="EMail" type="EMail">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_EN">Mail {MailAddressFormated}</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_FR">Mail {MailAddressFormated}</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Phone" type="Phone">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_FR">Téléphone {PhoneNumber}</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_EN">Phone {PhoneNumber}</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Social" type="Social">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_EN">Social Application</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_FR">réseaux sociaux</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="EMail">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="UUID" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="CommunicationType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">LOV_CommunicationType</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_Filter">LOV_CommunicationType/Details/isEmail$$=$$true$$#
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">LOV_CommunicationType/CommunicationTypeCode</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">LOV_CommunicationType/CommunicationTypeLabel</xsd:appinfo>
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="MailAddress" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="isValidMail" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="ExistStatusMail" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="isNewsLetterActive" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Default_Value_Rule">"false"</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="newsLetterSubsDate" type="xsd:dateTime">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="newsLetterUnsubsDate" type="xsd:dateTime">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="MailAddressFormated" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="src" type="MetadataValues">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Login" type="login">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="MetadataValues">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Application" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Key" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="UpdateDate" type="xsd:dateTime">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="UpdateUser" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="Phone">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="UUID" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="CommunicationType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="PhoneNumber" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="PhoneNumberType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="isValidPhoneNumber" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="isPossiblePhoneNumber" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="isAlreadyStandard" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="StandardizedPhoneNumber" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="src" type="MetadataValues">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:element name="LOV_Language">
+        <xsd:annotation>
+            <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="LanguageId" type="AUTO_INCREMENT">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="LanguageCode" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="LanguageName" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="LOV_Language">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="LanguageId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="Social">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="CommunicationType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="SocialIdentifier" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="src" type="MetadataValues">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="Address">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="UUID" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="AddressType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey">LOV_AddressType</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">LOV_AddressType/AddressTypeLabel</xsd:appinfo>
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="isPrimaryAddress" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Local" type="AddressDetails">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">false</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="International" type="AddressDetails">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">false</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="src" type="MetadataValues">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">false</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:element name="LOV_AddressType">
+        <xsd:annotation>
+            <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="AddressTypeId" type="AUTO_INCREMENT">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="AddressTypeCode" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="AddressTypeLabel" type="MULTI_LINGUAL">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="LOV_AddressType">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="AddressTypeId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="AddressDetails">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="0" name="CareOf" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="AddressLine1" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="AddressLine2" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="POBox" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="POBoxNumber" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="PostalCode" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="City" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="County" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="State" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Country" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Normalized" type="AddressDetailsNormalized">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">false</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerDetails">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="0" name="LastName" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="FirstName" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="MiddleName" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="MadenName" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="AddressDetailsNormalized">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="0" name="formatted_address" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="street_number_short" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="street_number_long" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="route_short" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="route_long" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="locality_short" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="locality_long" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="sublocality_short" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="sublocality_long" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="adm_area1_short" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="adm_area1_long" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="adm_area2_short" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="adm_area2_long" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="adm_area3_short" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="adm_area3_long" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="country_short" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="country_long" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="postal_code_short" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="postal_code_long" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="location_type" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="partial_match" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="lat" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="lng" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="status" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:element name="LOV_Nationality">
+        <xsd:annotation>
+            <xsd:appinfo source="X_Write">AP_ADMIN_RETAILER</xsd:appinfo>
+            <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="NaotionalityId" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_ADMIN_RETAILER</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="NationalityLabel" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_ADMIN_RETAILER</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="CountryLabel" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_ADMIN_RETAILER</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="LOV_Nationality">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="NaotionalityId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:simpleType name="TwoDigit">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9]{2}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="FourDigit">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9]{4}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:element name="LOV_Boutique">
+        <xsd:annotation>
+            <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="BoutiqueId" type="AUTO_INCREMENT">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="BoutiqueLabel" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="BoutiqueAddress" type="AddressDetailsNormalized">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ContinentId" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey">LOV_Continent</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">LOV_Continent/ContinentLabel</xsd:appinfo>
+                        <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="ApplicationId" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey">LOV_ConnectedApplication</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">LOV_ConnectedApplication/ApplicationName</xsd:appinfo>
+                        <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="LOV_Boutique">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="BoutiqueId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="LOV_Subsdiary">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="SubsdiaryId" type="xsd:string">
+                    <xsd:annotation/>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="SubsdiaryLabel" type="xsd:string">
+                    <xsd:annotation/>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="LOV_Subsdiary">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="SubsdiaryId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="login">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Identifier" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Password" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="isActive" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="RegisteredDate" type="xsd:dateTime">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="LastConnection" type="xsd:dateTime">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:simpleType name="MULTI_LINGUAL">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="(\[\w+\:[^\[\]]*\]){0,}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:element name="LOV_Continent">
+        <xsd:annotation>
+            <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ContinentId" type="AUTO_INCREMENT">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ContinentLabel" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">AP_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="LOV_Continent">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="ContinentId"/>
+        </xsd:unique>
+    </xsd:element>
+</xsd:schema>

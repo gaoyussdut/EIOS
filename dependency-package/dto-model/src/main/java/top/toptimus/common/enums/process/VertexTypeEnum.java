@@ -1,0 +1,1 @@
+package top.toptimus.common.enums.process;/** * 流程的类别 */public enum VertexTypeEnum {    STARTEVENT,    USERTASK,    ENDEVENT,    EXCLUSIVEGATEWAY, // 排他网关    PARALLELGATEWAY,  // 并行网关    INCLUSIVEGATEWAY  // 包容网关}

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2006-2012 Talend Inc. - www.talend.com
+  ~
+  ~ This source code is available under agreement available at
+  ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+  ~
+  ~ You should have received a copy of the agreement
+  ~ along with this program; if not, write to Talend SA
+  ~ 9 rue Pages 92150 Suresnes, France
+  -->
+
+<xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.talend.com/mdm/datasources" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xs:simpleType name="datasourceTypeEnum">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="RDBMS"/>
+            <xsd:enumeration value="XML"/>
+        </xsd:restriction>
+    </xs:simpleType>
+    <xs:element name="datasources" type="datasourcesType"/>
+    <xs:complexType name="datasourcesType">
+        <xs:sequence>
+            <xs:element type="datasourceType" name="datasource" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="datasourceType">
+        <xs:sequence>
+            <xs:element name="master" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                    <xsd:all>
+                        <xs:element name="type" type="datasourceTypeEnum" minOccurs="1" maxOccurs="1" default="RDBMS"/>
+                        <xs:element ref="configuration" minOccurs="1" maxOccurs="1"/>
+                    </xsd:all>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="staging" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xsd:all>
+                        <xs:element name="type" type="datasourceTypeEnum" minOccurs="1" maxOccurs="1" default="RDBMS"/>
+                        <xs:element ref="configuration" minOccurs="1" maxOccurs="1"/>
+                    </xsd:all>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="system" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xsd:all>
+                        <xs:element name="type" type="datasourceTypeEnum" minOccurs="1" maxOccurs="1" default="RDBMS"/>
+                        <xs:element ref="configuration" minOccurs="1" maxOccurs="1"/>
+                    </xsd:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+    </xs:complexType>
+
+    <!-- CONFIGURATION TYPES -->
+    <xs:complexType name="configurationType" abstract="true"/>
+    <xs:element type="configurationType" name="configuration"/>
+
+    <!-- XML database -->
+    <xs:complexType name="xml-configurationType">
+        <xs:complexContent>
+            <xs:restriction base="configurationType">
+                <xs:sequence>
+                    <xs:element type="xs:string" name="xmldb-type" minOccurs="1" maxOccurs="1"/>
+                    <xs:element type="talend-xml-configurationType" name="talend-xml-configuration"/>
+                </xs:sequence>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="talend-xml-configurationType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="access-mode" minOccurs="1" maxOccurs="1" default="SERVER"/>
+            <xs:element type="xs:anyURI" name="server-url" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="xs:string" name="server-user" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="xs:string" name="server-password" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="xs:long" name="estimated-count-sample-size" minOccurs="0" maxOccurs="1" default="2000"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element type="xml-configurationType" name="xml-configuration" substitutionGroup="configuration"/>
+
+    <!-- RDBMS database -->
+    <xs:complexType name="rdbms-configurationType">
+        <xs:complexContent>
+            <xs:restriction base="configurationType">
+                <xs:sequence>
+                    <xs:element type="xs:string" name="dialect" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Dialect configuration</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="MySQL"/>
+                                <xs:enumeration value="H2"/>
+                                <xs:enumeration value="Oracle11g"/>
+                                <xs:enumeration value="Oracle10g"/>
+                                <xs:enumeration value="SQLServer"/>
+                                <xs:enumeration value="Postgres"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="connection-driver-class" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Connection configuration</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="connection-url" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>
+                                <html>
+                                    <h1>JDBC connection URL</h1>
+                                    <p>
+                                        This URL depends on the JDBC driver you are using. Please refer
+                                        to the documentation of the JDBC driver.
+                                    </p>
+                                    <p>
+                                        You may also use ${container} placeholder. MDM will replace this placeholder
+                                        with
+                                        the container's name on container creation. For example, using this datasource
+                                        to create a container
+                                        named 'Product' will replace:
+                                    </p>
+                                    <p>
+                                        <i>jdbc:mysql://1.2.3.4:3306/MDM-${container}</i>
+                                    </p>
+                                    <p>with:</p>
+                                    <p>
+                                        <i>jdbc:mysql://1.2.3.4:3306/MDM-Product</i>
+                                    </p>
+                                </html>
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="connection-username" minOccurs="1" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="connection-password" minOccurs="1" maxOccurs="1"/>
+                    <xs:element type="xs:int" name="connection-pool-minsize" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:int" name="connection-pool-maxsize" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="fulltext-index-directory" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="cache-directory" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:boolean" name="case-sensitive-search" minOccurs="0" maxOccurs="1" default="true"/>
+                    <xs:element type="schemaGenerationType" name="schema-generation" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:boolean" name="schema-technical-fk" minOccurs="0" maxOccurs="1" default="true"/>
+                    <xs:element type="containsOptimizationType" name="contains-optimization" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="properties" minOccurs="0" maxOccurs="1">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="property" minOccurs="0" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                        <xs:simpleContent>
+                                            <xs:extension base="xs:string">
+                                                <xs:attribute name="name" type="xs:string"/>
+                                            </xs:extension>
+                                        </xs:simpleContent>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+
+                    <xs:element name="init" minOccurs="0" maxOccurs="1">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element type="xs:string" name="connection-url" minOccurs="1" maxOccurs="1"/>
+                                <xs:element type="xs:string" name="connection-username" minOccurs="1" maxOccurs="1"/>
+                                <xs:element type="xs:string" name="connection-password" minOccurs="1" maxOccurs="1"/>
+                                <xs:element type="xs:string" name="database-name" minOccurs="1" maxOccurs="1"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element type="rdbms-configurationType" name="rdbms-configuration" substitutionGroup="configuration"/>
+
+    <xs:simpleType name="schemaGenerationType">
+        <xs:restriction base="xsd:string">
+            <xs:enumeration value="update"/>
+            <xs:enumeration value="create"/>
+            <xs:enumeration value="validate"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="containsOptimizationType">
+        <xs:restriction base="xsd:string">
+            <xs:enumeration value="fulltext"/>
+            <xs:enumeration value="disabled"/>
+            <xs:enumeration value="like"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

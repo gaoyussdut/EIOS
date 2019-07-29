@@ -1,0 +1,58 @@
+<!--
+  ~ Copyright (C) 2006-2013 Talend Inc. - www.talend.com
+  ~
+  ~ This source code is available under agreement available at
+  ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+  ~
+  ~ You should have received a copy of the agreement
+  ~ along with this program; if not, write to Talend SA
+  ~ 9 rue Pages 92150 Suresnes, France
+  -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>
+    <xsd:element name="Test">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element name="subelement" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="name" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="fk" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_ForeignKey">Fk/subelement</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">Fk/elementDoesNotExist</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">TypeDoesNotExist/number</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">Fk/number</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">Fk/complexType</xsd:appinfo>
+                        <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="Test">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="subelement"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="Fk">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="subelement" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="number" type="xsd:int"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="complexType" type="TestFK"/>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="Fk">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="subelement"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:simpleType name="URL">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:complexType name="TestFK">
+        <xsd:all>
+            <xsd:element name="subelement" type="xsd:string"/>
+        </xsd:all>
+    </xsd:complexType>
+</xsd:schema>

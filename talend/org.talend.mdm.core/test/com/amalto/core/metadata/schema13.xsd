@@ -1,0 +1,75 @@
+<!--
+  ~ Copyright (C) 2006-2012 Talend Inc. - www.talend.com
+  ~
+  ~ This source code is available under agreement available at
+  ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+  ~
+  ~ You should have received a copy of the agreement
+  ~ along with this program; if not, write to Talend SA
+  ~ 9 rue Pages 92150 Suresnes, France
+  -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>
+    <xsd:complexType name="man">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="id" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="sex" type="xsd:boolean"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="address" type="address"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="address">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="city" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="country" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UsaAddress">
+        <xsd:complexContent>
+            <xsd:extension base="address">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="block" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="number" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="ChiAddress">
+        <xsd:complexContent>
+            <xsd:extension base="address">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="provence" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="num" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="Sman">
+        <xsd:complexContent>
+            <xsd:extension base="man">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="sp1" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="sp2" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="man" type="man">
+        <xsd:unique name="man">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="man2" type="man">
+        <xsd:unique name="man2">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="Sman" type="Sman">
+        <xsd:unique name="Sman">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="id"/>
+        </xsd:unique>
+    </xsd:element>
+</xsd:schema>

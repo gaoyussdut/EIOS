@@ -1,0 +1,24 @@
+<ii>
+	<c>Product</c>
+	<n>Product</n>
+	<dmn>Product</dmn>
+	<i>10001</i>
+	<t>1351066827062</t>
+	<taskId/>
+	<p> 
+		<Product>
+			<Id>10001</Id>
+			<Name>Talend Cap</Name>
+			<Description>Cap - A01</Description>
+			<Features>
+				<Sizes>
+					<Size>Medium</Size>
+				</Sizes>
+				<Colors>
+					<Color>White</Color>
+				</Colors>
+			</Features>
+			<Price>12</Price>
+		</Product>
+	</p>
+</ii>

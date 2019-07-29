@@ -1,0 +1,93 @@
+#### 开发环境配置
+spring:
+  profiles: dev
+##### Basic
+server:
+  port: 8081
+##### Spring
+spring:
+  application:
+    name: Demo
+  ### Redis
+  redis:
+    database: 1
+    host: 192.168.1.105
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+#  ### postgresql
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://192.168.1.71:5432/fpdb
+#    username: fp
+#    password: fp@123
+#  ### Data
+  ### postgresql
+  meta:
+    datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://172.16.0.91:3306/TMDM_DB_SYSTEM
+      username: root
+      password: fp@123
+  talend-data:
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://172.16.0.91:3306/mdm_dev1
+        username: root
+        password: fp@123
+  ### Data
+  data:
+    # Cassandra
+    cassandra:
+      keyspace-name: newfront
+      contact-points: 192.168.1.101
+      port: 9042
+      repositories:
+        type: auto
+      schema-action: create_if_not_exists
+    # Elasticsearch
+    elasticsearch:
+      cluster-nodes: 172.16.0.91:9300
+      # 不加 cluster-name 属性会报错:
+      #   NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{jyzih8cJQj6axOEAERo7ew}{192.168.1.97}{192.168.1.97:9300}]]
+      # 其他解决方案暂不清楚
+      cluster-name: my-application
+      repositories:
+        enabled: true
+
+  activemq:
+    broker-url: tcp://172.16.0.92:61616
+    in-memory: true
+    pool:
+      enabled: false #如果此处设置为true，需要加如下的依赖包，否则会自动配置失败，报JmsMessagingTemplate注入失败
+
+  ### RabbitMQ
+  rabbitmq:
+    host: 192.168.1.163
+    port: 5672
+    virtual-host: jianghao
+    username: jianghao
+    password: jianghao
+    connection-timeout: 5000ms
+  ### Kafka
+  kafka:
+    producer:
+      retries: 0
+      buffer-memory: 40960
+      batch-size: 4096
+    bootstrap-servers: 192.168.1.163:9092
+    consumer:
+      group-id: test-group
+##### Log
+logging:
+  level:
+    root: info
+
+# 外键服务的url和talend_id
+foreign_key_service:
+    url: http://172.16.0.194:8090
+    talend_id: 4eb2564c-fac7-4f72-a510-8fdfa1ee70c0

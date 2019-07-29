@@ -1,0 +1,21 @@
+{
+  "select": {
+    "from": ["Type1"],
+    "where": {
+      "and": [
+        {
+          "eq": [
+            {"field": "Type1/id"},
+            {"value": "1"}
+          ]
+        },
+        {
+          "eq": [
+            {"field": "Type1/value1"},
+            {"value": "0"}
+          ]
+        }
+      ]
+    }
+  }
+}

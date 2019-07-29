@@ -1,0 +1,10 @@
+<data-cluster-pOJO>
+    <name>UpdateReport</name>
+    <vocabulary/>
+    <description>Update Report Data Cluster</description>
+    <PK>
+        <ids>UpdateReport</ids>
+        <unique-id>UpdateReport</unique-id>
+    </PK>
+    <digest>949d2b96be57c819de1b280b2c0378b5</digest>
+</data-cluster-pOJO>

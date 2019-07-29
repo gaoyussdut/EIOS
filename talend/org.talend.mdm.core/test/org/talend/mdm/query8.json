@@ -1,0 +1,71 @@
+{
+  "select": {
+    "from": ["Type1"],
+    "where": {
+      "and": [
+        {
+          "eq": [
+            {"field": "Type1/id"},
+            {"value": "1"}
+          ]
+        },
+        {
+          "and": [
+            {
+              "gt": [
+                {"field": "Type1/value1"},
+                {"value": "0"}
+              ]
+            },
+            {
+              "and": [
+                {
+                  "gte": [
+                    {"field": "Type1/value1"},
+                    {"value": "0"}
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "lt": [
+                        {"field": "Type1/value1"},
+                        {"value": "0"}
+                      ]
+                    },
+                    {
+                      "and": [
+                        {
+                          "lte": [
+                            {"field": "Type1/value1"},
+                            {"value": "0"}
+                          ]
+                        },
+                        {
+                          "and": [
+                            {
+                              "contains": [
+                                {"field": "Type1/value1"},
+                                {"value": "0"}
+                              ]
+                            },
+                            {
+                              "startsWith": [
+                                {"field": "Type1/value1"},
+                                {"value": "0"}
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

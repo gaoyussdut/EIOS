@@ -1,0 +1,1 @@
+package top.toptimus.common.enums;/** * 用户控件的类别 */public enum UserControlEnum {    VIEW,    ENTRY, //TODO    MEMORANDUM_LIST_VIEW,  // 备查账一览的UserControl    QUOTE_MEMORANDUM,      // 单据内引用备查账UserControl    CREATE_RELEVANCE_BILL, // 单据内创建关联表单UserControl    BILL_HEADER            // 表头部分}

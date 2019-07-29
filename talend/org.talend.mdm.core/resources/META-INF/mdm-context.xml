@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:jms="http://www.springframework.org/schema/jms" 
+    xmlns:cache="http://www.springframework.org/schema/cache" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:amq="http://activemq.apache.org/schema/core"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+    <!-- Indicates a Tomcat environment -->
+    <bean id="dataSourceFactory" class="com.amalto.core.storage.datasource.DataSourceFactory" depends-on="encryptMDMConf"/>
+    <bean class="com.amalto.core.server.lifecycle.tomcat.TomcatServerLifecycle" depends-on="dataSourceFactory" />
+
+    <!-- Server initialization -->
+    <bean class="com.amalto.core.server.Initialization" depends-on="mdmConfiguration,dataModelChangeNotifier,pluginRegistry,beanDelegatorContainer" />
+
+    <!-- Internal server components -->
+    <bean id="defaultBackgroundJob" class="com.amalto.core.server.DefaultBackgroundJob" />
+    <bean id="defaultConfigurationInfo" class="com.amalto.core.server.DefaultConfigurationInfo" />
+    <bean id="defaultCustomForm" class="com.amalto.core.server.DefaultCustomForm" />
+    <bean id="defaultDataCluster" class="com.amalto.core.server.DefaultDataCluster" />
+    <bean id="defaultDataModel" class="com.amalto.core.server.DefaultDataModel" />
+    <bean id="defaultDroppedItem" class="com.amalto.core.server.DefaultDroppedItem" />
+    <bean id="defaultDefaultItem" class="com.amalto.core.server.DefaultItem" />
+    <bean id="defaultMenu" class="com.amalto.core.server.DefaultMenu" />
+    <bean id="defaultRole" class="com.amalto.core.server.DefaultRole" />
+    <bean id="defaultRoutingRule" class="com.amalto.core.server.DefaultRoutingRule" />
+    <bean id="defaultRoutingOrder" class="com.amalto.core.server.DefaultRoutingOrder" />
+    <bean id="defaultStoredProcedure" class="com.amalto.core.server.DefaultStoredProcedure" />
+    <bean id="defaultTransformer" class="com.amalto.core.server.DefaultTransformer" />
+    <bean id="defaultView" class="com.amalto.core.server.DefaultView" />
+    <bean id="defaultXmlServer" class="com.amalto.core.server.DefaultXmlServer" />
+    <bean id="defaultRoutingEngine" class="com.amalto.core.server.routing.DefaultRoutingEngine" />
+    <bean id="routingEngineFactory" class="com.amalto.core.server.routing.RoutingEngineFactory" />
+
+    <!-- Routing engine -->
+    <context:component-scan base-package="com.amalto.core" />
+    
+    <!-- Import JMS provider implementation, default value is classpath:activemq-provider.xml -->
+    <import resource="${mdm.jms.provider.xml:activemq-provider.xml}"/>
+    
+    <!-- Caching connection factory for JMS template performances -->
+    <bean id="jmsPooledConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="targetConnectionFactory" ref="jmsConnectionFactory"/>
+        <property name="sessionCacheSize" value="${mdm.routing.engine.broker.sessionCacheSize:1}"/>
+    </bean>
+    
+    <!-- Single connection and several sessions -->
+    <bean id="jmsSingleConnectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <constructor-arg ref="jmsConnectionFactory"/>
+    </bean>
+    
+    <!-- Single connection and several sessions -->
+    <bean id="jmsSingleConnectionFactoryForExpired" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <constructor-arg ref="jmsConnectionFactory"/>
+    </bean>
+
+	<!-- JMSTemplate used to send messages to routing events queue -->
+    <bean id="routingEngineJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="jmsPooledConnectionFactory"/>
+        <property name="defaultDestination" ref="routingEventsQueue"/>
+    </bean>
+    
+    <!-- Listener for expired messages (needs to be captured as failed events by MDM) -->
+    <bean id="expiredRoutingOrderListener" class="com.amalto.core.server.routing.ExpiredMessageListener"/>
+    
+    <!-- Used by Spring message listener containers below to resolve JMS destinations based on Spring beans name -->
+    <bean id="destinationResolver" class="org.springframework.jms.support.destination.BeanFactoryDestinationResolver"/>
+    
+    <jms:listener-container concurrency="${mdm.routing.engine.consumers}" connection-factory="jmsSingleConnectionFactory"
+        destination-type="queue" destination-resolver="destinationResolver" >
+        <jms:listener destination="routingEventsQueue" ref="defaultRoutingEngine" method="consume" id="activeEvents" />
+    </jms:listener-container>
+    
+    <jms:listener-container concurrency="${mdm.routing.engine.consumers}" connection-factory="jmsSingleConnectionFactoryForExpired" 
+    	destination-type="topic" destination-resolver="destinationResolver" >
+        <jms:listener destination="expiredRoutingEventsTopic" ref="expiredRoutingOrderListener" method="consume" id="expiredEvents"/>
+    </jms:listener-container>
+    
+    <!-- Delegators -->
+    <bean id="beanDelegatorContainer" class="com.amalto.core.delegator.BeanDelegatorContainer" factory-method="createInstance">
+        <property name="delegatorInstancePool">
+            <map>
+                <entry key="LocalUser" value-ref="localUserDelegator" />
+                <entry key="Validation" value-ref="validationDelegator" />
+                <entry key="ItemCtrl" value-ref="itemDelegator" />
+                <entry key="XtentisWS" value-ref="wsDelegator" />
+            </map>
+        </property>
+    </bean>
+    <bean id="localUserDelegator" class="com.amalto.core.delegator.impl.DefaultLocalUserDelegator" />
+    <bean id="validationDelegator" class="com.amalto.core.delegator.impl.DefaultValidationDelegator" />
+    <bean id="itemDelegator" class="com.amalto.core.delegator.impl.DefaultItemCtrlDelegator" />
+    <bean id="wsDelegator" class="com.amalto.core.delegator.impl.DefaultXtentisWSDelegator" />
+
+    <!-- Plugins -->
+    <bean id="pluginFactory" class="org.springframework.beans.factory.config.ServiceLocatorFactoryBean">
+        <property name="serviceLocatorInterface" value="com.amalto.core.util.PluginFactory" />
+    </bean>
+    <bean id="pluginRegistry" class="com.amalto.core.util.PluginRegistry" factory-method="createInstance">
+        <property name="pluginFactory" ref="pluginFactory" />
+    </bean>
+
+    <!-- Enabling cache -->
+    <cache:annotation-driven cache-manager="mdmCacheManager" />
+    <aop:aspectj-autoproxy expose-proxy="true" /> <!-- Expose proxy to allow AopUtils#currentProxy() method -->
+    <bean id="mdmCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" p:cacheManager-ref="mdmEhcache" />
+    <bean id="mdmEhcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:configLocation="classpath:META-INF/mdm-ehcache.xml"
+        p:shared="true" p:cacheManagerName="mdmCacheManager" />
+        
+    <!-- ApplicationContext accessor -->
+    <bean class="com.amalto.core.server.MDMContextAccessor"/>
+    
+    <!-- Staging tasks management -->
+    <bean id="stagingTaskRepository" class="com.amalto.core.storage.task.staging.StagingTaskRepositoryImpl"/>
+    
+    <bean id="stagingTaskManagerFactory" class="com.amalto.core.storage.task.staging.StagingTaskManagerFactory">
+    	<property name="repository" ref="stagingTaskRepository"/>
+    </bean>
+    
+    <bean id="stagingTaskManager" factory-bean="stagingTaskManagerFactory" factory-method="createStagingTaskManager"/>
+    
+    <bean id="taskSubmitter" class="com.amalto.core.storage.task.DefaultTaskSubmitter"/>
+    
+</beans>

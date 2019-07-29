@@ -1,0 +1,28 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">  
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>  
+    <xsd:element name="Entity"> 
+        <xsd:complexType> 
+            <xsd:all> 
+                <xsd:element maxOccurs="1" minOccurs="1" name="ID" type="xsd:string"/>  
+                <xsd:element maxOccurs="1" minOccurs="0" name="Name" type="xsd:string"/> 
+                <xsd:element maxOccurs="1" minOccurs="0" name="TypeField" type="ComplexType"/>
+            </xsd:all> 
+        </xsd:complexType>  
+        <xsd:unique name="Entity"> 
+            <xsd:selector xpath="."/>  
+            <xsd:field xpath="ID"/> 
+        </xsd:unique> 
+    </xsd:element>  
+    <xsd:complexType name="ComplexType"> 
+        <xsd:all> 
+            <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="xsd:string"/>  
+            <xsd:element maxOccurs="1" minOccurs="0" name="Name" type="xsd:string"/> 
+        </xsd:all> 
+    </xsd:complexType> 
+    <xsd:complexType name="ComplexType1"> 
+        <xsd:all> 
+            <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="xsd:string"/>  
+            <xsd:element maxOccurs="1" minOccurs="0" name="Name" type="xsd:string"/> 
+        </xsd:all> 
+    </xsd:complexType> 
+</xsd:schema>

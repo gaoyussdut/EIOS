@@ -1,0 +1,1384 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>
+    <xsd:complexType name="BusinessTypeType">
+        <xsd:complexContent>
+            <xsd:extension base="GenericElementsType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="BusinessType" type="xsd:string">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">Business Type (Saleable Inventory)</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="BusinessTypeChange" type="TermNameChangeType">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">Business Type name workflow</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="SaleableTerm" type="xsd:boolean">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="VideoCategory" type="xsd:boolean">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">Video Category</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="MultiClassTerm" type="xsd:boolean">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">Multi Class Term</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="GasSafeAlert" type="xsd:boolean">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">Gas Safe Alert</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="LHDRestricted" type="xsd:boolean">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">LDH Restricted</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="NarrowTerms" type="BusinessFunctionFKType2">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="ExpandsTo" type="ExpansionTermFKType2">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="Brands" type="BrandGroupFKType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="NarrowTermsChange" type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="ExpandsToChange" type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="BrandsChange" type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+
+
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="ExpansionTerm" type="ExpansionTermType">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:unique name="ExpansionTerm">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="Id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="ExpansionTermType">
+        <xsd:complexContent>
+            <xsd:extension base="GenericElementsType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="ExpansionTerm" type="xsd:string">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="ExpansionTermChange" type="TermNameChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="SaleableTerm" type="xsd:boolean">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="VideoCategory" type="xsd:boolean">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">Video Category</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="MultiClassTerm" type="xsd:boolean">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">Multi Class Term</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="GasSafeAlert" type="xsd:boolean">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">Gas Safe Alert</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="LHDRestricted" type="xsd:boolean">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">LHD Restricted</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="Brands" type="BrandGroupFKType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="BrandsChange" type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+
+
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="BusinessType" type="BusinessTypeType">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:unique name="BusinessType">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="Id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="BusinessFunction" type="BusinessFunctionType">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:unique name="BusinessFunction">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="Id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="BusinessFunctionType">
+        <xsd:complexContent>
+            <xsd:extension base="GenericElementsType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="BusinessFunction" type="xsd:string">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="BusinessFunctionChange" type="TermNameChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="SaleableTerm" type="xsd:boolean">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="VideoCategory" type="xsd:boolean">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">Video Category</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="MultiClassTerm" type="xsd:boolean">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">Multi Class Term</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="GasSafeAlert" type="xsd:boolean">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">Gas Safe Alert</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="LHDRestricted" type="xsd:boolean">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">LHD Restricted</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="Brands" type="BrandGroupFKType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="BrandsChange" type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+
+
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="BrandGroup" type="BrandGroupType">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup_1.0#Read-only</xsd:appinfo>
+            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:unique name="BrandGroup">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="Id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="BrandGroupType">
+        <xsd:complexContent>
+            <xsd:extension base="GenericElementsType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="BrandGroup" type="xsd:string">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup_1.0#Read-only
+                            </xsd:appinfo>
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only
+                            </xsd:appinfo>
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="BrandGroupChange" type="TermNameChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup_1.0#Read-only
+                            </xsd:appinfo>
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only
+                            </xsd:appinfo>
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="NarrowTerms" type="BrandNameFKType">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">Narrow Terms</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup_1.0#Read-only
+                            </xsd:appinfo>
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only
+                            </xsd:appinfo>
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="NarrowTermsChange" type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup_1.0#Read-only
+                            </xsd:appinfo>
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only
+                            </xsd:appinfo>
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="BrandName" type="BrandNameType">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only</xsd:appinfo>
+            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:unique name="BrandName">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="Id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="BrandNameType">
+        <xsd:complexContent>
+            <xsd:extension base="GenericElementsType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="BrandName" type="xsd:string">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                            </xsd:appinfo>
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="BrandNameChange" type="TermNameChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                            </xsd:appinfo>
+                            <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+
+
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="TaxonomyCategory" type="TaxonomyCategoryType">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:unique name="TaxonomyCategory">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="Id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="TaxonomyCategoryType">
+        <xsd:complexContent>
+            <xsd:extension base="GenericElementsType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="TaxonomyCategory" type="xsd:string">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="TaxonomyCategoryChange" type="TermNameChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="NarrowTerms" type="TaxonomySubCategoryFKType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-SI_BusinessType" type="BusinessTypeFKType2">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">X-SI Taxonomy Term - Business Type</xsd:appinfo>
+                            <xsd:appinfo source="X_AutoExpand">false</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-SI_BusinessFunction"
+                                 type="BusinessFunctionFKType2">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">X-SI TaxonomyTerm - Business Function</xsd:appinfo>
+                            <xsd:appinfo source="X_AutoExpand">false</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-SI_ExpansionTerm" type="ExpansionTermFKType">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">X-SI Taxonomy Term - Expansion Term</xsd:appinfo>
+                            <xsd:appinfo source="X_AutoExpand">false</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="NarrowTermsChange" type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-SI_BusinessTypeChange" type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-SI_BusinessFunctionChange"
+                                 type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-SI_ExpansionTermChange" type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+
+
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="TaxonomySubCategory" type="TaxonomySubCategoryType">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:unique name="TaxonomySubCategory">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="Id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="TaxonomySubCategoryType">
+        <xsd:complexContent>
+            <xsd:extension base="GenericElementsType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="TaxonomySubCategory" type="xsd:string">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="TaxonomySubCategoryChange" type="TermNameChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-SI_BusinessType" type="BusinessTypeFKType2">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">X-SI Taxonomy Term - Business Type</xsd:appinfo>
+                            <xsd:appinfo source="X_AutoExpand">false</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-SI_BusinessFunction"
+                                 type="BusinessFunctionFKType2">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">X-SI Taxonomy Term - Business Function</xsd:appinfo>
+                            <xsd:appinfo source="X_AutoExpand">false</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-SI_ExpansionTerm" type="ExpansionTermFKType">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">X-SI Taxonomy Term - Expansion Term</xsd:appinfo>
+                            <xsd:appinfo source="X_AutoExpand">false</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-SI_BusinessTypeChange" type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-SI_BusinessFunctionChange"
+                                 type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-SI_ExpansionTermChange" type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+
+
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="TradeAssociationGroup" type="TradeAssociationsType">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:unique name="TradeAssociationGroup">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="Id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="TradeAssociationsType">
+        <xsd:complexContent>
+            <xsd:extension base="GenericElementsType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="TradeAssociationGroup" type="xsd:string">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="TradeAssociationGroupChange"
+                                 type="TermNameChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="NarrowTerms" type="TradeAssociationNameFKType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-TradeAssociation-BusinessType"
+                                 type="BusinessTypeFKType">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">X-Trade Association - Business Type</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-TradeAssociation-BusinessFunction"
+                                 type="BusinessFunctionFKType">
+                        <xsd:annotation>
+
+                            <xsd:appinfo source="X_Label_EN">X-Trade Association - Business Function</xsd:appinfo>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-TradeAssociation-ExpansionTerm"
+                                 type="ExpansionTermFKType">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="NarrowTermsChange" type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-TradeAssociation-BusinessTypeChange"
+                                 type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-TradeAssociation-BusinessFunctionChange"
+                                 type="RelationChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="X-TradeAssociation-ExpansionTermChange"
+                                 type="RelationChangeType">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+
+
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="TradeAssociationName" type="TradeAssociationNameType">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:unique name="TradeAssociationName">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="Id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="TradeAssociationNameType">
+        <xsd:complexContent>
+            <xsd:extension base="GenericElementsType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="TradeAssociationName" type="xsd:string">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="TradeAssociationNameChange"
+                                 type="TermNameChangeType">
+                        <xsd:annotation>
+
+
+                            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+
+
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="ClassificationCodeChangeType">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="0" name="NewClassificationCode" type="xsd:string">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Label_EN">New Classification Code</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Status" type="StatusApprovalType">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Label_EN">New Classification Code Status</xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Writable</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:simpleType name="StatusApprovalType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Approved"/>
+            <xsd:enumeration value="Pending"/>
+            <xsd:enumeration value="Rejected"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="AUTO_INCREMENT">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:complexType name="TermNameChangeType">
+        <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element maxOccurs="1" minOccurs="1" name="NewTermName" type="xsd:string">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Label_EN">New Term Name</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Status" type="StatusApprovalType">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Writable
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="BrandGroupFKType">
+        <xsd:sequence maxOccurs="1" minOccurs="1">
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="BrandGroup_id" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">BrandGroup/Id</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">BrandGroup/BrandGroup</xsd:appinfo>
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_EN">Brand Group</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="BusinessFunctionFKType">
+        <xsd:sequence maxOccurs="1" minOccurs="1">
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="BusinessFunction_id" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">BusinessFunction/Id</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">BusinessFunction/BusinessFunction</xsd:appinfo>
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_EN">Business Function</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ExpansionTermFKType">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="ExpansionTerm_id" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">ExpansionTerm/Id</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">ExpansionTerm/ExpansionTerm</xsd:appinfo>
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_EN">Expansion Term</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="BrandNameFKType">
+        <xsd:sequence maxOccurs="unbounded" minOccurs="0">
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="BrandName_id" type="xsd:string">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey">BrandName/Id</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">BrandName/BrandName</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_EN">Brand Name</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup_1.0#Read-only</xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="TradeAssociationNameFKType">
+        <xsd:sequence maxOccurs="unbounded" minOccurs="0">
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="TradeAssociationName_id" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">TradeAssociationName/Id</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_EN">Trade Association Name</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">TradeAssociationName/TradeAssociationName</xsd:appinfo>
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="BusinessTypeFKType">
+        <xsd:sequence maxOccurs="unbounded" minOccurs="0">
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="BusinessType_id" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">BusinessType/Id</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">BusinessType/BusinessType</xsd:appinfo>
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_EN">Business Type</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="TaxonomySubCategoryFKType">
+        <xsd:sequence maxOccurs="unbounded" minOccurs="0">
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="TaxonomySubCategory_id" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">TaxonomySubCategory/Id</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">TaxonomySubCategory/TaxonomySubCategory</xsd:appinfo>
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_EN">Taxonomy Sub Category</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DeletedChangeType">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="NewDeletedFlag" type="xsd:boolean">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Status" type="StatusApprovalType">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="ReleaseType">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Created" type="xsd:dateTime">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Updated" type="xsd:dateTime">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Published" type="xsd:boolean">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Default_Value_Rule">"false"</xsd:appinfo>
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="PublishedReleaseNumber" type="xsd:string">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_ForeignKey">Release/ReleaseID</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_FKIntegrity">false</xsd:appinfo>
+                    <xsd:appinfo source="X_FKIntegrity_Override">false</xsd:appinfo>
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="UnpublishedAllApproved" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Default_Value_Rule">"false"</xsd:appinfo>
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:element name="Release">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ReleaseID" type="AUTO_INCREMENT">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Published" type="xsd:boolean">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="PublishedDate" type="xsd:dateTime">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="CreatedDate" type="xsd:dateTime">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="Release">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="ReleaseID"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="GenericElementsType">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="AUTO_INCREMENT">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Description_EN">Id</xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="ZthesId" type="xsd:string">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Release" type="ReleaseType">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Deleted" type="xsd:boolean">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Default_Value_Rule">"false"</xsd:appinfo>
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="DeletedChange" type="DeletedChangeType">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="CrcCode" type="xsd:string">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="ClassificationCode" type="xsd:string">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Label_EN">Classification Code</xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="ClassificationCodeChange"
+                         type="ClassificationCodeChangeType">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="RelationChangeType">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="RC">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">false</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup_1.0#Read-only</xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only</xsd:appinfo>
+                    <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                    </xsd:appinfo>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="ForeignKey" type="xsd:string">
+                            <xsd:annotation>
+
+
+                                <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                                <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup_1.0#Read-only
+                                </xsd:appinfo>
+                                <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only
+                                </xsd:appinfo>
+                                <xsd:appinfo source="X_Workflow">
+                                    OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="Action" type="xsd:string">
+                            <xsd:annotation>
+
+
+                                <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                                <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup_1.0#Read-only
+                                </xsd:appinfo>
+                                <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only
+                                </xsd:appinfo>
+                                <xsd:appinfo source="X_Workflow">
+                                    OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="Preferred" type="xsd:boolean">
+                            <xsd:annotation>
+
+
+                                <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                                <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup_1.0#Read-only
+                                </xsd:appinfo>
+                                <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only
+                                </xsd:appinfo>
+                                <xsd:appinfo source="X_Workflow">
+                                    OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="Status" type="StatusApprovalType">
+                            <xsd:annotation>
+
+
+                                <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+
+                                <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup_1.0#Read-only
+                                </xsd:appinfo>
+                                <xsd:appinfo source="X_Workflow">OM5_DataSteward#OM5_DM_BrandGroup2_1.0#Read-only
+                                </xsd:appinfo>
+                                <xsd:appinfo source="X_Workflow">
+                                    OM5_DataSteward#OM5_DM_BrandName_NameChange_1.0#Read-only
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:all>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="BusinessTypeFKType2">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="BTComplexRel">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo source="X_ForeignKey">BusinessType/Id</xsd:appinfo>
+
+
+                                <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="Preferred" type="xsd:boolean">
+                            <xsd:annotation>
+
+
+                                <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:all>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="BusinessFunctionFKType2">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="BFComplexRel">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo source="X_ForeignKey">BusinessFunction/Id</xsd:appinfo>
+
+
+                                <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="Preferred" type="xsd:boolean">
+                            <xsd:annotation>
+
+
+                                <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                                <xsd:appinfo source="X_Default_Value_Rule">null</xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:all>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ExpansionTermFKType2">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="ETComplexRel">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                    <xsd:appinfo source="X_Default_Value_Rule">"false"</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo source="X_ForeignKey">ExpansionTerm/Id</xsd:appinfo>
+
+
+                                <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="Preferred" type="xsd:boolean">
+                            <xsd:annotation>
+
+
+                                <xsd:appinfo source="X_Write">OM5_Admin</xsd:appinfo>
+
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:all>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

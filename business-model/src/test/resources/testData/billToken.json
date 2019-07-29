@@ -1,0 +1,30 @@
+{
+  "tokenId": "7eaf55a9-9ee8-43c7-b42a-e01f54469b74",
+  "fields": [
+    {
+      "dataType": "STRING",
+      "key": "shiyongbumen",
+      "jsonData": "采购部"
+    },
+    {
+      "dataType": "STRING",
+      "key": "yewuleixing",
+      "jsonData": "外购入库"
+    },
+    {
+      "dataType": "DATE",
+      "key": "riqi",
+      "jsonData": "2019-02-19 02:01:49.18"
+    },
+    {
+      "dataType": "STRING",
+      "key": "beizhu",
+      "jsonData": "test1"
+    },
+    {
+      "dataType": "STRING",
+      "key": "bianhao",
+      "jsonData": "test-001"
+    }
+  ]
+}

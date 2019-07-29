@@ -1,0 +1,14 @@
+{
+  "select": {
+    "from": ["Type1"],
+    "fields": [
+      {"metadata": "timestamp"},
+      {"metadata": "task_id"},
+      {"metadata": "group_size"},
+      {"metadata": "staging_error"},
+      {"metadata": "staging_source"},
+      {"metadata": "staging_status"},
+      {"metadata": "staging_blockkey"}
+    ]
+  }
+}

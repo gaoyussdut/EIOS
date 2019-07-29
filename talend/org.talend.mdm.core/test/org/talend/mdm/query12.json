@@ -1,0 +1,16 @@
+{
+  "select": {
+    "from": ["Type1"],
+    "where": {
+      "eq": [
+        {
+          "index": [
+            {"field": "Type1/id"},
+            0
+          ]
+        },
+        {"value": "1"}
+      ]
+    }
+  }
+}

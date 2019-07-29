@@ -1,0 +1,34 @@
+<!--
+  ~ Copyright (C) 2006-2012 Talend Inc. - www.talend.com
+  ~
+  ~ This source code is available under agreement available at
+  ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+  ~
+  ~ You should have received a copy of the agreement
+  ~ along with this program; if not, write to Talend SA
+  ~ 9 rue Pages 92150 Suresnes, France
+  -->
+
+<Geoname xsi:type="MyType" xmlns:ns0="http://myNamespace" xmlns:xsi="http://www.xml.com/XmlInstance">
+    <ns0:geonameid>3038815</ns0:geonameid>
+    <name>Font de la Xona</name>
+    <asciiname xmlns:ns1="http://test.org/asciiname" ns1:lang="es">Font de la Xona</asciiname>
+    <alternatenames/>
+    <latitude>42.55003</latitude>
+    <longitude>1.44986</longitude>
+    <plan>Plan@@http:// 2 maps.google.com</plan>
+    <feature_class xmlns:ns1="http://test.org/featureclass/" ns1:lang="unknown">H</feature_class>
+    <feature_code>SPNG 2</feature_code>
+    <country_code>AD</country_code>
+    <cc2/>
+    <admin1_code>04</admin1_code>
+    <admin2_code/>
+    <admin3_code/>
+    <admin4_code>
+    </admin4_code>
+    <population>0</population>
+    <elevation/>
+    <gtopo30>2082</gtopo30>
+    <timezone>Europe/Andorra</timezone>
+    <modification_date>2010-01-11</modification_date>
+</Geoname>

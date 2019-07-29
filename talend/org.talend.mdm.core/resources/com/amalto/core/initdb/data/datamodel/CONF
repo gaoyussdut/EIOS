@@ -1,0 +1,47 @@
+<data-model-pOJO>
+    <name>CONF</name>
+    <schema>
+&lt;xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" blockDefault="" elementFormDefault="unqualified" finalDefault=""&gt;  
+    &lt;xsd:import namespace="http://www.w3.org/2001/XMLSchema"/&gt;  
+    &lt;xsd:element abstract="false" name="Conf" nillable="false"&gt; 
+        &lt;xsd:complexType mixed="false"&gt; 
+            &lt;xsd:sequence maxOccurs="1" minOccurs="1"&gt; 
+                &lt;xsd:element maxOccurs="1" minOccurs="1" name="id" nillable="false" type="xsd:string"/&gt;  
+                &lt;xsd:element maxOccurs="1" minOccurs="1" name="Config" nillable="false" type="xsd:string"/&gt; 
+            &lt;/xsd:sequence&gt; 
+        &lt;/xsd:complexType&gt;  
+        &lt;xsd:unique name="Conf"&gt; 
+            &lt;xsd:selector xpath="."/&gt;  
+            &lt;xsd:field xpath="id"/&gt; 
+        &lt;/xsd:unique&gt; 
+    &lt;/xsd:element&gt;  
+    &lt;xsd:element name="AutoIncrement"&gt; 
+        &lt;xsd:complexType&gt; 
+            &lt;xsd:sequence maxOccurs="unbounded" minOccurs="0"&gt; 
+                &lt;xsd:element maxOccurs="1" minOccurs="1" name="id" type="xsd:string"/&gt;  
+                &lt;xsd:element maxOccurs="unbounded" minOccurs="0" name="entry"&gt; 
+                    &lt;xsd:complexType&gt; 
+                        &lt;xsd:all maxOccurs="1" minOccurs="1"&gt; 
+                            &lt;xsd:element maxOccurs="1" minOccurs="1" name="key" type="xsd:string"&gt; 
+                                &lt;xsd:annotation/&gt; 
+                            &lt;/xsd:element&gt;  
+                            &lt;xsd:element maxOccurs="1" minOccurs="1" name="value" type="xsd:integer"/&gt; 
+                        &lt;/xsd:all&gt; 
+                    &lt;/xsd:complexType&gt; 
+                &lt;/xsd:element&gt; 
+            &lt;/xsd:sequence&gt; 
+        &lt;/xsd:complexType&gt;  
+        &lt;xsd:unique name="AutoIncrement"&gt; 
+            &lt;xsd:selector xpath="."/&gt;  
+            &lt;xsd:field xpath="id"/&gt; 
+        &lt;/xsd:unique&gt; 
+    &lt;/xsd:element&gt; 
+&lt;/xsd:schema&gt;
+</schema>
+    <description>CONF Datamodel</description>
+    <PK>
+        <ids>CONF</ids>
+        <unique-id>CONF</unique-id>
+    </PK>
+    <digest>3839ddd9824b68ea0a3fa14c59b6e840</digest>
+</data-model-pOJO>

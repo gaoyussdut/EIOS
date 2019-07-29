@@ -1,0 +1,40 @@
+{
+  "tokenId": "6cf490e6-d80e-4909-885e-25b731b3e26a",
+  "fields": [
+    {
+      "dataType": "STRING",
+      "key": "gongyingshang",
+      "jsonData": "昱石"
+    },
+    {
+      "dataType": "STRING",
+      "key": "caigoufangshi",
+      "jsonData": "外采"
+    },
+    {
+      "dataType": "STRING",
+      "key": "hetonghao",
+      "jsonData": "ht_test001"
+    },
+    {
+      "dataType": "DATE",
+      "key": "riqi",
+      "jsonData": "2019-04-19 03:36:55.064"
+    },
+    {
+      "dataType": "STRING",
+      "key": "bizhong",
+      "jsonData": "20"
+    },
+    {
+      "dataType": "STRING",
+      "key": "huilv",
+      "jsonData": "10"
+    },
+    {
+      "dataType": "STRING",
+      "key": "bianhao",
+      "jsonData": "01"
+    }
+  ]
+}

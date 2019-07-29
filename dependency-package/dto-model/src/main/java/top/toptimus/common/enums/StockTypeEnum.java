@@ -1,0 +1,1 @@
+package top.toptimus.common.enums;/** * 库存出入库类型 */public enum StockTypeEnum {    IN,        // 入库    OUT,       // 出库    WAIT_OUT   // 等待出库}

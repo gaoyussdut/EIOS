@@ -1,0 +1,444 @@
+{
+  "processId": "test_yusuan",
+  "userTaskId": "dahsihdiuhduasd_13na",
+  "tokenTemplateId": "TTID_DINGDANYUSUAN_kaishi_test",
+  "tokenTemplateName": "订单预算",
+  "placeId": null,
+  "billTokenId": "MFSMFQIMF-123MSKAD-MDAKMD1523",
+  "datas": {
+    "order_budget_": [
+      {
+        "tokenId": "64197402-2013-43d1-8952-c792b0cb5138",
+        "fields": [
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "order_id",
+            "businessId": null,
+            "jsonData": "awp-78192",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "making_part",
+            "businessId": null,
+            "jsonData": "高世泽",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "freight",
+            "businessId": null,
+            "jsonData": "1000",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "processing_fee",
+            "businessId": null,
+            "jsonData": "2000",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "detect_cost",
+            "businessId": null,
+            "jsonData": "200",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "SELECT",
+            "key": "f_item_id",
+            "businessId": "",
+            "jsonData": "",
+            "metaFieldType": null
+          }
+        ]
+      }
+    ],
+    "fabric__": [
+      {
+        "tokenId": "64197402-2013-43d1-8952-c792b0cb5138",
+        "fields": [
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_serial_number",
+            "businessId": null,
+            "jsonData": "1",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_goods",
+            "businessId": null,
+            "jsonData": "长裤",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_specifications",
+            "businessId": null,
+            "jsonData": "XL",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_unit",
+            "businessId": null,
+            "jsonData": "条",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_specific_budget",
+            "businessId": null,
+            "jsonData": "10.0",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_budget_unit_price",
+            "businessId": null,
+            "jsonData": "1000.0",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_production_cycle",
+            "businessId": null,
+            "jsonData": "5",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "DATE",
+            "key": "fabric_material_requirements_confirm_date",
+            "businessId": null,
+            "jsonData": "2018-10-1",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_cycle_confirm",
+            "businessId": null,
+            "jsonData": "false",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_customer_factory_supply",
+            "businessId": null,
+            "jsonData": "true",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_shift_information",
+            "businessId": null,
+            "jsonData": "false",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_whether_inspection",
+            "businessId": null,
+            "jsonData": "true",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_sample_confirmation_required",
+            "businessId": null,
+            "jsonData": "false",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_before_cutting_processing",
+            "businessId": null,
+            "jsonData": "true",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_sewing_irrelevant",
+            "businessId": null,
+            "jsonData": "false",
+            "metaFieldType": null
+          }
+        ]
+      },
+      {
+        "tokenId": "64197402-2013-43d1-8952-FJASIOFJ1",
+        "fields": [
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_serial_number",
+            "businessId": null,
+            "jsonData": "2",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_goods",
+            "businessId": null,
+            "jsonData": "衬衫",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_specifications",
+            "businessId": null,
+            "jsonData": "L",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_unit",
+            "businessId": null,
+            "jsonData": "件",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_specific_budget",
+            "businessId": null,
+            "jsonData": "20.0",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_budget_unit_price",
+            "businessId": null,
+            "jsonData": "500.0",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "fabric_production_cycle",
+            "businessId": null,
+            "jsonData": "8",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "DATE",
+            "key": "fabric_material_requirements_confirm_date",
+            "businessId": null,
+            "jsonData": "2018-10-10",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_cycle_confirm",
+            "businessId": null,
+            "jsonData": "true",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_customer_factory_supply",
+            "businessId": null,
+            "jsonData": "true",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_shift_information",
+            "businessId": null,
+            "jsonData": "false",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_whether_inspection",
+            "businessId": null,
+            "jsonData": "true",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_sample_confirmation_required",
+            "businessId": null,
+            "jsonData": "false",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_before_cutting_processing",
+            "businessId": null,
+            "jsonData": "true",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "fabric_sewing_irrelevant",
+            "businessId": null,
+            "jsonData": "false",
+            "metaFieldType": null
+          }
+        ]
+      }
+    ],
+    "sewing_accessories_": [
+      {
+        "tokenId": "64197402-2013-43d1-8952-c792b0cb5138",
+        "fields": [
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "sewing_serial_number",
+            "businessId": null,
+            "jsonData": "1",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "sewing_goods",
+            "businessId": null,
+            "jsonData": "长裤",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "sewing_specifications",
+            "businessId": null,
+            "jsonData": "XL",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "sewing_unit",
+            "businessId": null,
+            "jsonData": "条",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "sewing_specific_budget",
+            "businessId": null,
+            "jsonData": "10.0",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "sewing_budget_unit_price",
+            "businessId": null,
+            "jsonData": "1000.0",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "STRING",
+            "key": "sewing_production_cycle",
+            "businessId": null,
+            "jsonData": "5",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "DATE",
+            "key": "sewing_material_requirements_confirm_date",
+            "businessId": null,
+            "jsonData": "2018-10-1",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "sewing_cycle_confirm",
+            "businessId": null,
+            "jsonData": "false",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "sewing_customer_factory_supply",
+            "businessId": null,
+            "jsonData": "true",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "sewing_shift_information",
+            "businessId": null,
+            "jsonData": "false",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "sewing_whether_inspection",
+            "businessId": null,
+            "jsonData": "true",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "sewing_sample_confirmation_required",
+            "businessId": null,
+            "jsonData": "false",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "sewing_before_cutting_processing",
+            "businessId": null,
+            "jsonData": "true",
+            "metaFieldType": null
+          },
+          {
+            "fieldDomainType": null,
+            "dataType": "BOOLEAN",
+            "key": "sewing_sewing_irrelevant",
+            "businessId": null,
+            "jsonData": "false",
+            "metaFieldType": null
+          }
+        ]
+      }
+    ]
+  }
+}

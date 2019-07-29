@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (C) 2006-2013 Talend Inc. - www.talend.com
+  ~
+  ~ This source code is available under agreement available at
+  ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+  ~
+  ~ You should have received a copy of the agreement
+  ~ along with this program; if not, write to Talend SA
+  ~ 9 rue Pages 92150 Suresnes, France
+  -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>
+    <xsd:element name="a1">
+        <xsd:annotation>
+            <xsd:appinfo source="X_Lookup_Field">a2/ID</xsd:appinfo>
+            <xsd:appinfo source="X_Lookup_Field">a1/aa1</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ID" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="aa1" type="xsd:string"/>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="a1">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="ID"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="a2">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ID" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="b" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_ForeignKey">a1/ID</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="a2">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="ID"/>
+        </xsd:unique>
+    </xsd:element>
+</xsd:schema>

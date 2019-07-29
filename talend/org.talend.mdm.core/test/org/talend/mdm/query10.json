@@ -1,0 +1,24 @@
+{
+  "select": {
+    "from": [
+      "Type1",
+      "Type2",
+      "Type3"
+    ],
+    "fields": [
+      {"field": "Type1/id"},
+      {"field": "Type2/value1"},
+      {"field": "Type3/value1"}
+    ],
+    "joins": [
+      {
+        "from": "Type1/fk2",
+        "on": "Type2/id"
+      },
+      {
+        "from": "Type1/fk3",
+        "on": "Type3/id"
+      }
+    ]
+  }
+}

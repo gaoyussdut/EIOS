@@ -1,0 +1,10 @@
+<data-cluster-pOJO>
+    <name>SearchTemplate</name>
+    <vocabulary/>
+    <description>SearchTemplate</description>
+    <PK>
+        <ids>SearchTemplate</ids>
+        <unique-id>SearchTemplate</unique-id>
+    </PK>
+    <digest>f6c84f6d4b8a88d24add6a04079445cd</digest>
+</data-cluster-pOJO>

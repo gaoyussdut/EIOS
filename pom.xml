@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.0.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>top.toptimus</groupId>
+    <artifactId>toptimus</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>toptimus</name>
+    <description>Demo project for Spring Boot</description>
+
+    <modules>
+        <module>business-model</module>
+        <module>dependency-package/dto-model</module>
+        <module>business-logic/base-entity/meta-service</module>
+        <module>business-logic/base-entity/token-service</module>
+        <module>dependency-package/exception</module>
+        <module>dependency-package/utils</module>
+        <module>business-logic/base-entity/nlp-service</module>
+        <module>business-logic/base-entity/formula-service</module>
+        <module>talend/camunda-bpmn-model</module>
+        <module>talend/communication</module>
+        <module>talend/tmdm-common/org.talend.mdm.common</module>
+        <module>dependency-package/rich-domain-model</module>
+        <module>test-case/base-test</module>
+        <module>business-logic/base-service/certificate-service</module>
+        <module>dependency-package/jmerkle</module>
+        <module>mq/amqp-service</module>
+        <module>cache-service/place-cache-service</module>
+        <module>business-logic/base-entity/token-sql-entity</module>
+        <module>business-logic/base-service/security-service</module>
+        <module>business-logic/base-service/memorandvn-service</module>
+        <module>transformation-service</module>
+        <module>rule-service</module>
+        <module>business-logic/base-service/processDefinition-service</module>
+        <module>task-service</module>
+        <module>business-unit-service</module>
+        <module>stock-service</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>install-jar</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <file>${project.basedir}/lib/kettle-core-5.0.7.jar</file>
+                            <groupId>pentaho-kettle</groupId>
+                            <artifactId>kettle-core</artifactId>
+                            <version>5.0.7</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-jar.2</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <file>${project.basedir}/lib/kettle-engine-5.0.7.jar</file>
+                            <groupId>pentaho-kettle</groupId>
+                            <artifactId>kettle-engine</artifactId>
+                            <version>5.0.7</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-jar.3</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <file>${project.basedir}/lib/kettle5-log4j-plugin-5.0.7.jar</file>
+                            <groupId>pentaho-kettle</groupId>
+                            <artifactId>kettle5-log4j-plugin</artifactId>
+                            <version>5.0.7</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
