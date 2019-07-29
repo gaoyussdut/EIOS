@@ -1,0 +1,11 @@
+{
+  "select": {
+    "from": ["Type1"],
+    "where": {
+      "eq": [
+        {"metadata": "timestamp"},
+        {"value": "1"}
+      ]
+    }
+  }
+}

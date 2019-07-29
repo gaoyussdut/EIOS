@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20"
+              topMargin="20" bottomMargin="20" uuid="cb5b3300-1dec-4f49-852c-3bde793b4fb1">
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+    <parameter name="name" class="java.lang.String"/>
+    <parameter name="student_id" class="java.lang.String"/>
+    <parameter name="ranking" class="java.lang.Integer"/>
+    <parameter name="score_math" class="java.lang.Integer"/>
+    <parameter name="score_chinese" class="java.lang.Integer"/>
+    <parameter name="score_english" class="java.lang.Integer"/>
+    <parameter name="score_chemistry" class="java.lang.Integer"/>
+    <parameter name="score_physical" class="java.lang.Integer"/>
+    <parameter name="score_biology" class="java.lang.Integer"/>
+    <parameter name="score_top" class="java.lang.Integer"/>
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <variable name="total" class="java.lang.Integer">
+        <variableExpression>
+            <![CDATA[$P{score_math}+$P{score_chinese}+$P{score_english}+$P{score_chemistry}+$P{score_physical}+$P{score_biology}]]></variableExpression>
+    </variable>
+    <variable name="average" class="java.lang.Float">
+        <variableExpression>
+            <![CDATA[($P{score_math}.floatValue()+$P{score_chinese}.floatValue()+$P{score_english}.floatValue()+$P{score_chemistry}.floatValue()+$P{score_physical}.floatValue()+$P{score_biology}.floatValue())/6]]></variableExpression>
+    </variable>
+    <background>
+        <band splitType="Stretch">
+            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+        </band>
+    </background>
+    <title>
+        <band height="79" splitType="Stretch">
+            <staticText>
+                <reportElement x="1" y="10" width="559" height="60" forecolor="#A61E1C" backcolor="#E86B68"
+                               uuid="571b647c-c0c3-4133-b8a5-f3dbc34f26c4"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="19"/>
+                </textElement>
+                <text><![CDATA[冰上浮云的报表]]></text>
+            </staticText>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="36" splitType="Stretch">
+            <textField pattern="yyyy-MM-dd">
+                <reportElement x="222" y="10" width="100" height="20" uuid="2999225f-7530-42fa-8cc2-2cacdbe8cdd1"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageHeader>
+    <detail>
+        <band height="320" splitType="Stretch">
+            <rectangle>
+                <reportElement x="1" y="0" width="557" height="309" uuid="64545995-3d92-45c4-af21-2cde5bfed8f6"/>
+            </rectangle>
+            <line>
+                <reportElement x="115" y="0" width="1" height="309" uuid="f69b67ea-1660-4939-9adf-70b8a9c802c4"/>
+            </line>
+            <line>
+                <reportElement x="1" y="94" width="557" height="1" uuid="5f2d02f2-4802-48b0-9273-f083dadef9c3"/>
+            </line>
+            <line>
+                <reportElement x="1" y="210" width="557" height="1" uuid="dd560e11-ce72-4e4c-acca-021ddcb227db"/>
+            </line>
+            <line>
+                <reportElement x="430" y="0" width="1" height="310" uuid="8aaa4906-8d25-4f0d-9a68-600c11e48b00"/>
+            </line>
+            <line>
+                <reportElement x="116" y="50" width="315" height="1" uuid="d6ac37e5-26df-49cc-b3c8-84229ab3c937"/>
+            </line>
+            <line>
+                <reportElement x="116" y="154" width="315" height="1" uuid="8d4295a7-1af6-469c-b2be-fd7919d6a640"/>
+            </line>
+            <line>
+                <reportElement x="116" y="263" width="315" height="1" uuid="eaf76aa5-e747-4445-8323-a85bc93b3667"/>
+            </line>
+            <staticText>
+                <reportElement x="20" y="7" width="68" height="32" uuid="c0240cf1-84c7-4197-b32e-dc59cbb77c66"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="19"/>
+                </textElement>
+                <text><![CDATA[姓名]]></text>
+            </staticText>
+            <line>
+                <reportElement x="280" y="-1" width="1" height="310" uuid="ca55efbe-1b17-4314-b759-ab1dc1fbe419"/>
+            </line>
+            <staticText>
+                <reportElement x="150" y="10" width="100" height="30" uuid="146ca4d2-8db7-4b85-92a6-a062dd6fa2e8"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="19"/>
+                </textElement>
+                <text><![CDATA[语文]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="150" y="57" width="100" height="30" uuid="dc906036-fb4b-4a80-b6cc-b55529aef5da"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="19"/>
+                </textElement>
+                <text><![CDATA[数学]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="151" y="110" width="100" height="30" uuid="36d9a70b-ee05-4145-8e33-6a659fb20617"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="19"/>
+                </textElement>
+                <text><![CDATA[英语]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="151" y="167" width="100" height="30" uuid="5170819b-ecac-4cd3-a5c6-a83e9bf84b2d"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="19"/>
+                </textElement>
+                <text><![CDATA[化学]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="151" y="222" width="100" height="30" uuid="5f2f926b-a906-40f4-906e-62959b67351c"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="19"/>
+                </textElement>
+                <text><![CDATA[物理]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="151" y="271" width="100" height="30" uuid="08b589c1-691c-43a2-ad6b-6ce5a9ecd766"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="19"/>
+                </textElement>
+                <text><![CDATA[生物]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="20" y="112" width="68" height="32" uuid="77e69092-3473-4307-ac52-8b55451af4df"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="19"/>
+                </textElement>
+                <text><![CDATA[学号]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="19" y="222" width="68" height="32" uuid="43778e62-6964-4e17-8290-08ca730fc23a"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="19"/>
+                </textElement>
+                <text><![CDATA[排名]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="462" y="7" width="68" height="32" uuid="933bd011-3c97-4a70-ac8c-435e0746b6c1"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="19"/>
+                </textElement>
+                <text><![CDATA[总分]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="461" y="109" width="68" height="32" uuid="fbd95988-86ff-451c-9820-8d61cb03db12"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="19"/>
+                </textElement>
+                <text><![CDATA[平均分]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="450" y="219" width="94" height="32" uuid="434599cf-57c4-4339-8729-c3611a9e8669"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="16"/>
+                </textElement>
+                <text><![CDATA[排名最高科目]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="10" y="58" width="100" height="30" uuid="5b2cb3cb-c64d-49c5-821c-05e4646b192d"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="10" y="167" width="100" height="30" uuid="2941bfc5-8c14-4691-8a70-29f2fbd77850"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$P{student_id}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="8" y="270" width="100" height="30" uuid="3469a057-7a0e-4679-9bf6-363a029b3cfa"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$P{ranking}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="300" y="10" width="100" height="30" uuid="e4427061-46c8-433e-9ad9-ca70396b2bf6"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$P{score_chinese}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="300" y="57" width="100" height="30" uuid="921d447d-e82a-4d1b-ab80-c609e5aaa058"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$P{score_math}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="300" y="113" width="100" height="30" uuid="4dd0d99b-99c2-438f-b241-2e3f989bd4ef"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$P{score_english}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="300" y="170" width="100" height="30" uuid="34917fac-48c0-4e5c-bf06-d154c15a6e74"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$P{score_chemistry}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="300" y="222" width="100" height="30" uuid="bfbed6e8-28f0-4ab8-8254-2b9434787f6a"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$P{score_physical}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="300" y="270" width="100" height="30" uuid="adfa2c3b-7ad9-4477-84cc-fc8ff4fc8b12"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$P{score_biology}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="450" y="264" width="100" height="30" uuid="1c47e9f2-38d8-42ee-b40f-f40c20b65794"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$P{score_top}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="440" y="50" width="110" height="30" uuid="2171ef1a-ed24-4b02-acd8-eb7b910ce7ff"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="445" y="167" width="100" height="30" uuid="365b47c2-4290-4f53-89c7-75edbb3d29df"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$V{average}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>

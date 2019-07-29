@@ -1,0 +1,41 @@
+{
+    "tokenId": "f2028555-4a18-4f71-a8d8-4cf95158d24b",
+    "fields": [
+      {
+        "dataType": "STRING",
+        "key": "zhuti",
+        "jsonData": "采购申请单1汇签任务"
+      },
+      {
+        "dataType": "STRING",
+        "key": "huodongleixing",
+        "jsonData": ""
+      },
+      {
+        "dataType": "STRING",
+        "key": "zhuangtai",
+        "jsonData": "未启动"
+      },
+      {
+        "dataType": "DATE",
+        "key": "daoqishijian",
+        "jsonData": "2019-06-07 05:47:20.481"
+      },
+      {
+        "dataType": "STRING",
+        "key": "guanliandao",
+        "jsonData": "采购申请单1"
+      },
+      {
+        "dataType": "DATE",
+        "key": "xiugaishijian",
+        "jsonData": "2019-03-07 05:48:25.512"
+      },
+      {
+        "dataType": "SELECT",
+        "key": "shenqingren",
+        "businessId": "3",
+        "jsonData": "姜浩"
+      }
+    ]
+  }

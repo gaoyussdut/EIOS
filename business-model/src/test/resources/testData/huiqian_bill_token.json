@@ -1,0 +1,26 @@
+{
+    "tokenId": "85d45618-c463-4cfe-a230-25a320c23d88",
+    "fields": [
+      {
+        "dataType": "SELECT",
+        "key": "fuzeren",
+        "businessId": "3",
+        "jsonData": "姜浩"
+      },
+      {
+        "dataType": "DATE",
+        "key": "shijian",
+        "jsonData": "2019-03-07 06:20:00.371"
+      },
+      {
+        "dataType": "STRING",
+        "key": "shenpiyijian",
+        "jsonData": "同意"
+      },
+      {
+        "dataType": "BOOLEAN",
+        "key": "shenpijieguo",
+        "jsonData": "true"
+      }
+    ]
+  }

@@ -1,0 +1,12 @@
+{
+  "select": {
+    "from": ["Type1"],
+    "where": {
+      "eq": [
+        {"field": "Type1/id"},
+        {"value": "1"}
+      ]
+    },
+    "cache": true
+  }
+}

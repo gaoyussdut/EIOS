@@ -1,0 +1,21 @@
+{
+    "tokenId": "1",
+    "fields": [
+      {
+        "dataType": "SELECT",
+        "key": "gonghao",
+        "businessId": "1",
+        "jsonData": "0011"
+      },
+      {
+        "dataType": "SELECT_INTERN",
+        "key": "xingming",
+        "jsonData": "张三"
+      },
+      {
+        "dataType": "SELECT_INTERN",
+        "key": "bumen",
+        "jsonData": "采购部"
+      }
+    ]
+  }

@@ -1,0 +1,32 @@
+<!--
+  ~ Copyright (C) 2006-2012 Talend Inc. - www.talend.com
+  ~
+  ~ This source code is available under agreement available at
+  ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+  ~
+  ~ You should have received a copy of the agreement
+  ~ along with this program; if not, write to Talend SA
+  ~ 9 rue Pages 92150 Suresnes, France
+  -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>
+    <xsd:element name="TALEND_TASK_EXECUTION">
+        <xsd:complexType>
+            <xsd:all maxOccurs="1" minOccurs="1">
+                <xsd:element maxOccurs="1" minOccurs="1" name="id" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="type" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="start_time" type="xsd:long"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="end_match_time" type="xsd:long"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="end_time" type="xsd:long"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="error_count" type="xsd:decimal"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="record_count" type="xsd:decimal"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="completed" type="xsd:boolean"/>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="TALEND_TASK_EXECUTION">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="id"/>
+        </xsd:unique>
+    </xsd:element>
+</xsd:schema>

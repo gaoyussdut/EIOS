@@ -1,0 +1,10 @@
+<data-cluster-pOJO>
+    <name>CONF</name>
+    <vocabulary/>
+    <description>Data cluster to hold general information</description>    
+    <PK>
+        <ids>CONF</ids>
+        <unique-id>CONF</unique-id>
+    </PK>
+    <digest>8d11b97bfdee098353e61b07b82e8811</digest>    
+</data-cluster-pOJO>

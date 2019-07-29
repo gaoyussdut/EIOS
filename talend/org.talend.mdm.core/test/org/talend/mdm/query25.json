@@ -1,0 +1,13 @@
+{
+  "select": {
+    "from": ["Type1"],
+    "order_bys": [
+      {
+        "order_by": [
+          {"count": {"field": "Type1/id"}},
+          {"direction": "DESC"}
+        ]
+      }
+    ]
+  }
+}

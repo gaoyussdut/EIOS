@@ -1,0 +1,13 @@
+{
+  "select": {
+    "from": ["Type1"],
+    "fields": [
+      {
+        "alias": [
+          {"name": "taskId"},
+          {"distinct": {"metadata": "task_id"}}
+        ]
+      }
+    ]
+  }
+}

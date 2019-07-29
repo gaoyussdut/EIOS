@@ -1,0 +1,71 @@
+{
+  "select": {
+    "from": ["Type1"],
+    "where": {
+      "and": [
+        {
+          "eq": [
+            {"metadata": "task_id"},
+            {"value": "1"}
+          ]
+        },
+        {
+          "and": [
+            {
+              "eq": [
+                {"metadata": "timestamp"},
+                {"value": "0"}
+              ]
+            },
+            {
+              "and": [
+                {
+                  "eq": [
+                    {"metadata": "group_size"},
+                    {"value": "0"}
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {"metadata": "staging_error"},
+                        {"value": "0"}
+                      ]
+                    },
+                    {
+                      "and": [
+                        {
+                          "eq": [
+                            {"metadata": "staging_source"},
+                            {"value": "0"}
+                          ]
+                        },
+                        {
+                          "and": [
+                            {
+                              "eq": [
+                                {"metadata": "staging_status"},
+                                {"value": "0"}
+                              ]
+                            },
+                            {
+                              "eq": [
+                                {"metadata": "staging_blockkey"},
+                                {"value": "0"}
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
