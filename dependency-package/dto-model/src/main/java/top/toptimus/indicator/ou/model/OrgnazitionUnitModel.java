@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import top.toptimus.indicator.ou.base.IndicatorType;
 import top.toptimus.indicator.ou.dao.OrgnazitionUnitDao;
+import top.toptimus.indicator.ou.dto.OrgnazitionUnitAttribute;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitDto;
 
 import java.util.*;
@@ -159,8 +160,20 @@ public class OrgnazitionUnitModel {
                 throw new RuntimeException("请业务组织的上级节点错误");
             }
         }
+    }
 
-
+    /**
+     * 补充业务组织属性
+     *
+     * @param ouId                     业务组织id
+     * @param orgnazitionUnitAttribute 业务组织属性
+     */
+    public OrgnazitionUnitDto generateOrgnazitionUnitAttribute(String ouId, OrgnazitionUnitAttribute orgnazitionUnitAttribute) {
+        this.orgnazitionUnitMap.get(ouId).getOrgnazitionUnitAttributes().put(
+                orgnazitionUnitAttribute.getIndicatorType()
+                , orgnazitionUnitAttribute
+        );
+        return this.orgnazitionUnitMap.get(ouId).buildOrgnazitionUnitDto(orgnazitionUnitAttribute.getIndicatorType());
     }
 
     /**

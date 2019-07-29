@@ -2,7 +2,6 @@ package top.toptimus.entity.place;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import top.toptimus.businessUnit.TaskInsDTO;
 import top.toptimus.common.result.Result;
 import top.toptimus.common.search.SearchInfo;
 import top.toptimus.dao.place.cache.PlaceSession;
@@ -16,7 +15,6 @@ import top.toptimus.exception.TopException;
 import top.toptimus.merkle.MerkleBasicModel;
 import top.toptimus.merkle.MerklePlaceModel;
 import top.toptimus.model.place.PlaceSessionModel;
-import top.toptimus.place.BillTokenDelResultDTO;
 import top.toptimus.place.BillTokenSaveResultDTO;
 import top.toptimus.place.PlaceDTO;
 import top.toptimus.place.PlaceReduceDTO;
@@ -304,10 +302,10 @@ public class PlaceRedisEntity {
      * @param metaId
      * @return
      */
-    public Result saveBillToken(TokenDataDto tokenDataDto, String metaId){
+    public Result saveBillToken(TokenDataDto tokenDataDto, String metaId) {
         try {
-        String authId = userQueryFacadeEntity.findByAccessToken().getId();
-        savePlaceProducer.saveBillToken(new BillTokenSaveResultDTO(metaId,tokenDataDto,authId));
+            String authId = userQueryFacadeEntity.findByAccessToken().getId();
+            savePlaceProducer.saveBillToken(new BillTokenSaveResultDTO(metaId, tokenDataDto, authId));
             return Result.success();
         } catch (Exception e) {
             e.printStackTrace();

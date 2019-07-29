@@ -44,6 +44,7 @@
         <module>task-service</module>
         <module>business-unit-service</module>
         <module>stock-service</module>
+        <module>business-logic/base-entity/ou-service</module>
     </modules>
 
     <build>

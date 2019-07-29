@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/business-logic/base-entity/formula-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/business-logic/base-entity/meta-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/business-logic/base-entity/nlp-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/business-logic/base-entity/ou-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/business-logic/base-entity/token-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/business-logic/base-entity/token-sql-entity" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/business-logic/base-service/certificate-service" charset="UTF-8" />

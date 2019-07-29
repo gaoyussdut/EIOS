@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import top.toptimus.indicator.ou.base.BaseOrgnazitionUnit;
 import top.toptimus.indicator.ou.base.IndicatorType;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitAttribute;
+import top.toptimus.indicator.ou.dto.OrgnazitionUnitBaseInfoDto;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitDto;
 
 import java.util.HashMap;
@@ -75,5 +76,26 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
         } else {
             throw new RuntimeException("业务组织类型" + indicatorType.name() + "不存在");
         }
+    }
+
+    /**
+     * 返回ou基础信息
+     *
+     * @return ou基础信息
+     */
+    public OrgnazitionUnitBaseInfoDto buildOrgnazitionUnitBaseInfoDto() {
+        return new OrgnazitionUnitBaseInfoDto(
+                this.ouID
+                , this.ouCode
+                , this.ouName
+                , this.createDate
+                , this.createUser
+                , this.enableDate
+                , this.level
+                , this.isDisabled
+                , this.disableDate
+                , this.disableUser
+                , this.description
+        );
     }
 }

@@ -17,6 +17,7 @@
       <module fileurl="file://$PROJECT_DIR$/business-logic/base-entity/meta-service/meta-service.iml" filepath="$PROJECT_DIR$/business-logic/base-entity/meta-service/meta-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/business-logic/base-entity/nlp-service/nlp-service.iml" filepath="$PROJECT_DIR$/business-logic/base-entity/nlp-service/nlp-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/talend/tmdm-common/org.talend.mdm.common/org.talend.mdm.common.iml" filepath="$PROJECT_DIR$/talend/tmdm-common/org.talend.mdm.common/org.talend.mdm.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/business-logic/base-entity/ou-service/ou-service.iml" filepath="$PROJECT_DIR$/business-logic/base-entity/ou-service/ou-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/cache-service/place-cache-service/place-cache-service.iml" filepath="$PROJECT_DIR$/cache-service/place-cache-service/place-cache-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/business-logic/base-service/processDefinition-service/processDefinition-service.iml" filepath="$PROJECT_DIR$/business-logic/base-service/processDefinition-service/processDefinition-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/dependency-package/rich-domain-model/rich-domain-model.iml" filepath="$PROJECT_DIR$/dependency-package/rich-domain-model/rich-domain-model.iml" />

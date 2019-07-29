@@ -21,6 +21,7 @@
         <module name="meta-service" />
         <module name="nlp-service" />
         <module name="org.talend.mdm.common" />
+        <module name="ou-service" />
         <module name="place-cache-service" />
         <module name="processDefinition-service" />
         <module name="rich-domain-model" />
@@ -50,6 +51,7 @@
       <module name="meta-service" target="1.8" />
       <module name="nlp-service" target="1.8" />
       <module name="org.talend.mdm.common" target="1.7" />
+      <module name="ou-service" target="1.8" />
       <module name="place-cache-service" target="1.8" />
       <module name="processDefinition-service" target="1.8" />
       <module name="rich-domain-model" target="1.8" />
