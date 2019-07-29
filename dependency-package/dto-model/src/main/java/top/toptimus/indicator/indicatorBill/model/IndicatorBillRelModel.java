@@ -1,9 +1,11 @@
 package top.toptimus.indicator.indicatorBill.model;
 
 import com.google.common.collect.Lists;
+import lombok.NoArgsConstructor;
 import top.toptimus.indicator.indicatorBill.dao.IndicatorOuRelDao;
 import top.toptimus.indicator.indicatorBill.dao.IndicatorTokenDefineDao;
 import top.toptimus.indicator.indicatorBill.dto.IndicatorOuRelDto;
+import top.toptimus.indicator.ou.base.IndicatorType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +18,7 @@ import java.util.Map;
  * @author gaoyu
  * @since 2019-7-16
  */
+@NoArgsConstructor
 public class IndicatorBillRelModel {
     /*
         K：源ou id，V：指标单据meta和ou的关系配置
@@ -67,8 +70,25 @@ public class IndicatorBillRelModel {
      * @param ouId ou id
      * @return 指标单据转换配置关系列表
      */
+    @Deprecated
     public List<IndicatorOuRelDto> getIndicatorOuRelDaosByOuId(String ouId) {
         return this.indicatorOURelDaoMap.get(ouId);
+    }
+
+    /**
+     * 根据业务组织单元id取得指标单据转换配置关系列表
+     *
+     * @param ouId ou id
+     * @return 指标单据转换配置关系列表
+     */
+    public List<IndicatorOuRelDto> getIndicatorOuRelDaosByOuId(String ouId, IndicatorType indicatorType) {
+        return new ArrayList<IndicatorOuRelDto>() {{
+            indicatorOURelDaoMap.get(ouId).forEach(indicatorOuRelDto -> {
+                if (indicatorType.equals(indicatorOuRelDto.getIndicatorType())) {
+                    add(indicatorOuRelDto);
+                }
+            });
+        }};
     }
 
     /**

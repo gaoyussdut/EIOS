@@ -2,7 +2,6 @@ package top.toptimus.indicator;
 
 import com.alibaba.fastjson.JSON;
 import top.toptimus.indicator.indicatorBill.dao.IndicatorOuRelDao;
-import top.toptimus.indicator.indicatorBill.model.IndicatorBillRelModel;
 import top.toptimus.indicator.ou.base.IndicatorType;
 import top.toptimus.indicator.ou.dao.OrgnazitionUnitDao;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitAttribute;
@@ -13,19 +12,21 @@ import java.util.Date;
 import java.util.UUID;
 
 public class TestOrg {
+    private static OrgnazitionUnitModel orgnazitionUnitModel;
+
     public static void main(String[] args) {
         testOu();
-//        testIndicator();
+        testIndicator();
     }
 
     private static void testIndicator() {
-        IndicatorBillRelModel indicatorBillRelModel = new IndicatorBillRelModel(
+        orgnazitionUnitModel.buildIndicatorBillRelModel(
                 new ArrayList<IndicatorOuRelDao>() {{
                     add(
                             new IndicatorOuRelDao(
                                     "rel1"
-                                    , "1"
-                                    , "2"
+                                    , orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
+                                    , orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
                                     , "meta1"
                                     , "meta2"
                                     , true
@@ -36,8 +37,8 @@ public class TestOrg {
                     add(
                             new IndicatorOuRelDao(
                                     "rel2"
-                                    , "1"
-                                    , "2"
+                                    , orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
+                                    , orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(1).getOuID()
                                     , "meta3"
                                     , "meta4"
                                     , true
@@ -47,12 +48,15 @@ public class TestOrg {
                     );
                 }}
         );
+
+        System.out.println("根据ou id取得下推分发规则");
         System.out.println(JSON.toJSONString(
-                indicatorBillRelModel.getIndicatorOuRelDaosByOuId("1")
+                orgnazitionUnitModel.getIndicatorBillRelModel().getIndicatorOuRelDaosByOuId(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)
         ));
 
+        System.out.println("根据id取得下推分发规则");
         System.out.println(JSON.toJSONString(
-                indicatorBillRelModel.buildIndicatorTokenDefineDao(
+                orgnazitionUnitModel.getIndicatorBillRelModel().buildIndicatorTokenDefineDao(
                         "rel1"
                         , UUID.randomUUID().toString()
                         , UUID.randomUUID().toString()
@@ -63,11 +67,13 @@ public class TestOrg {
     private static void testOu() {
         OrgnazitionUnitModel initData = generateOrgnazitionUnitModel();
         //  测试构造函数
-        OrgnazitionUnitModel orgnazitionUnitModel = new OrgnazitionUnitModel(
+        orgnazitionUnitModel = new OrgnazitionUnitModel(
                 new ArrayList<OrgnazitionUnitDao>() {{
                     initData.getOrgnazitionUnitMap().keySet().forEach(ouId -> add(initData.getOrgnazitionUnitMap().get(ouId)));
                 }}
         );
+
+//        System.out.println(JSON.toJSONString(orgnazitionUnitModel.getOrgnazitionUnitMap()));
 
         System.out.println("取得业务组织顶层节点");
         System.out.println(JSON.toJSONString(
@@ -81,7 +87,7 @@ public class TestOrg {
 
         System.out.println("找下级组织列表");
         System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getChildOrgnazitionUnits("1", IndicatorType.Finance)
+                orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)
         ));
 
     }
@@ -133,7 +139,7 @@ public class TestOrg {
                                 , "ouName2"
                                 , new Date()
                                 , "猪"
-                        ).buildOrgnazitionUnitAttribute(new OrgnazitionUnitAttribute("1", IndicatorType.Finance, false))
+                        ).buildOrgnazitionUnitAttribute(new OrgnazitionUnitAttribute(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance, false))
                 ).updateOrgnazitionUnit(
                         orgnazitionUnitModel.createOrgnazitionUnit(
                                 orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
@@ -141,7 +147,7 @@ public class TestOrg {
                                 , "ouName3"
                                 , new Date()
                                 , "猪"
-                        ).buildOrgnazitionUnitAttribute(new OrgnazitionUnitAttribute("1", IndicatorType.Finance, false))
+                        ).buildOrgnazitionUnitAttribute(new OrgnazitionUnitAttribute(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance, false))
                 );
 
     }

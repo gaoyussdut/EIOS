@@ -3,6 +3,8 @@ package top.toptimus.indicator.ou.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import top.toptimus.indicator.indicatorBill.dao.IndicatorOuRelDao;
+import top.toptimus.indicator.indicatorBill.model.IndicatorBillRelModel;
 import top.toptimus.indicator.ou.base.IndicatorType;
 import top.toptimus.indicator.ou.dao.OrgnazitionUnitDao;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitAttribute;
@@ -24,6 +26,9 @@ public class OrgnazitionUnitModel {
         各类型业务组织的dto
      */
     private Map<IndicatorType, Map<String, OrgnazitionUnitDto>> orgnazitionAttributeMap = new HashMap<>();  //  不同属性下的组织列表
+
+    @Getter
+    private IndicatorBillRelModel indicatorBillRelModel = new IndicatorBillRelModel();    //  记录指标关系的model
 
     /**
      * 构造函数，初始化OU列表
@@ -262,5 +267,15 @@ public class OrgnazitionUnitModel {
      */
     public Map<String, OrgnazitionUnitDto> getOrgnazitionTreeViewByAttribute(IndicatorType indicatorType) {
         return this.orgnazitionAttributeMap.get(indicatorType);
+    }
+
+    /**
+     * 记录指标单据meta和ou的关系配置,从数据库中初始化调用
+     *
+     * @param indicatorOURelDaos 指标单据meta和ou的关系配置
+     */
+    public OrgnazitionUnitModel buildIndicatorBillRelModel(List<IndicatorOuRelDao> indicatorOURelDaos) {
+        this.indicatorBillRelModel = new IndicatorBillRelModel(indicatorOURelDaos);
+        return this;
     }
 }
