@@ -15,7 +15,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-
+/**
+ * OU实体类
+ *
+ * @author gaoyu
+ * @since 2019-07-29
+ */
 @Component
 public class OuEntity {
     private final ThreadLocal<OrgnazitionUnitModel> orgnazitionUnitModelThreadLocal = ThreadLocal.withInitial(OrgnazitionUnitModel::new);   //  单据线程缓存
