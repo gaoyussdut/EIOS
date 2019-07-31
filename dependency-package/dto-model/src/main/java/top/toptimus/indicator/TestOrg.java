@@ -138,8 +138,6 @@ public class TestOrg {
         System.out.println("测试ou基础信息——带业务组织类型");
         System.out.println("----------------------------------");
 
-        System.out.println("caonima:" + JSON.toJSONString(orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)));
-
         System.out.println("选择上级业务组织一览");
         System.out.println(JSON.toJSONString(
                 orgnazitionUnitModel.getOrgnazitionUnitsByIndicatorType(
@@ -241,24 +239,24 @@ public class TestOrg {
                         }}
                 )
                 .updateOrgnazitionUnitAttributes(
-                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()).get(0).getOuID()
+                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()).get(0).getOuID()  //  ouCode2
                         , new ArrayList<OrgnazitionUnitAttribute>() {{
                             //  模拟业务组织ouCode2，拥有财务属性
                             add(
                                     new OrgnazitionUnitAttribute(
-                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
+                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
                                             , IndicatorType.Finance
                                             , false)
                             );
                         }}
                 )
                 .updateOrgnazitionUnitAttributes(
-                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()
+                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()  //  ouCode3
                         , new ArrayList<OrgnazitionUnitAttribute>() {{
                             //  模拟业务组织ouCode2，拥有财务属性
                             add(
                                     new OrgnazitionUnitAttribute(
-                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
+                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
                                             , IndicatorType.Finance
                                             , false)
                             );

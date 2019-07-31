@@ -257,7 +257,7 @@ public class OrgnazitionUnitModel {
     }
 
     /**
-     * 选择上级业务组织一览
+     * 选择上级业务组
      *
      * @param ouId          业务组织dto id
      * @param indicatorType 业务组织类型
