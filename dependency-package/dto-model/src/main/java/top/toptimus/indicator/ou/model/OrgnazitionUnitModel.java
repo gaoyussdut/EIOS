@@ -8,6 +8,7 @@ import top.toptimus.indicator.indicatorBill.model.IndicatorBillRelModel;
 import top.toptimus.indicator.ou.base.IndicatorType;
 import top.toptimus.indicator.ou.dao.OrgnazitionUnitDao;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitAttribute;
+import top.toptimus.indicator.ou.dto.OrgnazitionUnitBaseInfoDto;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitDto;
 
 import java.util.*;
@@ -140,7 +141,7 @@ public class OrgnazitionUnitModel {
                 this.orgnazitionUnitMap.put(
                         orgnazitionUnitDto.getOuID()
                         , new OrgnazitionUnitDao(
-                                orgnazitionUnitDto.buildLevel(0)    //  业务组织级别为0
+                                orgnazitionUnitDto.buildTopLevel()    //  业务组织级别为0
                         )
                 );
                 return orgnazitionUnitDto;
@@ -157,7 +158,10 @@ public class OrgnazitionUnitModel {
                 this.orgnazitionUnitMap.put(
                         orgnazitionUnitDto.getOuID()
                         , new OrgnazitionUnitDao(
-                                orgnazitionUnitDto.buildLevel(this.getOrgnazitionUnitMap().get(pOuId).getLevel() + 1)    //  业务组织级别为上级业务组织level+1
+                                orgnazitionUnitDto.buildOrgTree(
+                                        this.getOrgnazitionUnitMap().get(pOuId).getLevel() + 1
+                                        , pOuId
+                                )    //  业务组织级别为上级业务组织level+1,上级业务组织为Pid
                         )
                 );
                 return orgnazitionUnitDto;
@@ -182,20 +186,31 @@ public class OrgnazitionUnitModel {
     }
 
     /**
-     * 取得上级业务组织
+     * 根据业务组织类型取得上级业务组织
      *
      * @param ouId          业务组织dto id
      * @param indicatorType 业务组织类型
      * @return 上级业务组织dto
      */
     public OrgnazitionUnitDto getParentOrgnazitionUnit(String ouId, IndicatorType indicatorType) {
-        if (this.orgnazitionAttributeMap.containsKey(indicatorType)) {
+        try {
+            System.out.println(this.orgnazitionAttributeMap.get(indicatorType).get(ouId).getOrgnazitionUnitAttribute().getParentId());
             return this.orgnazitionAttributeMap.get(indicatorType).get(
                     this.orgnazitionAttributeMap.get(indicatorType).get(ouId).getOrgnazitionUnitAttribute().getParentId()
             );
-        } else {
+        } catch (Exception e) {
             throw new RuntimeException(ouId + "没有上级业务组织");
         }
+    }
+
+    /**
+     * 取得上级业务组织
+     *
+     * @param ouId 业务组织dto id
+     * @return 上级业务组织dto
+     */
+    public OrgnazitionUnitBaseInfoDto getParentOrgnazitionUnit(String ouId) {
+        return this.orgnazitionUnitMap.get(ouId).buildOrgnazitionUnitBaseInfoDto();
     }
 
     /**
@@ -211,6 +226,22 @@ public class OrgnazitionUnitModel {
         } else {
             throw new RuntimeException(ouId + "没有上级业务组织");
         }
+    }
+
+    /**
+     * 取得下级业务组织列表
+     *
+     * @param ouId 业务组织dto id
+     * @return 下级业务组织dto列表
+     */
+    public List<OrgnazitionUnitBaseInfoDto> getChildOrgnazitionUnits(String ouId) {
+        return new ArrayList<OrgnazitionUnitBaseInfoDto>() {{
+            orgnazitionUnitMap.keySet().forEach(id -> {
+                if (ouId.equals(orgnazitionUnitMap.get(id).getPOuID())) {
+                    add(orgnazitionUnitMap.get(id).buildOrgnazitionUnitBaseInfoDto());
+                }
+            });
+        }};
     }
 
     /**

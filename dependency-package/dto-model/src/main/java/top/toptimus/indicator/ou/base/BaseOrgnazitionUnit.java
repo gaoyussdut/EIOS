@@ -15,6 +15,11 @@ public abstract class BaseOrgnazitionUnit {
     protected Date createDate;    //  创建时间
     protected String createUser;  //  创建人
     protected Date enableDate;  //  启用时间
+
+    /*
+        传统组织架构信息
+     */
+    protected String pOuID; //  上级ou id
     protected int level;    //  级别
 
     /*

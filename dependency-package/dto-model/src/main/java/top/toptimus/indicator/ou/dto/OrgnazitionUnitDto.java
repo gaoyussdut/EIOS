@@ -33,8 +33,8 @@ public class OrgnazitionUnitDto extends BaseOrgnazitionUnit {
      * @param disableUser 禁用人
      * @param description 描述
      */
-    public OrgnazitionUnitDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, Date enableDate, int level, boolean isDisabled, Date disableDate, String disableUser, String description) {
-        super(ouCode, ouName, createDate, createUser, enableDate, level, isDisabled, disableDate, disableUser, description);
+    public OrgnazitionUnitDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, Date enableDate, String pOuID, int level, boolean isDisabled, Date disableDate, String disableUser, String description) {
+        super(ouCode, ouName, createDate, createUser, enableDate, pOuID, level, isDisabled, disableDate, disableUser, description);
         this.ouID = ouID;
     }
 
@@ -53,13 +53,25 @@ public class OrgnazitionUnitDto extends BaseOrgnazitionUnit {
     }
 
     /**
+     * 更新业务组织级别为顶层
+     *
+     * @return this
+     */
+    public OrgnazitionUnitDto buildTopLevel() {
+        this.level = 0;
+        this.pOuID = null;
+        return this;
+    }
+
+    /**
      * 更新业务组织级别
      *
      * @param level 级别
      * @return this
      */
-    public OrgnazitionUnitDto buildLevel(int level) {
+    public OrgnazitionUnitDto buildOrgTree(int level, String pOuId) {
         this.level = level;
+        this.pOuID = pOuId;
         return this;
     }
 

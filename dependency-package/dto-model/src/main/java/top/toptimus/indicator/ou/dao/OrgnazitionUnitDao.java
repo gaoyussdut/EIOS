@@ -39,6 +39,7 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
         this.createDate = orgnazitionUnitDto.getCreateDate();
         this.createUser = orgnazitionUnitDto.getCreateUser();
         this.enableDate = orgnazitionUnitDto.getEnableDate();
+        this.pOuID = orgnazitionUnitDto.getPOuID();
         this.level = orgnazitionUnitDto.getLevel();
         this.description = orgnazitionUnitDto.getDescription();
 
@@ -67,6 +68,7 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
                     , this.createDate
                     , this.createUser
                     , this.enableDate
+                    , this.pOuID
                     , this.level
                     , this.isDisabled
                     , this.disableDate
@@ -91,6 +93,7 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
                 , this.createDate
                 , this.createUser
                 , this.enableDate
+                , this.pOuID
                 , this.level
                 , this.isDisabled
                 , this.disableDate

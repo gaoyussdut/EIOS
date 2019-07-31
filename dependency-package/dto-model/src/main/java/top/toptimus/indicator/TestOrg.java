@@ -99,11 +99,33 @@ public class TestOrg {
                 orgnazitionUnitModel.getOrgnazitionUnitDao(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID())
         ));
 
-        System.out.println("找下级组织列表");
+        System.out.println("按照业务类型找下级组织列表");
         System.out.println(JSON.toJSONString(
                 orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)
         ));
+//        System.out.println("按照业务类型找上级组织属性——顶层报错");
+//        System.out.println(JSON.toJSONString(
+//                orgnazitionUnitModel.getParentOrgnazitionUnit(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)
+//        ));
+        System.out.println("按照业务类型找上级组织属性不报错");
+        System.out.println(JSON.toJSONString(
+                orgnazitionUnitModel.getParentOrgnazitionUnit(
+                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
+                        , IndicatorType.Finance
+                )
+        ));
 
+        System.out.println("不按照业务类型找下级组织列表");
+        System.out.println(JSON.toJSONString(
+                orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID())
+        ));
+
+        System.out.println("不按照业务类型找上级组织属性不报错");
+        System.out.println(JSON.toJSONString(
+                orgnazitionUnitModel.getParentOrgnazitionUnit(
+                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
+                )
+        ));
     }
 
     private static void testOthers() {
