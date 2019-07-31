@@ -11,6 +11,7 @@ import top.toptimus.indicator.ou.dto.OrgnazitionUnitDto;
 import top.toptimus.indicator.ou.model.OrgnazitionUnitModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,28 +25,169 @@ import java.util.UUID;
 public class OuEntity {
     private final ThreadLocal<OrgnazitionUnitModel> orgnazitionUnitModelThreadLocal = ThreadLocal.withInitial(OrgnazitionUnitModel::new);   //  单据线程缓存
 
-//    /**
-//     * 新增业务组织
-//     *
-//     * @param pOuId      上级业务组织id
-//     * @param ouCode     业务组织编码
-//     * @param ouName     业务组织名称
-//     * @param createDate 创建时间
-//     * @param createUser 创建人
-//     * @return 业务组织DTO
-//     */
-//    public OrgnazitionUnitDto createOrgnazitionUnit(
-//            String pOuId
-//            , String ouCode
-//            , String ouName
-//            , Date createDate
-//            , String createUser
-//    ) {
-//        OrgnazitionUnitDto orgnazitionUnitDto = this.orgnazitionUnitModelThreadLocal.get().createOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser);
-//        //  TODO    持久化数据库
-//
-//        return orgnazitionUnitDto;
-//    }
+
+    /**
+     * 从数据库中加载OU充血模型，在retrieve方法中调用
+     */
+    private void initOuData() {
+        List<OrgnazitionUnitDao> orgnazitionUnitDaos = new ArrayList<>();   //  TODO    从数据库中取数据
+
+        this.orgnazitionUnitModelThreadLocal.set(new OrgnazitionUnitModel(orgnazitionUnitDaos));
+    }
+
+    /*
+        业务组织基本信息维护（不带业务组织类型
+     */
+
+    /**
+     * 新增业务组织
+     *
+     * @param pOuId      上级业务组织id
+     * @param ouCode     业务组织编码
+     * @param ouName     业务组织名称
+     * @param createDate 创建时间
+     * @param createUser 创建人
+     * @return 业务组织DTO
+     */
+    public OrgnazitionUnitBaseInfoDto createOrgnazitionUnit(
+            String pOuId
+            , String ouCode
+            , String ouName
+            , Date createDate
+            , String createUser
+    ) {
+        OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto = this.orgnazitionUnitModelThreadLocal.get().createOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser);
+        //  TODO    持久化数据库
+
+        return orgnazitionUnitBaseInfoDto;
+    }
+
+    /**
+     * 取得上级业务组织
+     *
+     * @param ouId 业务组织dto id
+     * @return 上级业务组织dto
+     */
+    public OrgnazitionUnitBaseInfoDto getParentOrgnazitionUnit(String ouId) {
+        try {
+            return this.orgnazitionUnitModelThreadLocal.get().getParentOrgnazitionUnit(ouId);
+        } catch (Exception e) {
+            this.initOuData();
+            return this.orgnazitionUnitModelThreadLocal.get().getParentOrgnazitionUnit(ouId);
+        }
+    }
+
+    /**
+     * 取得下级业务组织列表
+     *
+     * @param ouId 业务组织dto id
+     * @return 下级业务组织dto列表
+     */
+    public List<OrgnazitionUnitBaseInfoDto> getChildOrgnazitionUnits(String ouId) {
+        try {
+            return this.orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(ouId);
+        } catch (Exception e) {
+            this.initOuData();
+            return this.orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(ouId);
+        }
+    }
+
+    /**
+     * 取得当前业务组织属性
+     *
+     * @param ouId 业务组织id
+     * @return 业务组织属性
+     */
+    public OrgnazitionUnitBaseInfoDto getOrgnazitionUnitDao(String ouId) {
+        try {
+            return this.orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitDao(ouId).buildOrgnazitionUnitBaseInfoDto();
+        } catch (Exception e) {
+            this.initOuData();
+            return this.orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitDao(ouId).buildOrgnazitionUnitBaseInfoDto();
+        }
+    }
+
+    /*
+        组织类型属性维护
+     */
+
+    /**
+     * 选择上级业务组
+     *
+     * @param ouId          业务组织dto id
+     * @param indicatorType 业务组织类型
+     * @return 下级业务组织dto列表
+     */
+    public List<OrgnazitionUnitDto> getOrgnazitionUnitsByIndicatorType(String ouId, IndicatorType indicatorType) {
+        try {
+            return this.orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitsByIndicatorType(ouId, indicatorType);
+        } catch (Exception e) {
+            this.initOuData();
+            return this.orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitsByIndicatorType(ouId, indicatorType);
+        }
+    }
+
+    /**
+     * 更新业务组织
+     *
+     * @param ouId                      业务组织id
+     * @param orgnazitionUnitAttributes 业务组织属性列表
+     */
+    public void updateOrgnazitionUnitAttributes(String ouId, List<OrgnazitionUnitAttribute> orgnazitionUnitAttributes) {
+        this.orgnazitionUnitModelThreadLocal.get().updateOrgnazitionUnitAttributes(ouId, orgnazitionUnitAttributes);
+        //  TODO    持久化数据库
+    }
+
+    /**
+     * 取得下级业务组织列表
+     *
+     * @param ouId          业务组织dto id
+     * @param indicatorType 业务组织类型
+     * @return 下级业务组织dto列表
+     */
+    public List<OrgnazitionUnitDto> getChildOrgnazitionUnits(String ouId, IndicatorType indicatorType) {
+        try {
+            return this.orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(ouId, indicatorType);
+        } catch (Exception e) {
+            this.initOuData();
+            return this.orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(ouId, indicatorType);
+        }
+    }
+
+    /**
+     * 根据业务组织类型取得上级业务组织
+     *
+     * @param ouId          业务组织dto id
+     * @param indicatorType 业务组织类型
+     * @return 上级业务组织dto
+     */
+    public OrgnazitionUnitDto getParentOrgnazitionUnit(String ouId, IndicatorType indicatorType) {
+        try {
+            return this.orgnazitionUnitModelThreadLocal.get().getParentOrgnazitionUnit(ouId, indicatorType);
+        } catch (Exception e) {
+            this.initOuData();
+            return this.orgnazitionUnitModelThreadLocal.get().getParentOrgnazitionUnit(ouId, indicatorType);
+        }
+    }
+
+    /**
+     * 取得业务组织顶层节点
+     *
+     * @return 顶层ou基础信息
+     */
+    public OrgnazitionUnitBaseInfoDto getTopLevelOrgnazitionUnitDao() {
+        try {
+            return this.orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().buildOrgnazitionUnitBaseInfoDto();
+        } catch (Exception e) {
+            this.initOuData();
+            return this.orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().buildOrgnazitionUnitBaseInfoDto();
+        }
+    }
+
+    /*
+        其他乱七八糟接口
+     */
+
 //
 //
 //    /**
@@ -69,35 +211,6 @@ public class OuEntity {
         //  TODO    持久化数据库
     }
 
-    /**
-     * 取得业务组织顶层节点
-     *
-     * @return 顶层ou基础信息
-     */
-    public OrgnazitionUnitBaseInfoDto getTopLevelOrgnazitionUnitDao() {
-        return this.orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().buildOrgnazitionUnitBaseInfoDto();
-    }
-
-    /**
-     * 取得当前业务组织属性
-     *
-     * @param ouId 业务组织id
-     * @return 业务组织属性
-     */
-    public OrgnazitionUnitDao getOrgnazitionUnitDao(String ouId) {
-        return this.orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitDao(ouId);
-    }
-
-    /**
-     * 取得下级业务组织列表
-     *
-     * @param ouId          业务组织dto id
-     * @param indicatorType 业务组织类型
-     * @return 下级业务组织dto列表
-     */
-    public List<OrgnazitionUnitDto> getChildOrgnazitionUnits(String ouId, IndicatorType indicatorType) {
-        return this.orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(ouId, indicatorType);
-    }
 
     /**
      * 下推关系
