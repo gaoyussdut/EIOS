@@ -245,6 +245,26 @@ public class OrgnazitionUnitModel {
     }
 
     /**
+     * 选择上级业务组织一览
+     *
+     * @param ouId          业务组织dto id
+     * @param indicatorType 业务组织类型
+     * @return 下级业务组织dto列表
+     */
+    public List<OrgnazitionUnitDto> getOrgnazitionUnitsByIndicatorType(String ouId, IndicatorType indicatorType) {
+        if (this.orgnazitionAttributeMap.containsKey(indicatorType)) {
+            return new ArrayList<OrgnazitionUnitDto>() {{
+                orgnazitionAttributeMap.get(indicatorType).keySet().forEach(id -> {
+                    if (!id.equals(ouId))
+                        add(orgnazitionAttributeMap.get(indicatorType).get(id));
+                });
+            }};
+        } else {
+            throw new RuntimeException(indicatorType.name() + "组织列表为空");
+        }
+    }
+
+    /**
      * 取得下级业务组织列表
      *
      * @param parentOuID 上级ou id

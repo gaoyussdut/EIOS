@@ -16,11 +16,28 @@ public class TestOrg {
     private static OrgnazitionUnitModel orgnazitionUnitModel;
 
     public static void main(String[] args) {
-        testOu();
+
+        OrgnazitionUnitModel initData = generateOrgnazitionUnitModel();
+        //  测试构造函数
+        orgnazitionUnitModel = new OrgnazitionUnitModel(
+                new ArrayList<OrgnazitionUnitDao>() {{
+                    initData.getOrgnazitionUnitMap().keySet().forEach(ouId -> add(initData.getOrgnazitionUnitMap().get(ouId)));
+                }}
+        );
+
+        testOuBaseInfo();
+        testOuWithAttribute();
         testIndicator();
     }
 
+    /**
+     * 测试指标数据
+     */
     private static void testIndicator() {
+        System.out.println();
+        System.out.println("----------------------------------");
+        System.out.println("测试指标数据");
+        System.out.println("----------------------------------");
         orgnazitionUnitModel.buildIndicatorBillRelModel(
                 new ArrayList<IndicatorOuRelDao>() {{
                     add(
@@ -78,16 +95,15 @@ public class TestOrg {
         ));
     }
 
-    private static void testOu() {
-        OrgnazitionUnitModel initData = generateOrgnazitionUnitModel();
-        //  测试构造函数
-        orgnazitionUnitModel = new OrgnazitionUnitModel(
-                new ArrayList<OrgnazitionUnitDao>() {{
-                    initData.getOrgnazitionUnitMap().keySet().forEach(ouId -> add(initData.getOrgnazitionUnitMap().get(ouId)));
-                }}
-        );
 
-//        System.out.println(JSON.toJSONString(orgnazitionUnitModel.getOrgnazitionUnitMap()));
+    /**
+     * 测试ou基础信息——不带业务组织类型
+     */
+    private static void testOuBaseInfo() {
+        System.out.println();
+        System.out.println("----------------------------------");
+        System.out.println("测试ou基础信息——不带业务组织类型");
+        System.out.println("----------------------------------");
 
         System.out.println("取得业务组织顶层节点");
         System.out.println(JSON.toJSONString(
@@ -97,6 +113,37 @@ public class TestOrg {
         System.out.println("根据ID取得组织基本信息");
         System.out.println(JSON.toJSONString(
                 orgnazitionUnitModel.getOrgnazitionUnitDao(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID())
+        ));
+        System.out.println("不按照业务类型找下级组织列表");
+        System.out.println(JSON.toJSONString(
+                orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID())
+        ));
+
+        System.out.println("不按照业务类型找上级组织属性不报错");
+        System.out.println(JSON.toJSONString(
+                orgnazitionUnitModel.getParentOrgnazitionUnit(
+                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
+                )
+        ));
+    }
+
+    /**
+     * 测试ou基础信息——带业务组织类型
+     */
+    private static void testOuWithAttribute() {
+        System.out.println();
+        System.out.println("----------------------------------");
+        System.out.println("测试ou基础信息——带业务组织类型");
+        System.out.println("----------------------------------");
+
+//        System.out.println(JSON.toJSONString(orgnazitionUnitModel.getOrgnazitionUnitMap()));
+
+        System.out.println("选择上级业务组织一览");
+        System.out.println(JSON.toJSONString(
+                orgnazitionUnitModel.getOrgnazitionUnitsByIndicatorType(
+                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
+                        , IndicatorType.Administration
+                )
         ));
 
         System.out.println("按照业务类型找下级组织列表");
@@ -115,17 +162,7 @@ public class TestOrg {
                 )
         ));
 
-        System.out.println("不按照业务类型找下级组织列表");
-        System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID())
-        ));
 
-        System.out.println("不按照业务类型找上级组织属性不报错");
-        System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getParentOrgnazitionUnit(
-                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
-                )
-        ));
     }
 
     private static void testOthers() {

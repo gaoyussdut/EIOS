@@ -6,6 +6,12 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * OU基类
+ *
+ * @author gaoyu
+ * @since 2019-07-19
+ */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,6 +37,14 @@ public abstract class BaseOrgnazitionUnit {
 
     protected String description; //  描述
 
+    /**
+     * 构造函数
+     *
+     * @param ouCode     ou的编码
+     * @param ouName     ou的名称
+     * @param createDate 创建时间
+     * @param createUser 创建人
+     */
     public BaseOrgnazitionUnit(String ouCode, String ouName, Date createDate, String createUser) {
         this.ouCode = ouCode;
         this.ouName = ouName;
