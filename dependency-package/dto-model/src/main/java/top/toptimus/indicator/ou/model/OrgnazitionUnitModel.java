@@ -1,6 +1,5 @@
 package top.toptimus.indicator.ou.model;
 
-import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;

@@ -167,34 +167,34 @@ public class TestOrg {
 
     }
 
-    private static void testOthers() {
-        OrgnazitionUnitModel initData = generateOrgnazitionUnitModel();
-        //  测试构造函数
-        OrgnazitionUnitModel orgnazitionUnitModel = new OrgnazitionUnitModel(
-                new ArrayList<OrgnazitionUnitDao>() {{
-                    initData.getOrgnazitionUnitMap().keySet().forEach(ouId -> add(initData.getOrgnazitionUnitMap().get(ouId)));
-                }}
-        );
-        System.out.println("找下级组织列表");
-        System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getChildOrgnazitionUnits("1", IndicatorType.Finance)
-        ));
-        System.out.println("找上级组织属性");
-        System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getParentOrgnazitionUnit("2", IndicatorType.Finance)
-        ));
-        System.out.println("当前组织属性");
-        System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getOrgnazitionUnitDao("1")
-        ));
-        System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getOrgnazitionUnitDao("2")
-        ));
-        System.out.println("当获取某一属性下的业务组织树");
-        System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getOrgnazitionTreeViewByAttribute(IndicatorType.Finance)
-        ));
-    }
+//    private static void testOthers() {
+//        OrgnazitionUnitModel initData = generateOrgnazitionUnitModel();
+//        //  测试构造函数
+//        OrgnazitionUnitModel orgnazitionUnitModel = new OrgnazitionUnitModel(
+//                new ArrayList<OrgnazitionUnitDao>() {{
+//                    initData.getOrgnazitionUnitMap().keySet().forEach(ouId -> add(initData.getOrgnazitionUnitMap().get(ouId)));
+//                }}
+//        );
+//        System.out.println("找下级组织列表");
+//        System.out.println(JSON.toJSONString(
+//                orgnazitionUnitModel.getChildOrgnazitionUnits("1", IndicatorType.Finance)
+//        ));
+//        System.out.println("找上级组织属性");
+//        System.out.println(JSON.toJSONString(
+//                orgnazitionUnitModel.getParentOrgnazitionUnit("2", IndicatorType.Finance)
+//        ));
+//        System.out.println("当前组织属性");
+//        System.out.println(JSON.toJSONString(
+//                orgnazitionUnitModel.getOrgnazitionUnitDao("1")
+//        ));
+//        System.out.println(JSON.toJSONString(
+//                orgnazitionUnitModel.getOrgnazitionUnitDao("2")
+//        ));
+//        System.out.println("当获取某一属性下的业务组织树");
+//        System.out.println(JSON.toJSONString(
+//                orgnazitionUnitModel.getOrgnazitionTreeViewByAttribute(IndicatorType.Finance)
+//        ));
+//    }
 
     private static OrgnazitionUnitModel generateOrgnazitionUnitModel() {
         OrgnazitionUnitModel orgnazitionUnitModel = new OrgnazitionUnitModel();
