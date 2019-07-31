@@ -13,16 +13,18 @@ import java.util.Date;
 import java.util.UUID;
 
 public class TestOrg {
-    private static OrgnazitionUnitModel orgnazitionUnitModel;
+    private static ThreadLocal<OrgnazitionUnitModel> orgnazitionUnitModelThreadLocal = ThreadLocal.withInitial(OrgnazitionUnitModel::new);   //  单据线程缓存
 
     public static void main(String[] args) {
 
         OrgnazitionUnitModel initData = generateOrgnazitionUnitModel();
         //  测试构造函数
-        orgnazitionUnitModel = new OrgnazitionUnitModel(
-                new ArrayList<OrgnazitionUnitDao>() {{
-                    initData.getOrgnazitionUnitMap().keySet().forEach(ouId -> add(initData.getOrgnazitionUnitMap().get(ouId)));
-                }}
+        orgnazitionUnitModelThreadLocal.set(
+                new OrgnazitionUnitModel(
+                        new ArrayList<OrgnazitionUnitDao>() {{
+                            initData.getOrgnazitionUnitMap().keySet().forEach(ouId -> add(initData.getOrgnazitionUnitMap().get(ouId)));
+                        }}
+                )
         );
 
         testOuBaseInfo();
@@ -38,13 +40,13 @@ public class TestOrg {
         System.out.println("----------------------------------");
         System.out.println("测试指标数据");
         System.out.println("----------------------------------");
-        orgnazitionUnitModel.buildIndicatorBillRelModel(
+        orgnazitionUnitModelThreadLocal.get().buildIndicatorBillRelModel(
                 new ArrayList<IndicatorOuRelDao>() {{
                     add(
                             new IndicatorOuRelDao(
                                     "rel1"
-                                    , orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
-                                    , orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
+                                    , orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()
+                                    , orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
                                     , "meta1"
                                     , "meta2"
                                     , true
@@ -55,8 +57,8 @@ public class TestOrg {
                     add(
                             new IndicatorOuRelDao(
                                     "rel2"
-                                    , orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
-                                    , orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(1).getOuID()
+                                    , orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()
+                                    , orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(1).getOuID()
                                     , "meta3"
                                     , "meta4"
                                     , true
@@ -67,11 +69,11 @@ public class TestOrg {
                 }}
         );
 
-        orgnazitionUnitModel.getIndicatorBillRelModel().buildIndicatorOURel(
+        orgnazitionUnitModelThreadLocal.get().getIndicatorBillRelModel().buildIndicatorOURel(
                 new IndicatorOuRelDto(
                         "rel3"
-                        , orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
-                        , orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
+                        , orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()
+                        , orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
                         , "meta1"
                         , "meta2"
                         , true
@@ -82,12 +84,12 @@ public class TestOrg {
 
         System.out.println("根据ou id取得下推分发规则");
         System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getIndicatorBillRelModel().getIndicatorOuRelDaosByOuId(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)
+                orgnazitionUnitModelThreadLocal.get().getIndicatorBillRelModel().getIndicatorOuRelDaosByOuId(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)
         ));
 
         System.out.println("根据id取得下推分发规则");
         System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getIndicatorBillRelModel().buildIndicatorTokenDefineDao(
+                orgnazitionUnitModelThreadLocal.get().getIndicatorBillRelModel().buildIndicatorTokenDefineDao(
                         "rel1"
                         , UUID.randomUUID().toString()
                         , UUID.randomUUID().toString()
@@ -107,22 +109,22 @@ public class TestOrg {
 
         System.out.println("取得业务组织顶层节点");
         System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao()
+                orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao()
         ));
 
         System.out.println("根据ID取得组织基本信息");
         System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getOrgnazitionUnitDao(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID())
+                orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitDao(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID())
         ));
         System.out.println("不按照业务类型找下级组织列表");
         System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID())
+                orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID())
         ));
 
         System.out.println("不按照业务类型找上级组织属性不报错");
         System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getParentOrgnazitionUnit(
-                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID())
+                orgnazitionUnitModelThreadLocal.get().getParentOrgnazitionUnit(
+                        orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID())
                                 .get(0)
                                 .getOuID()
                 )
@@ -140,8 +142,8 @@ public class TestOrg {
 
         System.out.println("选择上级业务组织一览");
         System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getOrgnazitionUnitsByIndicatorType(
-                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)
+                orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitsByIndicatorType(
+                        orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)
                                 .get(0)
                                 .getOuID()
                         , IndicatorType.Administration
@@ -150,7 +152,7 @@ public class TestOrg {
 
         System.out.println("按照业务类型找下级组织列表");
         System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)
+                orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)
         ));
 //        System.out.println("按照业务类型找上级组织属性——顶层报错");
 //        System.out.println(JSON.toJSONString(
@@ -158,8 +160,8 @@ public class TestOrg {
 //        ));
         System.out.println("按照业务类型找上级组织属性不报错");
         System.out.println(JSON.toJSONString(
-                orgnazitionUnitModel.getParentOrgnazitionUnit(
-                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
+                orgnazitionUnitModelThreadLocal.get().getParentOrgnazitionUnit(
+                        orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
                         , IndicatorType.Finance
                 )
         ));
