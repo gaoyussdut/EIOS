@@ -28,29 +28,44 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
     private Map<IndicatorType, OrgnazitionUnitAttribute> orgnazitionUnitAttributes = new HashMap<>();
 
     /**
-     * 更新
+     * 更新业务组织，不带业务组织属性
      *
-     * @param orgnazitionUnitDto 业务组织dto
+     * @param orgnazitionUnitBaseInfoDto 业务组织dto
      */
-    public OrgnazitionUnitDao(OrgnazitionUnitDto orgnazitionUnitDto) {
-        this.ouID = orgnazitionUnitDto.getOuID();
-        this.ouCode = orgnazitionUnitDto.getOuCode();
-        this.ouName = orgnazitionUnitDto.getOuName();
-        this.createDate = orgnazitionUnitDto.getCreateDate();
-        this.createUser = orgnazitionUnitDto.getCreateUser();
-        this.enableDate = orgnazitionUnitDto.getEnableDate();
-        this.pOuID = orgnazitionUnitDto.getPOuID();
-        this.level = orgnazitionUnitDto.getLevel();
-        this.description = orgnazitionUnitDto.getDescription();
+    public OrgnazitionUnitDao(OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto) {
+        this.ouID = orgnazitionUnitBaseInfoDto.getOuID();
+        this.ouCode = orgnazitionUnitBaseInfoDto.getOuCode();
+        this.ouName = orgnazitionUnitBaseInfoDto.getOuName();
+        this.createDate = orgnazitionUnitBaseInfoDto.getCreateDate();
+        this.createUser = orgnazitionUnitBaseInfoDto.getCreateUser();
+        this.enableDate = orgnazitionUnitBaseInfoDto.getEnableDate();
+        this.pOuID = orgnazitionUnitBaseInfoDto.getPOuID();
+        this.level = orgnazitionUnitBaseInfoDto.getLevel();
+        this.description = orgnazitionUnitBaseInfoDto.getDescription();
 
-        if (null != orgnazitionUnitDto.getOrgnazitionUnitAttribute())
+        this.disableDate = orgnazitionUnitBaseInfoDto.getDisableDate();
+        this.disableUser = orgnazitionUnitBaseInfoDto.getDisableUser();
+    }
+
+    public OrgnazitionUnitDao(OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto, OrgnazitionUnitAttribute orgnazitionUnitAttribute) {
+        this.ouID = orgnazitionUnitBaseInfoDto.getOuID();
+        this.ouCode = orgnazitionUnitBaseInfoDto.getOuCode();
+        this.ouName = orgnazitionUnitBaseInfoDto.getOuName();
+        this.createDate = orgnazitionUnitBaseInfoDto.getCreateDate();
+        this.createUser = orgnazitionUnitBaseInfoDto.getCreateUser();
+        this.enableDate = orgnazitionUnitBaseInfoDto.getEnableDate();
+        this.pOuID = orgnazitionUnitBaseInfoDto.getPOuID();
+        this.level = orgnazitionUnitBaseInfoDto.getLevel();
+        this.description = orgnazitionUnitBaseInfoDto.getDescription();
+
+        this.disableDate = orgnazitionUnitBaseInfoDto.getDisableDate();
+        this.disableUser = orgnazitionUnitBaseInfoDto.getDisableUser();
+
+        if (null != orgnazitionUnitAttribute)
             this.orgnazitionUnitAttributes.put(
-                    orgnazitionUnitDto.getOrgnazitionUnitAttribute().getIndicatorType()
-                    , orgnazitionUnitDto.getOrgnazitionUnitAttribute()
+                    orgnazitionUnitAttribute.getIndicatorType()
+                    , orgnazitionUnitAttribute
             );
-        this.disableDate = orgnazitionUnitDto.getDisableDate();
-        this.disableUser = orgnazitionUnitDto.getDisableUser();
-
     }
 
     /**

@@ -122,7 +122,9 @@ public class TestOrg {
         System.out.println("不按照业务类型找上级组织属性不报错");
         System.out.println(JSON.toJSONString(
                 orgnazitionUnitModel.getParentOrgnazitionUnit(
-                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
+                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID())
+                                .get(0)
+                                .getOuID()
                 )
         ));
     }
@@ -136,12 +138,14 @@ public class TestOrg {
         System.out.println("测试ou基础信息——带业务组织类型");
         System.out.println("----------------------------------");
 
-//        System.out.println(JSON.toJSONString(orgnazitionUnitModel.getOrgnazitionUnitMap()));
+        System.out.println("caonima:" + JSON.toJSONString(orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)));
 
         System.out.println("选择上级业务组织一览");
         System.out.println(JSON.toJSONString(
                 orgnazitionUnitModel.getOrgnazitionUnitsByIndicatorType(
-                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
+                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)
+                                .get(0)
+                                .getOuID()
                         , IndicatorType.Administration
                 )
         ));
@@ -196,7 +200,9 @@ public class TestOrg {
 
     private static OrgnazitionUnitModel generateOrgnazitionUnitModel() {
         OrgnazitionUnitModel orgnazitionUnitModel = new OrgnazitionUnitModel();
-        return orgnazitionUnitModel
+
+        //  创建三个业务组织
+        orgnazitionUnitModel
                 .updateOrgnazitionUnit(
                         orgnazitionUnitModel.createOrgnazitionUnit(
                                 null
@@ -204,24 +210,59 @@ public class TestOrg {
                                 , "ouName1"
                                 , new Date()
                                 , "猪"
-                        ).buildOrgnazitionUnitAttribute(new OrgnazitionUnitAttribute(IndicatorType.Administration, true))
-                ).updateOrgnazitionUnit(
+                        )
+                )
+                .updateOrgnazitionUnit(
                         orgnazitionUnitModel.createOrgnazitionUnit(
                                 orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
                                 , "ouCode2"
                                 , "ouName2"
                                 , new Date()
                                 , "猪"
-                        ).buildOrgnazitionUnitAttribute(new OrgnazitionUnitAttribute(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance, false))
-                ).updateOrgnazitionUnit(
+                        )
+                )
+                .updateOrgnazitionUnit(
                         orgnazitionUnitModel.createOrgnazitionUnit(
                                 orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
                                 , "ouCode3"
                                 , "ouName3"
                                 , new Date()
                                 , "猪"
-                        ).buildOrgnazitionUnitAttribute(new OrgnazitionUnitAttribute(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance, false))
+                        )
                 );
 
+        return orgnazitionUnitModel
+                .updateOrgnazitionUnitAttributes(
+                        orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
+                        , new ArrayList<OrgnazitionUnitAttribute>() {{
+                            //  模拟业务组织ouCode1，拥有行政和财务属性
+                            add(new OrgnazitionUnitAttribute(IndicatorType.Finance, false));
+                            add(new OrgnazitionUnitAttribute(IndicatorType.Administration, false));
+                        }}
+                )
+                .updateOrgnazitionUnitAttributes(
+                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()).get(0).getOuID()
+                        , new ArrayList<OrgnazitionUnitAttribute>() {{
+                            //  模拟业务组织ouCode2，拥有财务属性
+                            add(
+                                    new OrgnazitionUnitAttribute(
+                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
+                                            , IndicatorType.Finance
+                                            , false)
+                            );
+                        }}
+                )
+                .updateOrgnazitionUnitAttributes(
+                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()
+                        , new ArrayList<OrgnazitionUnitAttribute>() {{
+                            //  模拟业务组织ouCode2，拥有财务属性
+                            add(
+                                    new OrgnazitionUnitAttribute(
+                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
+                                            , IndicatorType.Finance
+                                            , false)
+                            );
+                        }}
+                );
     }
 }

@@ -18,6 +18,29 @@ public class OrgnazitionUnitDto extends BaseOrgnazitionUnit {
     protected String ouID;    //  ou的id
     private OrgnazitionUnitAttribute orgnazitionUnitAttribute;  //  业务组织属性
 
+
+    /**
+     * 转化为基础属性
+     *
+     * @return OU基础信息
+     */
+    public OrgnazitionUnitBaseInfoDto buildOrgnazitionUnitBaseInfoDto() {
+        return new OrgnazitionUnitBaseInfoDto(
+                this.ouID
+                , this.ouCode
+                , this.ouName
+                , this.createDate
+                , this.createUser
+                , this.enableDate
+                , this.pOuID
+                , this.level
+                , this.isDisabled
+                , this.disableDate
+                , this.disableUser
+                , this.description
+        );
+    }
+
     /**
      * dao转dto用
      *
@@ -36,61 +59,6 @@ public class OrgnazitionUnitDto extends BaseOrgnazitionUnit {
     public OrgnazitionUnitDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, Date enableDate, String pOuID, int level, boolean isDisabled, Date disableDate, String disableUser, String description) {
         super(ouCode, ouName, createDate, createUser, enableDate, pOuID, level, isDisabled, disableDate, disableUser, description);
         this.ouID = ouID;
-    }
-
-    /**
-     * 业务组织基础信息
-     *
-     * @param ouID       ou id
-     * @param ouCode     ou编码
-     * @param ouName     ou名称
-     * @param createDate 创建时间
-     * @param createUser 创建人
-     */
-    public OrgnazitionUnitDto(String ouID, String ouCode, String ouName, Date createDate, String createUser) {
-        super(ouCode, ouName, createDate, createUser);
-        this.ouID = ouID;
-    }
-
-    /**
-     * 更新业务组织级别为顶层
-     *
-     * @return this
-     */
-    public OrgnazitionUnitDto buildTopLevel() {
-        this.level = 0;
-        this.pOuID = null;
-        return this;
-    }
-
-    /**
-     * 更新业务组织级别
-     *
-     * @param level 级别
-     * @return this
-     */
-    public OrgnazitionUnitDto buildOrgTree(int level, String pOuId) {
-        this.level = level;
-        this.pOuID = pOuId;
-        return this;
-    }
-
-    /**
-     * 初始化构造函数
-     *
-     * @param ouCode      ou的编码
-     * @param ouName      ou的名称
-     * @param createUser  创建人
-     * @param description 描述
-     */
-    public OrgnazitionUnitDto(String ouID, String ouCode, String ouName, String createUser, String description) {
-        this.ouID = ouID;
-        this.ouCode = ouCode;
-        this.ouName = ouName;
-        this.createDate = new Date();
-        this.createUser = createUser;
-        this.enableDate = new Date();
-        this.description = description;
     }
 
     /**

@@ -1,5 +1,6 @@
 package top.toptimus.indicator.ou.model;
 
+import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -45,6 +46,63 @@ public class OrgnazitionUnitModel {
         });
     }
 
+
+    /**
+     * 更新业务组织
+     *
+     * @param orgnazitionUnitBaseInfoDto 业务组织dto,不带业务组织属性
+     */
+    public OrgnazitionUnitModel updateOrgnazitionUnit(OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto) {
+        this.orgnazitionUnitMap.put(orgnazitionUnitBaseInfoDto.getOuID(), new OrgnazitionUnitDao(orgnazitionUnitBaseInfoDto));
+        return this;
+    }
+
+    /**
+     * 更新业务组织
+     *
+     * @param ouId                      业务组织id
+     * @param orgnazitionUnitAttributes 业务组织属性列表
+     * @return this
+     */
+    public OrgnazitionUnitModel updateOrgnazitionUnitAttributes(String ouId, List<OrgnazitionUnitAttribute> orgnazitionUnitAttributes) {
+        for (OrgnazitionUnitAttribute orgnazitionUnitAttribute : orgnazitionUnitAttributes) {
+            this.updateOrgnazitionUnitAttribute(ouId, orgnazitionUnitAttribute);
+        }
+        return this;
+    }
+
+    /**
+     * 更新业务组织
+     *
+     * @param ouId                     业务组织id
+     * @param orgnazitionUnitAttribute 业务组织属性
+     */
+    private void updateOrgnazitionUnitAttribute(String ouId, OrgnazitionUnitAttribute orgnazitionUnitAttribute) {
+        //  OU列表更新
+        if (this.orgnazitionUnitMap.containsKey(ouId)) {
+            //  更新逻辑
+            this.orgnazitionUnitMap.get(ouId)
+                    .getOrgnazitionUnitAttributes()
+                    .put(
+                            orgnazitionUnitAttribute.getIndicatorType()
+                            , orgnazitionUnitAttribute
+                    );
+        } else {
+            //  新增逻辑
+            this.orgnazitionUnitMap.put(
+                    ouId
+                    , new OrgnazitionUnitDao(
+                            orgnazitionAttributeMap.get(orgnazitionUnitAttribute.getIndicatorType()).get(ouId).buildOrgnazitionUnitBaseInfoDto()
+                            , orgnazitionUnitAttribute
+                    )
+            );
+        }
+        this.generateOrgnazitionAttributeMap(
+                orgnazitionUnitAttribute.getIndicatorType()
+                , this.orgnazitionUnitMap.get(ouId)   //  变更业务组织属性
+        );
+    }
+
     /**
      * 不同属性下的组织列表
      *
@@ -65,51 +123,6 @@ public class OrgnazitionUnitModel {
     }
 
     /**
-     * 不同属性下的组织列表
-     *
-     * @param indicatorType      业务指标类型
-     * @param orgnazitionUnitDto OU定义,包含单一业务组织属性
-     */
-    private void generateOrgnazitionAttributeMap(IndicatorType indicatorType, OrgnazitionUnitDto orgnazitionUnitDto) {
-        if (this.orgnazitionAttributeMap.containsKey(indicatorType)) {
-            this.orgnazitionAttributeMap.get(indicatorType).put(orgnazitionUnitDto.getOuID(), orgnazitionUnitDto);
-        } else {
-            this.orgnazitionAttributeMap.put(
-                    indicatorType
-                    , new HashMap<String, OrgnazitionUnitDto>() {{
-                        put(orgnazitionUnitDto.getOuID(), orgnazitionUnitDto);
-                    }}
-            );
-        }
-    }
-
-    /**
-     * 更新业务组织
-     *
-     * @param orgnazitionUnitDto 业务组织dto
-     */
-    public OrgnazitionUnitModel updateOrgnazitionUnit(OrgnazitionUnitDto orgnazitionUnitDto) {
-        //  OU列表更新
-        if (this.orgnazitionUnitMap.containsKey(orgnazitionUnitDto.getOuID())) {
-            //  更新逻辑
-            this.orgnazitionUnitMap.get(orgnazitionUnitDto.getOuID())
-                    .getOrgnazitionUnitAttributes()
-                    .put(
-                            orgnazitionUnitDto.getOrgnazitionUnitAttribute().getIndicatorType()
-                            , orgnazitionUnitDto.getOrgnazitionUnitAttribute()
-                    );
-        } else {
-            //  新增逻辑
-            this.orgnazitionUnitMap.put(orgnazitionUnitDto.getOuID(), new OrgnazitionUnitDao(orgnazitionUnitDto));
-        }
-
-        //  遍历组织下的多属性，生成不同属性下的组织列表
-        this.generateOrgnazitionAttributeMap(orgnazitionUnitDto.getOrgnazitionUnitAttribute().getIndicatorType(), orgnazitionUnitDto);
-
-        return this;
-    }
-
-    /**
      * 新增业务组织
      *
      * @param pOuId      上级业务组织id
@@ -119,7 +132,7 @@ public class OrgnazitionUnitModel {
      * @param createUser 创建人
      * @return 业务组织DTO
      */
-    public OrgnazitionUnitDto createOrgnazitionUnit(
+    public OrgnazitionUnitBaseInfoDto createOrgnazitionUnit(
             String pOuId
             , String ouCode
             , String ouName
@@ -127,7 +140,7 @@ public class OrgnazitionUnitModel {
             , String createUser
     ) {
         //  新建组织树
-        OrgnazitionUnitDto orgnazitionUnitDto = new OrgnazitionUnitDto(
+        OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto = new OrgnazitionUnitBaseInfoDto(
                 UUID.randomUUID().toString()
                 , ouCode
                 , ouName
@@ -139,12 +152,12 @@ public class OrgnazitionUnitModel {
             if (this.orgnazitionUnitMap.isEmpty()) {
                 //  新增逻辑
                 this.orgnazitionUnitMap.put(
-                        orgnazitionUnitDto.getOuID()
+                        orgnazitionUnitBaseInfoDto.getOuID()
                         , new OrgnazitionUnitDao(
-                                orgnazitionUnitDto.buildTopLevel()    //  业务组织级别为0
+                                orgnazitionUnitBaseInfoDto.buildTopLevel()    //  业务组织级别为0
                         )
                 );
-                return orgnazitionUnitDto;
+                return orgnazitionUnitBaseInfoDto;
             } else {
                 //  业务组织树不能重新建立
                 throw new RuntimeException("请选择业务组织的上级节点");
@@ -156,15 +169,15 @@ public class OrgnazitionUnitModel {
 
                 //  新增逻辑
                 this.orgnazitionUnitMap.put(
-                        orgnazitionUnitDto.getOuID()
+                        orgnazitionUnitBaseInfoDto.getOuID()
                         , new OrgnazitionUnitDao(
-                                orgnazitionUnitDto.buildOrgTree(
+                                orgnazitionUnitBaseInfoDto.buildOrgTree(
                                         this.getOrgnazitionUnitMap().get(pOuId).getLevel() + 1
                                         , pOuId
                                 )    //  业务组织级别为上级业务组织level+1,上级业务组织为Pid
                         )
                 );
-                return orgnazitionUnitDto;
+                return orgnazitionUnitBaseInfoDto;
             } else {
                 throw new RuntimeException("请业务组织的上级节点错误");
             }
@@ -194,7 +207,6 @@ public class OrgnazitionUnitModel {
      */
     public OrgnazitionUnitDto getParentOrgnazitionUnit(String ouId, IndicatorType indicatorType) {
         try {
-            System.out.println(this.orgnazitionAttributeMap.get(indicatorType).get(ouId).getOrgnazitionUnitAttribute().getParentId());
             return this.orgnazitionAttributeMap.get(indicatorType).get(
                     this.orgnazitionAttributeMap.get(indicatorType).get(ouId).getOrgnazitionUnitAttribute().getParentId()
             );
@@ -224,7 +236,7 @@ public class OrgnazitionUnitModel {
         if (this.orgnazitionAttributeMap.containsKey(indicatorType)) {
             return this.getChildOrgnazitionUnits(ouId, this.orgnazitionAttributeMap.get(indicatorType));
         } else {
-            throw new RuntimeException(ouId + "没有上级业务组织");
+            throw new RuntimeException(indicatorType.name() + "," + ouId + "没有上级业务组织");
         }
     }
 
@@ -277,7 +289,8 @@ public class OrgnazitionUnitModel {
                 unitMap.keySet().forEach(ouId -> {
                     if (
                             StringUtils.isNotEmpty(unitMap.get(ouId).getOrgnazitionUnitAttribute().getParentId())   //  判空
-                                    && unitMap.get(ouId).getOrgnazitionUnitAttribute().getParentId().equals(parentOuID)
+                                    &&
+                                    unitMap.get(ouId).getOrgnazitionUnitAttribute().getParentId().equals(parentOuID)
                             ) {
                         add(unitMap.get(ouId));
                     }
