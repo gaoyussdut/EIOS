@@ -250,6 +250,12 @@ public class TestOrg {
                                             , IndicatorType.Finance
                                             , false)
                             );
+                            add(
+                                    new OrgnazitionUnitAttribute(
+                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                            , IndicatorType.Administration
+                                            , false)
+                            );
                         }}
                 )
                 .updateOrgnazitionUnitAttributes(
@@ -260,6 +266,12 @@ public class TestOrg {
                                     new OrgnazitionUnitAttribute(
                                             orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
                                             , IndicatorType.Finance
+                                            , false)
+                            );
+                            add(
+                                    new OrgnazitionUnitAttribute(
+                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                            , IndicatorType.Administration
                                             , false)
                             );
                         }}

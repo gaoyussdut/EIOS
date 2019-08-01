@@ -221,7 +221,9 @@ public class OrgnazitionUnitModel {
      * @return 上级业务组织dto
      */
     public OrgnazitionUnitBaseInfoDto getParentOrgnazitionUnit(String ouId) {
-        return this.orgnazitionUnitMap.get(ouId).buildOrgnazitionUnitBaseInfoDto();
+        return this.orgnazitionUnitMap.get(
+                this.orgnazitionUnitMap.get(ouId).getPOuID()
+        ).buildOrgnazitionUnitBaseInfoDto();
     }
 
     /**
