@@ -16,16 +16,7 @@ public class TestOrg {
     private static ThreadLocal<OrgnazitionUnitModel> orgnazitionUnitModelThreadLocal = ThreadLocal.withInitial(OrgnazitionUnitModel::new);   //  单据线程缓存
 
     public static void main(String[] args) {
-
-        OrgnazitionUnitModel initData = generateOrgnazitionUnitModel();
-        //  测试构造函数
-        orgnazitionUnitModelThreadLocal.set(
-                new OrgnazitionUnitModel(
-                        new ArrayList<OrgnazitionUnitDao>() {{
-                            initData.getOrgnazitionUnitMap().keySet().forEach(ouId -> add(initData.getOrgnazitionUnitMap().get(ouId)));
-                        }}
-                )
-        );
+        initTestData(); //  测试数据
 
         testOuBaseInfo();
         testOuWithAttribute();
@@ -40,47 +31,7 @@ public class TestOrg {
         System.out.println("----------------------------------");
         System.out.println("测试指标数据");
         System.out.println("----------------------------------");
-        orgnazitionUnitModelThreadLocal.get().buildIndicatorBillRelModel(
-                new ArrayList<IndicatorOuRelDao>() {{
-                    add(
-                            new IndicatorOuRelDao(
-                                    "rel1"
-                                    , orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()
-                                    , orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
-                                    , "meta1"
-                                    , "meta2"
-                                    , true
-                                    , "procedureName1"
-                                    , IndicatorType.Finance
-                            )
-                    );
-                    add(
-                            new IndicatorOuRelDao(
-                                    "rel2"
-                                    , orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()
-                                    , orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(1).getOuID()
-                                    , "meta3"
-                                    , "meta4"
-                                    , true
-                                    , "procedureName2"
-                                    , IndicatorType.Administration
-                            )
-                    );
-                }}
-        );
 
-        orgnazitionUnitModelThreadLocal.get().getIndicatorBillRelModel().buildIndicatorOURel(
-                new IndicatorOuRelDto(
-                        "rel3"
-                        , orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()
-                        , orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
-                        , "meta1"
-                        , "meta2"
-                        , true
-                        , "procedureName11"
-                        , IndicatorType.Finance
-                )
-        );
 
         System.out.println("根据ou id取得下推分发规则");
         System.out.println(JSON.toJSONString(
@@ -198,7 +149,7 @@ public class TestOrg {
 //        ));
 //    }
 
-    private static OrgnazitionUnitModel generateOrgnazitionUnitModel() {
+    private static void initTestData() {
         OrgnazitionUnitModel orgnazitionUnitModel = new OrgnazitionUnitModel();
 
         //  创建三个业务组织
@@ -231,7 +182,7 @@ public class TestOrg {
                         )
                 );
 
-        return orgnazitionUnitModel
+        OrgnazitionUnitModel initData = orgnazitionUnitModel
                 .updateOrgnazitionUnitAttributes(
                         orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
                         , new ArrayList<OrgnazitionUnitAttribute>() {{
@@ -276,5 +227,59 @@ public class TestOrg {
                             );
                         }}
                 );
+
+        //  测试构造函数
+        orgnazitionUnitModelThreadLocal.set(
+                new OrgnazitionUnitModel(
+                        new ArrayList<OrgnazitionUnitDao>() {{
+                            initData.getOrgnazitionUnitMap().keySet().forEach(ouId -> add(initData.getOrgnazitionUnitMap().get(ouId)));
+                        }}
+                )
+        );
+
+        /*
+            测试的指标数据建立
+         */
+        orgnazitionUnitModelThreadLocal.get().buildIndicatorBillRelModel(
+                new ArrayList<IndicatorOuRelDao>() {{
+                    add(
+                            new IndicatorOuRelDao(
+                                    "rel1"
+                                    , orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()
+                                    , orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
+                                    , "meta1"
+                                    , "meta2"
+                                    , true
+                                    , "procedureName1"
+                                    , IndicatorType.Finance
+                            )
+                    );
+                    add(
+                            new IndicatorOuRelDao(
+                                    "rel2"
+                                    , orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()
+                                    , orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(1).getOuID()
+                                    , "meta3"
+                                    , "meta4"
+                                    , true
+                                    , "procedureName2"
+                                    , IndicatorType.Administration
+                            )
+                    );
+                }}
+        );
+
+        orgnazitionUnitModelThreadLocal.get().getIndicatorBillRelModel().buildIndicatorOURel(
+                new IndicatorOuRelDto(
+                        "rel3"
+                        , orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()
+                        , orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance).get(0).getOuID()
+                        , "meta1"
+                        , "meta2"
+                        , true
+                        , "procedureName11"
+                        , IndicatorType.Finance
+                )
+        );
     }
 }
