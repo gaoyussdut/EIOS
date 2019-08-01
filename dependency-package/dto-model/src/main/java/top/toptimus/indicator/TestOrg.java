@@ -35,7 +35,12 @@ public class TestOrg {
 
         System.out.println("根据ou id取得下推分发规则");
         System.out.println(JSON.toJSONString(
-                orgnazitionUnitModelThreadLocal.get().getIndicatorBillRelModel().getIndicatorOuRelDaosByOuId(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Finance)
+                orgnazitionUnitModelThreadLocal.get()
+                        .getIndicatorBillRelModel()
+                        .getIndicatorOuRelDaosByOuId(
+                                orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID() //  ouCode1
+                                , IndicatorType.Finance
+                        )
         ));
 
         System.out.println("根据id取得下推分发规则");

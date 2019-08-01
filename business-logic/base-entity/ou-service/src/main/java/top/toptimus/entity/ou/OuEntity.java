@@ -30,9 +30,18 @@ public class OuEntity {
      * 从数据库中加载OU充血模型，在retrieve方法中调用
      */
     private void initOuData() {
+        /*
+            ou初始化
+         */
         List<OrgnazitionUnitDao> orgnazitionUnitDaos = new ArrayList<>();   //  TODO    从数据库中取数据
 
         this.orgnazitionUnitModelThreadLocal.set(new OrgnazitionUnitModel(orgnazitionUnitDaos));
+    }
+
+    private void initIndicator() {
+        List<IndicatorOuRelDao> indicatorOURelDaos = new ArrayList<>();   //  TODO    从数据库中取数据
+
+        this.orgnazitionUnitModelThreadLocal.get().buildIndicatorBillRelModel(indicatorOURelDaos);
     }
 
     /*
@@ -182,6 +191,44 @@ public class OuEntity {
             this.initOuData();
             return this.orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().buildOrgnazitionUnitBaseInfoDto();
         }
+    }
+
+    /*
+        指标单据转换配置
+     */
+
+    /**
+     * 根据业务组织单元id取得指标单据转换配置关系列表
+     *
+     * @param ouId ou id
+     * @return 指标单据转换配置关系列表
+     */
+    public List<IndicatorOuRelDto> getIndicatorOuRelDaosByOuId(String ouId, IndicatorType indicatorType) {
+        try {
+            return this.orgnazitionUnitModelThreadLocal.get()
+                    .getIndicatorBillRelModel()
+                    .getIndicatorOuRelDaosByOuId(
+                            ouId
+                            , indicatorType
+                    );
+        } catch (Exception e) {
+            this.initIndicator();
+            return this.orgnazitionUnitModelThreadLocal.get()
+                    .getIndicatorBillRelModel()
+                    .getIndicatorOuRelDaosByOuId(
+                            ouId
+                            , indicatorType
+                    );
+        }
+    }
+
+    /**
+     * 新增指标下推关系
+     *
+     * @param indicatorOuRelDto 指标单据meta和ou的关系配置
+     */
+    public void buildIndicatorOURel(IndicatorOuRelDto indicatorOuRelDto) {
+        this.orgnazitionUnitModelThreadLocal.get().getIndicatorBillRelModel().buildIndicatorOURel(indicatorOuRelDto);
     }
 
     /*
