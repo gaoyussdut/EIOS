@@ -45,6 +45,7 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
 
         this.disableDate = orgnazitionUnitBaseInfoDto.getDisableDate();
         this.disableUser = orgnazitionUnitBaseInfoDto.getDisableUser();
+        this.isEntity = orgnazitionUnitBaseInfoDto.isEntity();
     }
 
     public OrgnazitionUnitDao(OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto, OrgnazitionUnitAttribute orgnazitionUnitAttribute) {
@@ -60,6 +61,7 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
 
         this.disableDate = orgnazitionUnitBaseInfoDto.getDisableDate();
         this.disableUser = orgnazitionUnitBaseInfoDto.getDisableUser();
+        this.isEntity = orgnazitionUnitBaseInfoDto.isEntity();
 
         if (null != orgnazitionUnitAttribute)
             this.orgnazitionUnitAttributes.put(
@@ -89,6 +91,7 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
                     , this.disableDate
                     , this.disableUser
                     , this.description
+                    , this.isEntity
             ).buildOrgnazitionUnitAttribute(this.orgnazitionUnitAttributes.get(indicatorType));
         } else {
             throw new RuntimeException("业务组织类型" + indicatorType.name() + "不存在");
@@ -114,6 +117,7 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
                 , this.disableDate
                 , this.disableUser
                 , this.description
+                , this.isEntity
         );
     }
 }

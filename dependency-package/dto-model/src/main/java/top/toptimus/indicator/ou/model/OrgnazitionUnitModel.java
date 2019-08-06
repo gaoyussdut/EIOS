@@ -137,6 +137,7 @@ public class OrgnazitionUnitModel {
             , String ouName
             , Date createDate
             , String createUser
+            , boolean isEntity
     ) {
         //  新建组织树
         OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto = new OrgnazitionUnitBaseInfoDto(
@@ -145,6 +146,7 @@ public class OrgnazitionUnitModel {
                 , ouName
                 , createDate
                 , createUser
+                , isEntity
         );
         if (StringUtils.isEmpty(pOuId)) {
             //  没有上级业务组织，就是完全新建逻辑
@@ -325,13 +327,19 @@ public class OrgnazitionUnitModel {
     }
 
     /**
-     * 获取某一属性下的业务组织树
+     * 获取某一属性下的业务组织实体树
      *
      * @param indicatorType 业务组织类型
      * @return 业务组织树
      */
     public Map<String, OrgnazitionUnitDto> getOrgnazitionTreeViewByAttribute(IndicatorType indicatorType) {
-        return this.orgnazitionAttributeMap.get(indicatorType);
+        return new HashMap<String, OrgnazitionUnitDto>() {{
+            orgnazitionAttributeMap.get(indicatorType).keySet().forEach(ouId -> {
+                if (orgnazitionAttributeMap.get(indicatorType).get(ouId).isEntity()) {
+                    put(ouId, orgnazitionAttributeMap.get(indicatorType).get(ouId));
+                }
+            });
+        }};
     }
 
     /**

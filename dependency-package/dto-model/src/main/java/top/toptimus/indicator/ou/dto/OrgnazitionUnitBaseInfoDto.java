@@ -30,8 +30,8 @@ public class OrgnazitionUnitBaseInfoDto extends BaseOrgnazitionUnit {
      * @param disableUser 禁用人
      * @param description 描述
      */
-    public OrgnazitionUnitBaseInfoDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, Date enableDate, String pOuID, int level, boolean isDisabled, Date disableDate, String disableUser, String description) {
-        super(ouCode, ouName, createDate, createUser, enableDate, pOuID, level, isDisabled, disableDate, disableUser, description);
+    public OrgnazitionUnitBaseInfoDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, Date enableDate, String pOuID, int level, boolean isDisabled, Date disableDate, String disableUser, String description, boolean isEntity) {
+        super(ouCode, ouName, createDate, createUser, enableDate, pOuID, level, isDisabled, disableDate, disableUser, description, isEntity);
         this.ouID = ouID;
     }
 
@@ -44,13 +44,14 @@ public class OrgnazitionUnitBaseInfoDto extends BaseOrgnazitionUnit {
      * @param createDate 创建时间
      * @param createUser 创建人
      */
-    public OrgnazitionUnitBaseInfoDto(String ouID, String ouCode, String ouName, Date createDate, String createUser) {
+    public OrgnazitionUnitBaseInfoDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, boolean isEntity) {
         super();
         this.ouID = ouID;
         this.ouCode = ouCode;
         this.ouName = ouName;
         this.createDate = createDate;
         this.createUser = createUser;
+        this.isEntity = isEntity;
     }
 
     /**

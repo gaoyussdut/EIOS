@@ -36,4 +36,6 @@ public abstract class BaseOrgnazitionUnit {
     protected String disableUser;  //  禁用人
 
     protected String description; //  描述
+
+    protected boolean isEntity; //  是否业务组织实体
 }
