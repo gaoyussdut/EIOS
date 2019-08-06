@@ -64,8 +64,9 @@ public class OuEntity {
             , String ouName
             , Date createDate
             , String createUser
+            , boolean isEntity
     ) {
-        OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto = this.orgnazitionUnitModelThreadLocal.get().createOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser);
+        OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto = this.orgnazitionUnitModelThreadLocal.get().createOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser, isEntity);
         //  TODO    持久化数据库
 
         return orgnazitionUnitBaseInfoDto;
