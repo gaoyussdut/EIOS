@@ -4,11 +4,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import top.toptimus.indicator.IndicatorTarget.base.BaseIndicatorTarget;
 import top.toptimus.indicator.IndicatorTarget.statusEnum.IndicatorTargetStatusEnum;
+import top.toptimus.indicator.ou.base.IndicatorType;
 
 import java.util.Date;
 
 /**
- * 销售指标dto
+ * 业务指标dto
  *
  * @author gaoyu
  * @since 2019-08-06
@@ -32,6 +33,7 @@ public class IndicatorTargetDTO extends BaseIndicatorTarget {
      * @param createDate                创建日期
      * @param updateDate                最近修改日期
      * @param indicatorTargetStatusEnum 销售指标状态枚举
+     * @param indicatorType             业务指标类型
      */
     public IndicatorTargetDTO(
             String id
@@ -44,8 +46,9 @@ public class IndicatorTargetDTO extends BaseIndicatorTarget {
             , Date createDate
             , Date updateDate
             , IndicatorTargetStatusEnum indicatorTargetStatusEnum
+            , IndicatorType indicatorType
     ) {
-        super(targetCode, indicatorItemId, year, targetCurrency, createUser, createDate, updateDate, indicatorTargetStatusEnum);
+        super(targetCode, indicatorItemId, year, targetCurrency, createUser, createDate, updateDate, indicatorTargetStatusEnum, indicatorType);
         this.id = id;
         this.indicatorItemName = indicatorItemName;
     }
