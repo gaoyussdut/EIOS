@@ -26,9 +26,9 @@
         <module>dependency-package/utils</module>
         <module>business-logic/base-entity/nlp-service</module>
         <module>business-logic/base-entity/formula-service</module>
-        <module>talend/camunda-bpmn-model</module>
-        <module>talend/communication</module>
-        <module>talend/tmdm-common/org.talend.mdm.common</module>
+<!--        <module>talend/camunda-bpmn-model</module>-->
+<!--        <module>talend/communication</module>-->
+<!--        <module>talend/tmdm-common/org.talend.mdm.common</module>-->
         <module>dependency-package/rich-domain-model</module>
         <module>test-case/base-test</module>
         <module>business-logic/base-service/certificate-service</module>

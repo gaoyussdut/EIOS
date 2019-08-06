@@ -1247,22 +1247,12 @@
         <snapshotRepository>
             <id>talend_nexus_deployment</id>
             <url>https://artifacts-oss.talend.com/nexus/content/repositories/TalendOpenSourceSnapshot/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
+
         </snapshotRepository>
         <repository>
             <id>talend_nexus_deployment</id>
             <url>https://artifacts-oss.talend.com/nexus/content/repositories/TalendOpenSourceRelease/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
+
         </repository>
     </distributionManagement>
 
@@ -1295,9 +1285,7 @@
                                 <id>deploy-tomcat</id>
                                 <phase>install</phase>
                                 <configuration>
-                                    <target>
-                                        <echo>Deployed Dev Tomcat</echo>
-                                    </target>
+
                                 </configuration>
                                 <goals>
                                     <goal>run</goal>
@@ -1395,14 +1383,7 @@
                                 <id>set-mdm-deploy-dir</id>
                                 <phase>initialize</phase>
                                 <configuration>
-                                    <exportAntProperties>true</exportAntProperties>
-                                    <target>
-                                        <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath" />
-                                        <propertyregex property="product.version.short" input="${product.version}" regexp="\." replace="" global="true" casesensitive="false" override="true" />
-                                        <property name="mdm.deploy.dir" value="${storage}/${product.build.id}/${storage.dir}/V${product.version}${revision.filename}/${storage.dir}_${product.version.short}" />
-                                        <echo>mdm.deploy.dir
-                                            ${mdm.deploy.dir}</echo>
-                                    </target>
+
                                 </configuration>
                                 <goals>
                                     <goal>run</goal>
