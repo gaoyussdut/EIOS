@@ -1,6 +1,7 @@
 package top.toptimus.indicator;
 
 import com.alibaba.fastjson.JSON;
+import top.toptimus.indicator.IndicatorItem.dto.IndicatorItemDTO;
 import top.toptimus.indicator.indicatorBill.dao.IndicatorOuRelDao;
 import top.toptimus.indicator.indicatorBill.dto.IndicatorOuRelDto;
 import top.toptimus.indicator.ou.base.IndicatorType;
@@ -10,10 +11,16 @@ import top.toptimus.indicator.ou.model.OrgnazitionUnitModel;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class TestOrg {
     private static ThreadLocal<OrgnazitionUnitModel> orgnazitionUnitModelThreadLocal = ThreadLocal.withInitial(OrgnazitionUnitModel::new);   //  单据线程缓存
+    private static List<IndicatorItemDTO> indicatorItemDTOS = new ArrayList<IndicatorItemDTO>() {{
+        add(new IndicatorItemDTO("1", "定制化服务", IndicatorType.Sales));
+        add(new IndicatorItemDTO("2", "核心产品", IndicatorType.Sales));
+        add(new IndicatorItemDTO("3", "咨询服务", IndicatorType.Sales));
+    }};
 
     public static void main(String[] args) {
         initTestData(); //  测试数据
