@@ -122,6 +122,26 @@ public class OrgnazitionUnitModel {
     }
 
     /**
+     * 新增顶层业务组织，必然为虚体，只能负责填写指标，不能分配任务
+     *
+     * @param pOuId      上级业务组织id
+     * @param ouCode     业务组织编码
+     * @param ouName     业务组织名称
+     * @param createDate 创建时间
+     * @param createUser 创建人
+     * @return 业务组织DTO
+     */
+    public OrgnazitionUnitBaseInfoDto createTopOrgnazitionUnit(
+            String pOuId
+            , String ouCode
+            , String ouName
+            , Date createDate
+            , String createUser
+    ) {
+        return this.createOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser, false);
+    }
+
+    /**
      * 新增业务组织
      *
      * @param pOuId      上级业务组织id
@@ -129,6 +149,7 @@ public class OrgnazitionUnitModel {
      * @param ouName     业务组织名称
      * @param createDate 创建时间
      * @param createUser 创建人
+     * @param isEntity   是否实体
      * @return 业务组织DTO
      */
     public OrgnazitionUnitBaseInfoDto createOrgnazitionUnit(

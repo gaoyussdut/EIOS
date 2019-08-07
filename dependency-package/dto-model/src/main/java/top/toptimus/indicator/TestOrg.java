@@ -1,6 +1,7 @@
 package top.toptimus.indicator;
 
 import com.alibaba.fastjson.JSON;
+import top.toptimus.indicator.IndicatorItem.dto.IndicatorItemDTO;
 import top.toptimus.indicator.indicatorBill.dao.IndicatorOuRelDao;
 import top.toptimus.indicator.indicatorBill.dto.IndicatorOuRelDto;
 import top.toptimus.indicator.ou.base.IndicatorType;
@@ -10,10 +11,16 @@ import top.toptimus.indicator.ou.model.OrgnazitionUnitModel;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class TestOrg {
     private static ThreadLocal<OrgnazitionUnitModel> orgnazitionUnitModelThreadLocal = ThreadLocal.withInitial(OrgnazitionUnitModel::new);   //  单据线程缓存
+    private static List<IndicatorItemDTO> indicatorItemDTOS = new ArrayList<IndicatorItemDTO>() {{
+        add(new IndicatorItemDTO("1", "定制化服务", IndicatorType.Sales));
+        add(new IndicatorItemDTO("2", "核心产品", IndicatorType.Sales));
+        add(new IndicatorItemDTO("3", "咨询服务", IndicatorType.Sales));
+    }};
 
     public static void main(String[] args) {
         initTestData(); //  测试数据
@@ -158,26 +165,26 @@ public class TestOrg {
 //        ));
 //    }
 
-    private static void initTestData() {
+    private static OrgnazitionUnitModel initOrgnazitionUnitModel() {
         OrgnazitionUnitModel orgnazitionUnitModel = new OrgnazitionUnitModel();
 
         //  创建三个业务组织
         orgnazitionUnitModel
                 .updateOrgnazitionUnit(
-                        orgnazitionUnitModel.createOrgnazitionUnit(
+                        //  新增顶层业务组织，必然为虚体，只能负责填写指标，不能分配任务
+                        orgnazitionUnitModel.createTopOrgnazitionUnit(
                                 null
                                 , "ouCode1"
-                                , "ouName1"
+                                , "正泰"
                                 , new Date()
                                 , "猪"
-                                , false
                         )
                 )
                 .updateOrgnazitionUnit(
                         orgnazitionUnitModel.createOrgnazitionUnit(
                                 orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
                                 , "ouCode2"
-                                , "ouName2"
+                                , "市场部"
                                 , new Date()
                                 , "猪"
                                 , true
@@ -187,14 +194,14 @@ public class TestOrg {
                         orgnazitionUnitModel.createOrgnazitionUnit(
                                 orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
                                 , "ouCode3"
-                                , "ouName3"
+                                , "销售部"
                                 , new Date()
                                 , "猪"
                                 , true
                         )
                 );
 
-        OrgnazitionUnitModel initData = orgnazitionUnitModel
+        return orgnazitionUnitModel
                 .updateOrgnazitionUnitAttributes(
                         orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()
                         , new ArrayList<OrgnazitionUnitAttribute>() {{
@@ -204,41 +211,45 @@ public class TestOrg {
                         }}
                 )
                 .updateOrgnazitionUnitAttributes(
-                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()).get(0).getOuID()  //  ouCode2
+                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()).get(0).getOuID()  //  市场部
                         , new ArrayList<OrgnazitionUnitAttribute>() {{
                             //  模拟业务组织ouCode2，拥有财务属性
                             add(
                                     new OrgnazitionUnitAttribute(
-                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()  //  市场部
                                             , IndicatorType.Sales
                                             , false)
                             );
                             add(
                                     new OrgnazitionUnitAttribute(
-                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()  //  市场部
                                             , IndicatorType.Administration
                                             , false)
                             );
                         }}
                 )
                 .updateOrgnazitionUnitAttributes(
-                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()  //  ouCode3
+                        orgnazitionUnitModel.getChildOrgnazitionUnits(orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()  //  销售部
                         , new ArrayList<OrgnazitionUnitAttribute>() {{
                             //  模拟业务组织ouCode2，拥有财务属性
                             add(
                                     new OrgnazitionUnitAttribute(
-                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()  //  销售部
                                             , IndicatorType.Sales
                                             , false)
                             );
                             add(
                                     new OrgnazitionUnitAttribute(
-                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                            orgnazitionUnitModel.getTopLevelOrgnazitionUnitDao().getOuID()  //  销售部
                                             , IndicatorType.Administration
                                             , false)
                             );
                         }}
                 );
+    }
+
+    private static void initTestData() {
+        OrgnazitionUnitModel initData = initOrgnazitionUnitModel();
 
         //  测试构造函数
         orgnazitionUnitModelThreadLocal.set(
@@ -248,6 +259,78 @@ public class TestOrg {
                         }}
                 )
         );
+
+        /*
+            补充销售一部销售二部
+         */
+        orgnazitionUnitModelThreadLocal.get()
+                .updateOrgnazitionUnit(
+                        orgnazitionUnitModelThreadLocal.get().createOrgnazitionUnit(
+                                orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(
+                                        orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()
+                                ).get(1).getOuID()
+                                , "ouCode4"
+                                , "销售一部"
+                                , new Date()
+                                , "猪"
+                                , true
+                        )
+                )
+                .updateOrgnazitionUnit(
+                        orgnazitionUnitModelThreadLocal.get().createOrgnazitionUnit(
+                                orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(
+                                        orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()
+                                ).get(1).getOuID()
+                                , "ouCode5"
+                                , "销售二部"
+                                , new Date()
+                                , "猪"
+                                , true
+                        )
+                );
+
+
+        orgnazitionUnitModelThreadLocal.get()
+                .updateOrgnazitionUnitAttributes(
+                        orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(
+                                orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()
+                        ).get(0).getOuID()  //  销售一部
+                        , new ArrayList<OrgnazitionUnitAttribute>() {{
+                            //  模拟业务组织ouCode2，拥有财务属性
+                            add(
+                                    new OrgnazitionUnitAttribute(
+                                            orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                            , IndicatorType.Sales
+                                            , false)
+                            );
+                            add(
+                                    new OrgnazitionUnitAttribute(
+                                            orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                            , IndicatorType.Administration
+                                            , false)
+                            );
+                        }}
+                )
+                .updateOrgnazitionUnitAttributes(
+                        orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(
+                                orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()
+                        ).get(1).getOuID()  //  销售二部
+                        , new ArrayList<OrgnazitionUnitAttribute>() {{
+                            //  模拟业务组织ouCode2，拥有财务属性
+                            add(
+                                    new OrgnazitionUnitAttribute(
+                                            orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                            , IndicatorType.Sales
+                                            , false)
+                            );
+                            add(
+                                    new OrgnazitionUnitAttribute(
+                                            orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                            , IndicatorType.Administration
+                                            , false)
+                            );
+                        }}
+                );
 
         /*
             测试的指标数据建立
