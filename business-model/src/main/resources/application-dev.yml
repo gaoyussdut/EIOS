@@ -19,7 +19,7 @@ spring:
   ### Redis
   redis:
     database: 0
-    host: 172.16.0.92
+    host: 192.168.1.7
     port: 6379
     password:
     jedis:
@@ -32,7 +32,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://172.16.0.91:5432/xindian
+    url: jdbc:postgresql://192.168.1.7:15353/xindian0624
     username: fp
     password: fp@123
 
@@ -74,21 +74,21 @@ spring:
       schema-action: create_if_not_exists
     # Elasticsearch
     elasticsearch:
-      cluster-nodes: 172.16.0.91:9300
+      cluster-nodes: 192.168.1.7:9300
       # 不加 cluster-name 属性会/home/gaoshize报错:
       #   NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{jyzih8cJQj6axOEAERo7ew}{192.168.1.97}{192.168.1.97:9300}]]
       # 其他解决方案暂不清楚
-      cluster-name: my-application
+      cluster-name: docker-cluster
       repositories:
         enabled: true
 
   ### RabbitMQ
   rabbitmq:
-    host: 192.168.1.163
-    port: 5672
-    virtual-host: jianghao
-    username: jianghao
-    password: jianghao
+    host: 192.168.1.7
+    port: 15672
+    virtual-host: lizongsheng
+    username: lizongsheng
+    password: lizongsheng
     connection-timeout: 5000ms
   ### Kafka
   kafka:
@@ -101,7 +101,7 @@ spring:
       group-id: test-group
   ### Activemq
   activemq:
-    broker-url: tcp://localhost:61616
+    broker-url: tcp://192.168.1.7:61617
     in-memory: true
     pool:
       enabled: false #如果此处设置为true，需要加如下的依赖包，否则会自动配置失败，报JmsMessagingTemplate注入失败

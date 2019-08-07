@@ -27,6 +27,7 @@ import top.toptimus.exception.TopException;
 import top.toptimus.meta.TokenMetaInformationDto;
 import top.toptimus.place.BillTokenSaveResultDTO;
 import top.toptimus.resultModel.ResultErrorModel;
+import top.toptimus.schema.SchemaDTO;
 import top.toptimus.service.BusinessUnitService;
 import top.toptimus.tokendata.TokenDataDto;
 import top.toptimus.tokendata.field.FkeyField;
@@ -713,6 +714,20 @@ public class PlaceService {
             businessUnitEventEntity.excuteStoredProcedure(storedProcedure, tokenId);
             return Result.success();
         } catch (Exception e) {
+            return new ResultErrorModel(e).getResult();
+        }
+    }
+
+    /**
+     * 获取单据预览页面
+     *
+     * @param id
+     * @return
+     */
+    public Result getPreview(String id) {
+        try{
+            return Result.success(businessUnitService.findSchemaById(id));
+        }catch (Exception e){
             return new ResultErrorModel(e).getResult();
         }
     }

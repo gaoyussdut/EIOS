@@ -12,9 +12,14 @@ import top.toptimus.common.result.Result;
 import top.toptimus.entity.event.BusinessUnitEventEntity;
 import top.toptimus.entity.meta.query.MetaQueryFacadeEntity;
 import top.toptimus.entity.query.BusinessUnitFacadeQueryEntity;
+import top.toptimus.entity.query.SchemaFacadeQueryEntity;
 import top.toptimus.entity.tokendata.query.TokenQueryFacadeEntity;
 import top.toptimus.meta.TokenMetaInformationDto;
+import top.toptimus.meta.relation.MetaRelDTO;
 import top.toptimus.resultModel.ResultErrorModel;
+import top.toptimus.schema.BillSchemaDTO;
+import top.toptimus.schema.SchemaDTO;
+import top.toptimus.token.relation.TokenRelDTO;
 import top.toptimus.tokendata.TokenDataDto;
 import top.toptimus.transformationService.TransformationService;
 
@@ -38,6 +43,8 @@ public class BusinessUnitService {
     private TokenQueryFacadeEntity tokenQueryFacadeEntity;
     @Autowired
     private TransformationService transformationService;
+    @Autowired
+    private SchemaFacadeQueryEntity schemaFacadeQueryEntity;
 
 
     /**
@@ -325,6 +332,34 @@ public class BusinessUnitService {
                 businessUnitEventEntity.saveHandoverIns(handoverInsDTOList);
             });
         }
+    }
 
+    /**
+     * 获取schemaDTO
+     *
+     * @param id
+     * @return
+     */
+    public SchemaDTO findSchemaById(String id) {
+        // 首先找出schemaId
+        SchemaDTO schemaDTO = schemaFacadeQueryEntity.findSchemaById(id);
+
+        if(!StringUtils.isEmpty(schemaDTO.getBillHeader().getMetaId())){
+            List<MetaRelDTO> metaRelDTOS = metaQueryFacadeEntity.getRelMetasByBillMeta(schemaDTO.getBillHeader().getMetaId());
+            if(metaRelDTOS!=null&&metaRelDTOS.size()>0){
+                metaRelDTOS.forEach(metaRelDTO -> {
+                    schemaDTO.getRelBillDTOList().add(new BillSchemaDTO(metaRelDTO.getEntryMetaId(),metaRelDTO.getMetaType(),metaRelDTO.getOrder_()));
+                });
+            }
+            List<TokenRelDTO> tokenRelDTOs = tokenQueryFacadeEntity.getRelTokenByBillMetaIdAndBillTokenId(schemaDTO.getBillHeader().getMetaId(),schemaDTO.getBillHeader().getTokenId());
+            schemaDTO.getRelBillDTOList().forEach(relBillDTO -> {
+                tokenRelDTOs.forEach(tokenRelDTO -> {
+                    if(relBillDTO.getMetaId().equals(tokenRelDTO.getEntryMetaId())){
+                        relBillDTO.build(tokenRelDTO.getEntryTokenId());
+                    }
+                });
+            });
+        }
+        return schemaDTO;
     }
 }

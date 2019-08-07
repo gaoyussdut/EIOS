@@ -15,11 +15,14 @@ import top.toptimus.common.PaginationHelper;
 import top.toptimus.exception.TopSQLException;
 import top.toptimus.model.tokenData.base.TokenDataModel;
 import top.toptimus.model.tokenData.query.EntryTokenQueryModel;
+import top.toptimus.schema.SchemaDTO;
 import top.toptimus.token.TokenDto;
+import top.toptimus.token.relation.TokenRelDTO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -173,6 +176,28 @@ public class TokenRepository {
             logger.info("deleteTokenByIds sql:" + sql);
         } catch (TopSQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public List<TokenRelDTO> getRelTokenByBillMetaIdAndBillTokenId(String metaId, String tokenId) {
+        String sql = "SELECT bill_meta_id,bill_token_id,entry_meta_id,entry_token_id FROM r_bill_entry_token" +
+                " WHERE bill_meta_id = '"+metaId+"' AND bill_token_id = '"+tokenId+"'";
+        try {
+            return jdbcTemplate.query(sql, new TokenRelDTOMapper());
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
+
+    class TokenRelDTOMapper implements RowMapper<TokenRelDTO> {
+        @Override
+        public TokenRelDTO mapRow(@SuppressWarnings("NullableProblems") ResultSet rs, int rowNumber) throws SQLException {
+            return new TokenRelDTO(
+                    rs.getString("bill_meta_id")
+                    ,rs.getString("bill_token_id")
+                    ,rs.getString("entry_meta_id")
+                    ,rs.getString("entry_token_id")
+            );
         }
     }
 }

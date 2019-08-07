@@ -16,6 +16,7 @@ import top.toptimus.meta.metaFkey.MetaFKeyDTO;
 import top.toptimus.meta.metaFkey.MetaFKeyFacadeDTO;
 import top.toptimus.meta.metaview.MetaInfoDTO;
 import top.toptimus.meta.metaview.MetaInfoFacadeDTO;
+import top.toptimus.meta.relation.MetaRelDTO;
 import top.toptimus.meta.signGroup.SignGroupDTO;
 import top.toptimus.model.meta.query.TokenMetaInfoModel;
 import top.toptimus.repository.meta.*;
@@ -283,6 +284,15 @@ public class MetaQueryFacadeEntity {
      */
     public String getConstantByKey(String fkey) {
         return fKeyRepository.getConstantByKey(fkey);
+    }
+
+    /**
+     * 获取关联单据meta
+     * @param billMetaId
+     * @return
+     */
+    public List<MetaRelDTO> getRelMetasByBillMeta(String billMetaId){
+        return billEntryMetaRepository.getRelMetasByBillMeta(billMetaId);
     }
 
 }

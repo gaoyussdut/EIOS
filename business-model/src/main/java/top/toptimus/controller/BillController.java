@@ -91,7 +91,7 @@ public class BillController {
      * @return Result(toendataDTO)
      */
     @ApiOperation(value = "表单详细:表单预览")
-    @GetMapping(value = "/bill/meta-id/token-id")
+    @GetMapping(value = "/getBillDetail")
     public Result getBillToken(
             @RequestParam String metaId
             , @RequestParam String tokenId
@@ -446,5 +446,16 @@ public class BillController {
         return placeService.submitStoreProcedure(metaId, tokenId);
     }
 
+    /**
+     * 单据预览schema查询接口
+     *
+     * @param id
+     * @return result
+     */
+    @ApiOperation(value = "单据预览schema查询接口")
+    @GetMapping(value = "/preview")
+    public Result getPreview(@RequestParam String id) {
+        return placeService.getPreview(id);
+    }
 
 }

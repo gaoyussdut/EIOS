@@ -5,8 +5,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import top.toptimus.common.enums.MetaTypeEnum;
 import top.toptimus.meta.MetaTablesRelation.MetaTablesRelationDTO;
 import top.toptimus.meta.TokenMetaInformationDto;
+import top.toptimus.meta.relation.MetaRelDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,6 +35,14 @@ public class BillEntryMetaRepository {
         return jdbcTemplate.query(sql, new TokenMetaInforMationDtoRowMapper());
     }
 
+    @Transactional(readOnly = true)
+    public List<MetaRelDTO> getRelMetasByBillMeta(String billMetaId) {
+        String sql = "SELECT bill_meta_id,entry_meta_id,order_,entry_type from r_bill_entry_meta"
+                + " WHERE bill_meta_id = '"
+                + billMetaId + "' ";
+        return jdbcTemplate.query(sql, new MetaRelDTORowMapper());
+    }
+
     class TokenMetaInforMationDtoRowMapper implements RowMapper<TokenMetaInformationDto> {
         @Override
         public TokenMetaInformationDto mapRow(@SuppressWarnings("NullableProblems") ResultSet rs, int rowNum) throws SQLException {
@@ -40,6 +50,18 @@ public class BillEntryMetaRepository {
                     rs.getString("entry_meta_id")
                     , rs.getString("token_meta_name")
                     , rs.getString("meta_type")
+            );
+        }
+    }
+
+    class MetaRelDTORowMapper implements RowMapper<MetaRelDTO> {
+        @Override
+        public MetaRelDTO mapRow(@SuppressWarnings("NullableProblems") ResultSet rs, int rowNum) throws SQLException {
+            return new MetaRelDTO(
+                    rs.getString("bill_meta_id")
+                    , rs.getString("entry_meta_id")
+                    , MetaTypeEnum.valueOf(rs.getString("meta_type"))
+                    , rs.getInt("order_")
             );
         }
     }

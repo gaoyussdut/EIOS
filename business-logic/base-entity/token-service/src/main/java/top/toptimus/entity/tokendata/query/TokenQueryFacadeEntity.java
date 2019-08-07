@@ -18,6 +18,7 @@ import top.toptimus.model.tokenModel.query.baseQueryFacade.TokenQueryWithPageMod
 import top.toptimus.place.PlaceDTO;
 import top.toptimus.repository.token.MetaRelation.MetaTokenRelationRepository;
 import top.toptimus.repository.token.TokenRepository;
+import top.toptimus.token.relation.TokenRelDTO;
 import top.toptimus.tokendata.TokenDataDto;
 import top.toptimus.tokendata.TokenDataPageableDto;
 
@@ -276,5 +277,15 @@ public class TokenQueryFacadeEntity {
         }else {
             throw new TopException(TopErrorCode.GENERAL_ERR);
         }
+    }
+
+    /**
+     * 获取关联单据的token
+     * @param metaId
+     * @param tokenId
+     * @return
+     */
+    public List<TokenRelDTO> getRelTokenByBillMetaIdAndBillTokenId(String metaId, String tokenId) {
+        return tokenRepository.getRelTokenByBillMetaIdAndBillTokenId(metaId,tokenId);
     }
 }
