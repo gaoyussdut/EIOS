@@ -1,5 +1,6 @@
 package top.toptimus.meta.metaview;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.toptimus.common.enums.FkeyTypeEnum;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
  * @author gaoyu
  * @since 2018-07-05
  */
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class MetaInfoDTO implements Serializable {
