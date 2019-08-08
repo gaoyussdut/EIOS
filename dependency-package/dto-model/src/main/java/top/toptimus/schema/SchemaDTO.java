@@ -33,8 +33,8 @@ public class SchemaDTO {
         return this;
     }
 
-    public SchemaDTO build(String id){
-        this.id=id;
+    public SchemaDTO build(String tokenId){
+        this.billHeader.setTokenId(tokenId);
         return this;
     }
 }

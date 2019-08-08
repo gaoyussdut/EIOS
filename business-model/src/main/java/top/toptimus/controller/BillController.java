@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import top.toptimus.common.enums.MetaTypeEnum;
 import top.toptimus.common.result.Result;
 import top.toptimus.service.BusinessUnitService;
 import top.toptimus.service.domainService.PlaceService;
@@ -75,12 +76,14 @@ public class BillController {
      * @return result
      */
     @ApiOperation(value = "表单详细:表头提交")
-    @PostMapping(value = "/bill/meta-id")
+    @PostMapping(value = "/saveBill")
     public Result submitBillToken(
             @RequestParam String metaId
+            , @RequestParam String schemaId
+            , @RequestParam String id
             , @RequestBody TokenDataDto tokenDataDto
     ) {
-        return placeService.saveBillToken(tokenDataDto, metaId);
+        return placeService.saveBillToken(tokenDataDto, metaId, schemaId, id);
     }
 
     /**
@@ -103,13 +106,13 @@ public class BillController {
     /**
      * 删除单据
      *
-     * @param tokenId 表头tokenId
+     * @param id 表头tokenId
      * @return Result
      */
     @ApiOperation(value = "表单详细:删除单据")
-    @DeleteMapping(value = "/bill/meta-id/token-id")
-    public Result deleteBillToken(@RequestParam String tokenId) {
-        return placeService.deleteBillToken(tokenId);
+    @DeleteMapping(value = "/deleteBill")
+    public Result deleteBillToken(@RequestParam String id) {
+        return placeService.deleteBillToken(id);
     }
 
 //    /**
@@ -149,7 +152,7 @@ public class BillController {
      * @return result
      */
     @ApiOperation(value = "表单详细:删除分录")
-    @DeleteMapping(value = "/entry/bill-token-id/entry-meta-id/entry-token-id")
+    @DeleteMapping(value = "/deleteEntry")
     public Result deleteBillToken(
             @RequestParam String entryMetaId
             , @RequestParam String entryTokenId
@@ -184,14 +187,15 @@ public class BillController {
      * @return result
      */
     @ApiOperation(value = "表单详细:分录保存")
-    @PostMapping(value = "/entry/bill-token-id/entry-meta-id")
+    @PostMapping(value = "/saveEntry")
     public Result submitEntryToken(
             @RequestParam String entryMetaId
             , @RequestParam String billTokenId
             , @RequestParam String billMetaId
+            , @RequestParam MetaTypeEnum entryType
             , @RequestBody TokenDataDto tokenDataDto
     ) {
-        return placeService.saveEntryToken(billTokenId, billMetaId, tokenDataDto, entryMetaId);
+        return placeService.saveEntryToken(billTokenId, billMetaId, tokenDataDto, entryMetaId, entryType);
     }
 
 
@@ -457,5 +461,4 @@ public class BillController {
     public Result getPreview(@RequestParam String id) {
         return placeService.getPreview(id);
     }
-
 }

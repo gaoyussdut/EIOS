@@ -8,10 +8,12 @@ import top.toptimus.businessUnit.HandoverInsDTO;
 import top.toptimus.businessUnit.TaskInsDTO;
 import top.toptimus.repository.BusinessUnitEdgeRepository;
 import top.toptimus.repository.HandoverInsRepository;
+import top.toptimus.repository.SchemaRepository;
 import top.toptimus.repository.TaskInsRepository;
 import top.toptimus.repository.meta.CertificateRepository;
 import top.toptimus.rule.CertificateReceiveDTO;
 import top.toptimus.rule.SourceBillDTO;
+import top.toptimus.schema.SchemaDTO;
 
 import java.util.List;
 
@@ -34,6 +36,8 @@ public class BusinessUnitEventEntity {
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private HandoverInsRepository handoverInsRepository;
+    @Autowired
+    private SchemaRepository schemaRepository;
 
     /**
      * 保存任务实例
@@ -110,4 +114,19 @@ public class BusinessUnitEventEntity {
         handoverInsRepository.saveAll(handoverInsDTOs);
     }
 
+    /**
+     * 保存shcema
+     * @param schemaDTO
+     */
+    public void saveSchema(SchemaDTO schemaDTO) {
+        schemaRepository.saveSchema(schemaDTO);
+    }
+
+    /**
+     * 删除schema
+     * @param id
+     */
+    public void deleteSchema(String id) {
+        schemaRepository.deleteSchema(id);
+    }
 }

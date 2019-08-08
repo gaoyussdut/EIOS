@@ -37,6 +37,30 @@ public class SchemaRepository {
         }
     }
 
+    public void saveSchema(SchemaDTO schemaDTO) {
+        String sql = "INSERT INTO t_schema(id,schema_id,bill_token_id)"
+                + "VALUES('" + schemaDTO.getId() + "','"
+                + schemaDTO.getSchemaId() + "','"
+                + schemaDTO.getBillHeader().getTokenId()+ "')";
+        try {
+            jdbcTemplate.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("保存SchemaDTO失败");
+        }
+
+    }
+
+    public void deleteSchema(String id) {
+        String sql = "DELETE FROM t_schema WHERE id = '" + id + "'";
+        try {
+            jdbcTemplate.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("删除SchemaDTO失败");
+        }
+    }
+
     class SchemaDTOMapper implements RowMapper<SchemaDTO> {
         @SuppressWarnings("NullableProblems")
         @Override

@@ -362,4 +362,12 @@ public class BusinessUnitService {
         }
         return schemaDTO;
     }
+
+    /**
+     * 删除schema
+     * @param id
+     */
+    public void deleteSchema(String id) {
+        businessUnitEventEntity.deleteSchema(id);
+    }
 }

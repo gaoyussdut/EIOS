@@ -60,7 +60,7 @@ public class BillEntryMetaRepository {
             return new MetaRelDTO(
                     rs.getString("bill_meta_id")
                     , rs.getString("entry_meta_id")
-                    , MetaTypeEnum.valueOf(rs.getString("meta_type"))
+                    , MetaTypeEnum.valueOf(rs.getString("entry_type"))
                     , rs.getInt("order_")
             );
         }

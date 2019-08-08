@@ -9,6 +9,7 @@ import top.toptimus.amqp.producer.TransitionEntity;
 import top.toptimus.businessUnit.CertificateDefinitionDTO;
 import top.toptimus.businessUnit.TaskInsDTO;
 import top.toptimus.common.WordTemplate;
+import top.toptimus.common.enums.MetaTypeEnum;
 import top.toptimus.common.result.Result;
 import top.toptimus.common.search.SearchInfo;
 import top.toptimus.constantConfig.Constants;
@@ -72,6 +73,8 @@ public class PlaceService {
     private BusinessUnitService businessUnitService;
     @Autowired
     private BusinessUnitFacadeQueryEntity businessUnitFacadeQueryEntity;
+    @Autowired
+    private TokenService tokenService;
 
 
     /**
@@ -226,8 +229,9 @@ public class PlaceService {
      * @param metaId       表头meta
      * @return Result
      */
-    public Result saveBillToken(TokenDataDto tokenDataDto, String metaId) {
+    public Result saveBillToken(TokenDataDto tokenDataDto, String metaId, String schemaId, String id) {
         placeRedisEntity.saveBillToken(tokenDataDto, metaId);
+        businessUnitEventEntity.saveSchema(new SchemaDTO(id,schemaId).build(tokenDataDto.getTokenId()));
         return Result.success();
     }
 
@@ -301,7 +305,7 @@ public class PlaceService {
      * @param entryMetaId
      * @return Result
      */
-    public Result saveEntryToken(String billTokenId, String billMetaId, TokenDataDto tokenDataDto, String entryMetaId) {
+    public Result saveEntryToken(String billTokenId, String billMetaId, TokenDataDto tokenDataDto, String entryMetaId, MetaTypeEnum entryType) {
         return placeRedisEntity.saveEntryToken(billTokenId, billMetaId, tokenDataDto, entryMetaId);
     }
 
@@ -353,11 +357,14 @@ public class PlaceService {
     /**
      * 删除单据
      *
-     * @param billTokenId 表头tokenId
+     * @param id id
      * @return result
      */
-    public Result deleteBillToken(String billTokenId) {
-        return placeRedisEntity.deleteBillToken(billTokenId);
+    public Result deleteBillToken(String id) {
+        SchemaDTO schemaDTO = businessUnitService.findSchemaById(id);
+        businessUnitService.deleteSchema(id);
+        tokenService.delTokenData(schemaDTO.getBillHeader().getMetaId(),schemaDTO.getBillHeader().getTokenId());
+        return Result.success();
     }
 
     /**
@@ -638,10 +645,10 @@ public class PlaceService {
     public Result pushDown(String businessUnitCode, String preMetaId, String preTokenId, String metaId) {
         try {
             TokenDataDto tokenDataDto = businessUnitService.pushDown(businessUnitCode, preMetaId, preTokenId, metaId);
-            this.saveBillToken(
-                    tokenDataDto
-                    , metaId
-            );
+//            this.saveBillToken(
+//                    tokenDataDto
+//                    , metaId
+//            );
             return Result.success(tokenDataDto);
         } catch (Exception e) {
             return new ResultErrorModel(e).getResult();
@@ -657,7 +664,7 @@ public class PlaceService {
      */
     public Result submit(String businessUnitCode, TokenDataDto tokenDataDto, String metaId) {
         try {
-            this.saveBillToken(tokenDataDto, metaId);
+//            this.saveBillToken(tokenDataDto, metaId);
             // 状态规则等操作
             businessUnitService.submit(businessUnitCode, tokenDataDto, metaId);
             return Result.success();
