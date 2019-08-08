@@ -32,7 +32,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.1.7:15353/xindian0624
+    url: jdbc:postgresql://192.168.1.7:15353/EIOS
     username: fp
     password: fp@123
 

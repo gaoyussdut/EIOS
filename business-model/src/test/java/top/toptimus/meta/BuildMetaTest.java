@@ -1,5 +1,13 @@
 package top.toptimus.meta;
 
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import top.toptimus.BusinessModelApplication;
 import top.toptimus.controller.MetaController;
 import top.toptimus.formula.FormulaKeyAndValueDTO;
 import top.toptimus.meta.metaview.MetaInfoDTO;
@@ -9,17 +17,42 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = BusinessModelApplication.class, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public class BuildMetaTest {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
     private MetaController metaController;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-    public static void main(String[] args) {
+    public  void createMasterData() {
 
+        //输入metaId
+         String metaId = "chunshan_dingdan_bill";
+        String metaName = "订单信息";
 
 
         System.out.println("----------------创建MetaInfo----------------");
-
-//        metaController.
+        //保存meta信息
+        List<MetaInfoDTO> metaInfoDTOList = this.buildMeta(metaId,metaName);
+        metaController.save(metaInfoDTOList);
+        //创建表结构
+        String sql = "CREATE TABLE " + metaId + "( id character varying NOT NULL, ";
+        for(MetaInfoDTO metaInfoDTO : metaInfoDTOList){
+            switch (metaInfoDTO.getFkeytype()){
+                case "STRING":
+                    sql += metaInfoDTO.getKey() + " character varying,";
+                case "DECIMAL":
+                    sql += metaInfoDTO.getKey() + " numeric(15,4),";
+                case "DATE":
+                    sql += metaInfoDTO.getKey() + " timestap without time zone,";
+            }
+        }
+        sql += "CONSTRAINT " + metaId + "_pkey PRIMARY KEY (id)) WITH (OIDS=FALSE);ALTER TABLE " + metaId + " OWNER TO postgres";
+        jdbcTemplate.execute(sql);
 //
 //
 //        List<FormulaKeyAndValueDTO> formulaKeyAndValueDTOS = new ArrayList<>();
@@ -35,15 +68,19 @@ public class BuildMetaTest {
 //        }});
     }
 
-    private List<MetaInfoDTO> buildMeta(){
+    /**
+     * metainfomation
+     * @return
+     */
+    private List<MetaInfoDTO> buildMeta(String metaId,String metaName){
         List<MetaInfoDTO> metaInfoDTOList = new ArrayList<MetaInfoDTO>(){{
-            add(new MetaInfoDTO("chunshan_dingdan_bill","订单信息","dingdanriqi","订单日期","",true,false,true,"","","","","1","DATE"));
-            add(new MetaInfoDTO("chunshan_dingdan_bill","订单信息","dianpu","店铺","",true,false,true,"","","","","1","STRING"));
-            add(new MetaInfoDTO("chunshan_dingdan_bill","订单信息","zhuozhuangguwen","着装顾问","",true,false,true,"","","","","1","STRING"));
-            add(new MetaInfoDTO("chunshan_dingdan_bill","订单信息","kehuxingming","客户姓名","",true,false,true,"","","","","1","STRING"));
-            add(new MetaInfoDTO("chunshan_dingdan_bill","订单信息","kehudizhi","客户地址","",true,false,true,"","","","","1","STRING"));
-            add(new MetaInfoDTO("chunshan_dingdan_bill","订单信息","dianhuahaoma","电话号码","",true,false,true,"","","","","1","STRING"));
-            add(new MetaInfoDTO("chunshan_dingdan_bill","订单信息","weixin","微信","",true,false,true,"","","","","1","STRING"));
+            add(new MetaInfoDTO(metaId,metaName,"dingdanriqi","订单日期","DATE",true,false,true,"","","","","1","DATE"));
+            add(new MetaInfoDTO(metaId,metaName,"dianpu","店铺","STRING",true,false,true,"","","","","1","STRING"));
+            add(new MetaInfoDTO(metaId,metaName,"zhuozhuangguwen","着装顾问","STRING",true,false,true,"","","","","1","STRING"));
+            add(new MetaInfoDTO(metaId,metaName,"kehuxingming","客户姓名","STRING",true,false,true,"","","","","1","STRING"));
+            add(new MetaInfoDTO(metaId,metaName,"kehudizhi","客户地址","STRING",true,false,true,"","","","","1","STRING"));
+            add(new MetaInfoDTO(metaId,metaName,"dianhuahaoma","电话号码","DECIMAL",true,false,true,"","","","","1","DECIMAL"));
+            add(new MetaInfoDTO(metaId,metaName,"weixin","微信","STRING",true,false,true,"","","","","1","STRING"));
         }};
         return metaInfoDTOList;
     }
