@@ -108,7 +108,7 @@ public class MetaTableDDLRepository {
     public void createTableByMetaInfo(String tableName, Map<String, MetaInfoDTO> metaInfoMap) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append("drop table if exists table ").append(tableName).append(";");
+        stringBuilder.append("drop table if exists ").append(tableName).append(";");
         stringBuilder.append("CREATE TABLE ").append("\"").append(tableName).append("\"")
                 .append("(ID VARCHAR(255) NOT NULL PRIMARY KEY");
 

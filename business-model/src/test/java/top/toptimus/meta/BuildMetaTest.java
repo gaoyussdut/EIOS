@@ -1,5 +1,6 @@
 package top.toptimus.meta;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ public class BuildMetaTest {
     @Autowired
     private MetaService metaService;
 
+    @Test
     public void createMasterData() {
 
         //输入metaId
