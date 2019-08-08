@@ -1,5 +1,6 @@
 package top.toptimus.meta;
 
+import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import top.toptimus.BusinessModelApplication;
+import top.toptimus.meta.csv.MetaCSVImportModel;
 import top.toptimus.meta.metaview.MetaInfoDTO;
 import top.toptimus.service.domainService.MetaService;
 
@@ -29,6 +31,9 @@ public class BuildMetaTest {
         //输入metaId
         String metaId = "chunshan_dingdan_bill";
         String metaName = "订单信息";
+        logger.info(
+                JSON.toJSONString(this.buildMeta(metaId, metaName, "/Users/gaoyu/Desktop/测试.csv"))
+        );
 
 
         System.out.println("----------------创建MetaInfo----------------");
@@ -79,5 +84,9 @@ public class BuildMetaTest {
             add(new MetaInfoDTO(metaId, metaName, "dianhuahaoma", "电话号码", "DECIMAL", true, false, true, "", "", "", "", "1", "DECIMAL"));
             add(new MetaInfoDTO(metaId, metaName, "weixin", "微信", "STRING", true, false, true, "", "", "", "", "1", "STRING"));
         }};
+    }
+
+    private List<MetaInfoDTO> buildMeta(String metaId, String tokenMetaName, String filePath) {
+        return MetaCSVImportModel.generateMetaInfoFromCSV(metaId, tokenMetaName, filePath);
     }
 }

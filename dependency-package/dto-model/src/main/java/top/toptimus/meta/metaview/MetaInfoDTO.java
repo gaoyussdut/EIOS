@@ -41,6 +41,23 @@ public class MetaInfoDTO implements Serializable {
     /**
      * 构造函数
      *
+     * @param metaId
+     * @param tokenMetaName
+     * @param key
+     * @param caption
+     * @param fkeyType
+     */
+    public MetaInfoDTO(String metaId, String tokenMetaName, String key, String caption, String fkeyType) {
+        this.metaId = metaId;
+        this.tokenMetaName = tokenMetaName;
+        this.key = key;
+        this.caption = caption;
+        this.fkeytype = this.fkeyBaseType = fkeyType;
+    }
+
+    /**
+     * 构造函数
+     *
      * @param rs 查询结果集
      * @throws SQLException SQLException
      */
