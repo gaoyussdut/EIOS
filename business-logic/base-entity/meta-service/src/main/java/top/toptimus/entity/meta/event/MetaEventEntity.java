@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.toptimus.common.enums.FkeyTypeEnum;
 import top.toptimus.entity.meta.query.MetaQueryFacadeEntity;
-import top.toptimus.meta.*;
+import top.toptimus.meta.FKeyCaptionDto;
+import top.toptimus.meta.FKeyTypeDto;
+import top.toptimus.meta.SelfDefiningMetaDTO;
+import top.toptimus.meta.TokenMetaInfoDTO;
 import top.toptimus.meta.metaview.MetaInfoDTO;
 import top.toptimus.meta.property.MetaFieldDTO;
 import top.toptimus.model.meta.event.SaveMetaInfoModel;
@@ -86,6 +89,12 @@ public class MetaEventEntity {
      */
     @SuppressWarnings("UnusedReturnValue")
     public SaveMetaInfoModel saveMetaInfoDTO(List<MetaInfoDTO> metaInfoDTOs) {
+        if (metaInfoDTOs.isEmpty()) {
+            throw new RuntimeException("meta list为空");
+        } else {
+            this.createTableByMetaInfoDTOS(metaInfoDTOs.get(0).getMetaId(), metaInfoDTOs);  //  创建表
+        }
+
         // 保存用的model
         return new SaveMetaInfoModel(metaInfoDTOs);
     }
@@ -108,6 +117,22 @@ public class MetaEventEntity {
     }
 
     /**
+     * 创建表
+     *
+     * @param tableName    表名
+     * @param metaInfoDTOS meta info list
+     */
+    private void createTableByMetaInfoDTOS(String tableName, List<MetaInfoDTO> metaInfoDTOS) {
+        Map<String, MetaInfoDTO> metaInfoMap = new HashMap<String, MetaInfoDTO>() {{
+            for (MetaInfoDTO metaInfoDTO : metaInfoDTOS) {
+                put(metaInfoDTO.getKey(), metaInfoDTO);
+            }
+        }};
+
+        metaTableDDLRepository.createTableByMetaInfo(tableName, metaInfoMap);
+    }
+
+    /**
      * 保存自定义meta
      *
      * @param selfDefiningMetaDTO 用户自定义meta
@@ -119,13 +144,13 @@ public class MetaEventEntity {
     /**
      * 根据主数据metaID查找旗下的视图metaId并修改旗下的Caption
      *
-     * @param masterMetaId     主数据metaID
-     * @param fKeyCaptionDtos  字段Fkey和描述caption
+     * @param masterMetaId    主数据metaID
+     * @param fKeyCaptionDtos 字段Fkey和描述caption
      */
     public void updateMetaCaption(String masterMetaId, List<FKeyCaptionDto> fKeyCaptionDtos) {
         // 根据指定的主数据metaId Fkey Caption 修改数据
         for (FKeyCaptionDto fKeyCaptionDto : fKeyCaptionDtos) {
-            fKeyTypeRepository.updateMetaFkeyCaption(masterMetaId ,fKeyCaptionDto.getKey(),fKeyCaptionDto.getCaption());
+            fKeyTypeRepository.updateMetaFkeyCaption(masterMetaId, fKeyCaptionDto.getKey(), fKeyCaptionDto.getCaption());
         }
     }
 
