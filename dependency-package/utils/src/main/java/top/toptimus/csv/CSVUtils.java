@@ -15,11 +15,10 @@ public class CSVUtils {
      *
      * @param filePath csv文件路径(路径+文件名)，csv文件不存在会自动创建
      * @param dataList 数据
-     * @return
      */
     private static boolean exportCsv(String filePath, List<String> dataList) {
         File file = new File(filePath);
-        boolean isSucess = false;
+        boolean isSucess;
 
         FileOutputStream out = null;
         OutputStreamWriter osw = null;
@@ -40,7 +39,6 @@ public class CSVUtils {
             if (bw != null) {
                 try {
                     bw.close();
-                    bw = null;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -48,7 +46,6 @@ public class CSVUtils {
             if (osw != null) {
                 try {
                     osw.close();
-                    osw = null;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -56,7 +53,6 @@ public class CSVUtils {
             if (out != null) {
                 try {
                     out.close();
-                    out = null;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -70,7 +66,6 @@ public class CSVUtils {
      * 读取
      *
      * @param filePath csv文件(路径+文件)
-     * @return
      */
     public static List<String> importCsv(String filePath) {
         File file = new File(filePath);
@@ -79,7 +74,7 @@ public class CSVUtils {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(file));
-            String line = "";
+            String line;
             while ((line = br.readLine()) != null) {
                 dataList.add(line);
             }
@@ -88,7 +83,6 @@ public class CSVUtils {
             if (br != null) {
                 try {
                     br.close();
-                    br = null;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -101,8 +95,6 @@ public class CSVUtils {
 
     /**
      * 测试
-     *
-     * @param args
      */
     public static void main(String[] args) {
         //exportCsv();
@@ -112,8 +104,6 @@ public class CSVUtils {
 
     /**
      * CSV读取测试
-     *
-     * @throws Exception
      */
     private static void importCsv() {
         List<String> dataList = CSVUtils.importCsv("/Users/gaoyu/Desktop/测试.csv");
@@ -132,11 +122,9 @@ public class CSVUtils {
 
     /**
      * CSV写入测试
-     *
-     * @throws Exception
      */
     public static void exportCsv() {
-        List<String> dataList = new ArrayList<String>();
+        List<String> dataList = new ArrayList<>();
         dataList.add("number,name,sex");
         dataList.add("1,张三,男");
         dataList.add("2,李四,男");
