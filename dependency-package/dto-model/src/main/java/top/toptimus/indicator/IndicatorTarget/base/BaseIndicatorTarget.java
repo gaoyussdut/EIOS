@@ -9,7 +9,7 @@ import top.toptimus.indicator.ou.base.IndicatorType;
 import java.util.Date;
 
 /**
- * 业务指标dao
+ * 业务指标基类
  *
  * @author gaoyu
  * @since 2019-08-06
@@ -17,7 +17,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseIndicatorTarget {
+public abstract class BaseIndicatorTarget {
     protected String targetCode;  //  目标编号
     protected String indicatorItemId; //  指标项id
     protected String year;    //  指标年度
