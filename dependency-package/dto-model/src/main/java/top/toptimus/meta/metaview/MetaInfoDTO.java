@@ -41,11 +41,11 @@ public class MetaInfoDTO implements Serializable {
     /**
      * 构造函数
      *
-     * @param metaId
-     * @param tokenMetaName
-     * @param key
-     * @param caption
-     * @param fkeyType
+     * @param metaId        meta id
+     * @param tokenMetaName meta名
+     * @param key           key
+     * @param caption       caption
+     * @param fkeyType      key类型
      */
     public MetaInfoDTO(String metaId, String tokenMetaName, String key, String caption, String fkeyType) {
         this.metaId = metaId;
@@ -53,6 +53,27 @@ public class MetaInfoDTO implements Serializable {
         this.key = key;
         this.caption = caption;
         this.fkeytype = this.fkeyBaseType = fkeyType;
+    }
+
+    /**
+     * 构造函数
+     *
+     * @param metaId        meta id
+     * @param tokenMetaName meta名
+     * @param key           key
+     * @param caption       caption
+     * @param fkeyType      key类型
+     * @param fKey          select关联键
+     * @param metaKey       关联meta id
+     */
+    public MetaInfoDTO(String metaId, String tokenMetaName, String key, String caption, String fkeyType, String metaKey, String fKey) {
+        this.metaId = metaId;
+        this.tokenMetaName = tokenMetaName;
+        this.key = key;
+        this.caption = caption;
+        this.fkeytype = this.fkeyBaseType = fkeyType;
+        this.fKey = fKey;
+        this.metaKey = metaKey;
     }
 
     /**

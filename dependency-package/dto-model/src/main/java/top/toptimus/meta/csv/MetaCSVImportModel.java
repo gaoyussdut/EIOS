@@ -1,5 +1,6 @@
 package top.toptimus.meta.csv;
 
+import top.toptimus.common.enums.FkeyTypeEnum;
 import top.toptimus.csv.CSVUtils;
 import top.toptimus.meta.metaview.MetaInfoDTO;
 
@@ -30,7 +31,13 @@ public class MetaCSVImportModel {
                     if (i != 0) {//不读取第一行
                         String s = dataList.get(i);
                         String[] as = s.split(",");
-                        add(new MetaInfoDTO(metaId, tokenMetaName, as[0], as[1], as[2]));
+                        if (as[2].equals(FkeyTypeEnum.SELECT.name())) {
+                            //  SELECT类型
+                            add(new MetaInfoDTO(metaId, tokenMetaName, as[0], as[1], as[2], as[3], as[4]));
+                        } else {
+                            //  普通类型
+                            add(new MetaInfoDTO(metaId, tokenMetaName, as[0], as[1], as[2]));
+                        }
                     }
                 }
             }
