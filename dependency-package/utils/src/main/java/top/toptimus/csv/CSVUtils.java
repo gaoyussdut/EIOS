@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * * CSV操作(读取和写入)
- * * @author lq
- * * @version 2018-04-23
+ * CSV操作(读取和写入)
+ *
+ * @author gaoyu
+ * @since 2018-04-23
  */
 public class CSVUtils {
     /**
@@ -16,7 +17,7 @@ public class CSVUtils {
      * @param filePath csv文件路径(路径+文件名)，csv文件不存在会自动创建
      * @param dataList 数据
      */
-    private static boolean exportCsv(String filePath, List<String> dataList) {
+    public static boolean exportCsv(String filePath, List<String> dataList) {
         File file = new File(filePath);
         boolean isSucess;
 
@@ -93,43 +94,43 @@ public class CSVUtils {
     }
 
 
-    /**
-     * 测试
-     */
-    public static void main(String[] args) {
-        //exportCsv();
-        importCsv();
-    }
-
-
-    /**
-     * CSV读取测试
-     */
-    private static void importCsv() {
-        List<String> dataList = CSVUtils.importCsv("/Users/gaoyu/Desktop/测试.csv");
-        if (dataList != null && !dataList.isEmpty()) {
-            for (int i = 0; i < dataList.size(); i++) {
-                if (i != 0) {//不读取第一行
-                    String s = dataList.get(i);
-                    String[] as = s.split(",");
-                    System.out.println(as[0]);
-                    System.out.println(as[1]);
-                    System.out.println(as[2]);
-                }
-            }
-        }
-    }
-
-    /**
-     * CSV写入测试
-     */
-    public static void exportCsv() {
-        List<String> dataList = new ArrayList<>();
-        dataList.add("number,name,sex");
-        dataList.add("1,张三,男");
-        dataList.add("2,李四,男");
-        dataList.add("3,小红,女");
-        boolean isSuccess = CSVUtils.exportCsv("/Users/gaoyu/Desktop/测试.csv", dataList);
-        System.out.println(isSuccess);
-    }
+//    /**
+//     * 测试
+//     */
+//    public static void main(String[] args) {
+//        //exportCsv();
+//        importCsv();
+//    }
+//
+//
+//    /**
+//     * CSV读取测试
+//     */
+//    private static void importCsv() {
+//        List<String> dataList = CSVUtils.importCsv("/Users/gaoyu/Desktop/测试.csv");
+//        if (dataList != null && !dataList.isEmpty()) {
+//            for (int i = 0; i < dataList.size(); i++) {
+//                if (i != 0) {//不读取第一行
+//                    String s = dataList.get(i);
+//                    String[] as = s.split(",");
+//                    System.out.println(as[0]);
+//                    System.out.println(as[1]);
+//                    System.out.println(as[2]);
+//                }
+//            }
+//        }
+//    }
+//
+//    /**
+//     * CSV写入测试
+//     */
+//    public static void exportCsv() {
+//        List<String> dataList = new ArrayList<>();
+//        dataList.add("number,name,sex");
+//        dataList.add("1,张三,男");
+//        dataList.add("2,李四,男");
+//        dataList.add("3,小红,女");
+//        boolean isSuccess = CSVUtils.exportCsv("/Users/gaoyu/Desktop/测试.csv", dataList);
+//        System.out.println(isSuccess);
+//    }
 }
