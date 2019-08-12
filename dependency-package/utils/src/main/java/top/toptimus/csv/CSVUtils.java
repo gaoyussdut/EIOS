@@ -70,27 +70,25 @@ public class CSVUtils {
      */
     public static List<String> importCsv(String filePath) {
         File file = new File(filePath);
-        List<String> dataList = new ArrayList<>();
-
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                dataList.add(line);
-            }
-        } catch (Exception ignored) {
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+        return new ArrayList<String>() {{
+            BufferedReader br = null;
+            try {
+                br = new BufferedReader(new FileReader(file));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    add(line);
+                }
+            } catch (Exception ignored) {
+            } finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }
-
-        return dataList;
+        }};
     }
 
 
