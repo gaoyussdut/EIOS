@@ -231,7 +231,9 @@ public class PlaceService {
      */
     public Result saveBillToken(TokenDataDto tokenDataDto, String metaId, String schemaId, String id) {
         placeRedisEntity.saveBillToken(tokenDataDto, metaId);
-        businessUnitEventEntity.saveSchema(new SchemaDTO(id,schemaId).build(tokenDataDto.getTokenId()));
+        if(!businessUnitFacadeQueryEntity.isExistSchema(id)){
+            businessUnitEventEntity.saveSchema(new SchemaDTO(id,schemaId).build(tokenDataDto.getTokenId()));
+        }
         return Result.success();
     }
 

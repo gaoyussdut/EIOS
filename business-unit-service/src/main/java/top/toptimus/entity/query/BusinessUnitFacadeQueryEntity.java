@@ -34,6 +34,8 @@ public class BusinessUnitFacadeQueryEntity {
     private HandoverDefinitionRepository handoverDefinitionRepository;
     @Autowired
     private BusinessUnitCertificateDefinitionRepository certificateDefinitionRepository;
+    @Autowired
+    private SchemaRepository schemaRepository;
 
     /**
      * 根据下级meta找业务单元流程弧
@@ -172,4 +174,13 @@ public class BusinessUnitFacadeQueryEntity {
         return certificateDefinitionRepository.findStoredProcedureByMetaId(metaId);
     }
 
+    /**
+     * 判断schema的Id是否存在
+     *
+     * @param id
+     * @return
+     */
+    public boolean isExistSchema(String id) {
+        return schemaRepository.isExistSchema(id);
+    }
 }

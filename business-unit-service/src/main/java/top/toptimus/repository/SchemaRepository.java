@@ -61,6 +61,11 @@ public class SchemaRepository {
         }
     }
 
+    public boolean isExistSchema(String id) {
+        String sql = "select count(id) from t_schema where id = '" + id + "'";
+        return jdbcTemplate.queryForObject(sql,Integer.class)>0;
+    }
+
     class SchemaDTOMapper implements RowMapper<SchemaDTO> {
         @SuppressWarnings("NullableProblems")
         @Override
