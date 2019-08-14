@@ -285,7 +285,7 @@ public class PlaceRedisEntity {
                     , entryMetaId
                     , authId
             );
-            savePlaceProducer.saveEntryToken(billTokenSaveResultDTO);
+//            savePlaceProducer.saveEntryToken(billTokenSaveResultDTO);
             //  5.返回result(BillTokenSaveResultDTO)
             return Result.success(billTokenSaveResultDTO);
         } catch (Exception e) {

@@ -235,7 +235,17 @@ public class PlaceService {
      * @return Result
      */
     public Result saveBillToken(TokenDataDto tokenDataDto, String metaId) {
-        placeRedisEntity.saveBillToken(tokenDataDto, metaId);
+        String authId = userQueryFacadeEntity.findByAccessToken().getId();
+        BillTokenSaveResultDTO billTokenSaveResultDTO = new BillTokenSaveResultDTO(metaId, tokenDataDto, authId);
+        //保存表头数据到PG
+        tokenEventEntity.saveDatas(
+                billTokenSaveResultDTO
+                        .getBillTokenResultBody()
+                        .getBillTokenData()
+                ,billTokenSaveResultDTO
+                        .getBillTokenResultBody()
+                        .getBillMetaId()
+        );
         return Result.success();
     }
 
@@ -310,7 +320,26 @@ public class PlaceService {
      * @return Result
      */
     public Result saveEntryToken(String billTokenId, String billMetaId, TokenDataDto tokenDataDto, String entryMetaId, MetaTypeEnum entryType) {
-        return placeRedisEntity.saveEntryToken(billTokenId, billMetaId, tokenDataDto, entryMetaId);
+
+        String authId = userQueryFacadeEntity.findByAccessToken().getId();
+        BillTokenSaveResultDTO billTokenSaveResultDTO = new BillTokenSaveResultDTO(
+                billTokenId
+                , billMetaId
+                , tokenDataDto
+                , entryMetaId
+                , authId
+        );
+        tokenEventEntity.saveDatas(
+                billTokenSaveResultDTO
+                        .getBillTokenResultBody()
+                        .getEntryTokenData()
+                , billTokenSaveResultDTO
+                        .getBillTokenResultBody()
+                        .getEntryMetaId()
+        );
+        //2.同步关系到pg
+        tokenEventEntity.saveRel(billTokenSaveResultDTO);
+        return Result.success(billTokenSaveResultDTO);
     }
 
     /**
@@ -370,7 +399,7 @@ public class PlaceService {
             }
         });
 
-        return placeRedisEntity.deleteEntryToken(billTokenId, entryMetaId, entryTokenId);
+        return Result.success();
     }
 
     /**

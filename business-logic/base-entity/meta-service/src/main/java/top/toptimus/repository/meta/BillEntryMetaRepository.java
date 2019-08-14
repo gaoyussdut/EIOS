@@ -40,7 +40,7 @@ public class BillEntryMetaRepository {
         String sql = "SELECT rbem.token_template_id,rbem.bill_meta_id,rbem.entry_meta_id,rbem.order_,rbem.entry_type,ttd.token_template_id as rel_ttid"
                 + " FROM r_bill_entry_meta rbem"
                 + " LEFT JOIN t_tokentemplate_definition ttd ON ttd.bill_meta_id = rbem.entry_meta_id"
-                + " WHERE bill_meta_id = '"
+                + " WHERE rbem.bill_meta_id = '"
                 + billMetaId + "' ";
         return jdbcTemplate.query(sql, new MetaRelDTORowMapper());
     }
