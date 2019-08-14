@@ -1,11 +1,14 @@
 package top.toptimus.indicator.ou.model;
 
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import top.toptimus.indicator.indicatorBill.dao.IndicatorOuRelDao;
 import top.toptimus.indicator.indicatorBill.model.IndicatorBillRelModel;
 import top.toptimus.indicator.ou.base.IndicatorType;
+import top.toptimus.indicator.ou.dao.OrgnazitionUnitAttributeDao;
 import top.toptimus.indicator.ou.dao.OrgnazitionUnitDao;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitAttribute;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitBaseInfoDto;
@@ -43,6 +46,31 @@ public class OrgnazitionUnitModel {
             //  遍历组织下的多属性，生成不同属性下的组织列表
             orgnazitionUnitDao.getOrgnazitionUnitAttributes().keySet().forEach(indicatorType -> this.generateOrgnazitionAttributeMap(indicatorType, orgnazitionUnitDao));
         });
+    }
+
+    /**
+     * 维护业务组织属性
+     *
+     * @param orgnazitionUnitAttributeDaos 业务组织属性列表
+     * @return this
+     */
+    public OrgnazitionUnitModel buildorgnazitionUnitAttributes(List<OrgnazitionUnitAttributeDao> orgnazitionUnitAttributeDaos) {
+        Map<String, List<OrgnazitionUnitAttribute>> orgnazitionUnitAttributeMap = new HashMap<>();
+
+        for (OrgnazitionUnitAttributeDao orgnazitionUnitAttributeDao : orgnazitionUnitAttributeDaos) {
+            if (orgnazitionUnitAttributeMap.containsKey(orgnazitionUnitAttributeDao.getOuId())) {
+                //  存在ouid
+                orgnazitionUnitAttributeMap.get(orgnazitionUnitAttributeDao.getOuId()).add(orgnazitionUnitAttributeDao.buildOrgnazitionUnitAttribute());
+            } else {
+                //  新增
+                orgnazitionUnitAttributeMap.put(orgnazitionUnitAttributeDao.getOuId(), Lists.newArrayList(orgnazitionUnitAttributeDao.buildOrgnazitionUnitAttribute()));
+            }
+        }
+        for (String ouId : orgnazitionUnitAttributeMap.keySet()) {
+            this.updateOrgnazitionUnitAttributes(ouId, orgnazitionUnitAttributeMap.get(ouId));
+
+        }
+        return this;
     }
 
 

@@ -18,9 +18,9 @@ import java.util.Date;
 public abstract class BaseOrgnazitionUnit {
     protected String ouCode;  //  ou的编码
     protected String ouName;  //  ou的名称
-    protected Date createDate;    //  创建时间
+    protected Date createDate = null;    //  创建时间
     protected String createUser;  //  创建人
-    protected Date enableDate;  //  启用时间
+    protected Date enableDate = null;  //  启用时间
 
     /*
         传统组织架构信息
@@ -32,7 +32,7 @@ public abstract class BaseOrgnazitionUnit {
         禁用信息
      */
     protected boolean isDisabled = false; //  是否禁用
-    protected Date disableDate;   //  禁用时间
+    protected Date disableDate = null;   //  禁用时间
     protected String disableUser;  //  禁用人
 
     protected String description; //  描述
