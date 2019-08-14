@@ -1,13 +1,15 @@
 package top.toptimus.repository.ou;
 
-import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import top.toptimus.indicator.ou.base.IndicatorType;
+import top.toptimus.indicator.ou.dao.OrgnazitionUnitAttributeDao;
 import top.toptimus.indicator.ou.dao.OrgnazitionUnitDao;
+import top.toptimus.indicator.ou.dto.OrgnazitionUnitAttribute;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitBaseInfoDto;
 
 import java.sql.ResultSet;
@@ -25,7 +27,6 @@ public class OuRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
 
     /**
      * 保存ou定义
@@ -50,7 +51,28 @@ public class OuRepository {
             jdbcTemplate.execute(sql);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("保存FKeyDao失败");
+            throw new RuntimeException("保存ou失败");
+        }
+    }
+
+    /**
+     * 保存业务组织属性
+     *
+     * @param ouId                     ou id
+     * @param orgnazitionUnitAttribute 业务组织属性
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void saveOrgnazitionUnitAttribute(String ouId, OrgnazitionUnitAttribute orgnazitionUnitAttribute) {
+        String sql = "INSERT INTO orgnazition_unit_attribute(ou_id,indicator_type,parent_id,is_cu) "
+                + "VALUES ('" + ouId + "','"
+                + orgnazitionUnitAttribute.getIndicatorType().name() + "','"
+                + orgnazitionUnitAttribute.getParentId() + "','"
+                + orgnazitionUnitAttribute.isCU() + "')";
+        try {
+            jdbcTemplate.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("保存ou失败");
         }
     }
 
@@ -60,9 +82,20 @@ public class OuRepository {
      * @return fkey信息
      */
     @Transactional(readOnly = true)
-    public List<OrgnazitionUnitDao> findAll() {
-        String sql = "SELECT ou_id,ou_code,ou_name,create_date,create_user,enable_date,p_ou_id,level,is_disabled,disable_date,disable_user,description,is_entity from orgnazition_unit";
+    public List<OrgnazitionUnitDao> findAllOrgnazitionUnitDao() {
+        String sql = "SELECT ou_id,ou_code,ou_name,create_date,create_user,enable_date,p_ou_id,level,is_disabled,disable_date,disable_user,description,is_entity from orgnazition_unit;";
         return jdbcTemplate.query(sql, new OrgnazitionUnitDaoRowMapper());
+    }
+
+    /**
+     * 查询所有ou
+     *
+     * @return fkey信息
+     */
+    @Transactional(readOnly = true)
+    public List<OrgnazitionUnitAttributeDao> findAllOrgnazitionUnitAttributeDao() {
+        String sql = "SELECT ou_id,indicator_type,parent_id,is_cu from orgnazition_unit_attribute;";
+        return jdbcTemplate.query(sql, new OrgnazitionUnitAttributeDaoRowMapper());
     }
 }
 
@@ -85,6 +118,18 @@ class OrgnazitionUnitDaoRowMapper implements RowMapper<OrgnazitionUnitDao> {
                         , rs.getString("description")
                         , rs.getBoolean("is_entity")
                 )
+        );
+    }
+}
+
+class OrgnazitionUnitAttributeDaoRowMapper implements RowMapper<OrgnazitionUnitAttributeDao> {
+    @Override
+    public OrgnazitionUnitAttributeDao mapRow(@SuppressWarnings("NullableProblems") ResultSet rs, int rowNum) throws SQLException {
+        return new OrgnazitionUnitAttributeDao(
+                rs.getString("ou_id")
+                , rs.getString("parent_id")
+                , IndicatorType.valueOf(rs.getString("indicator_type"))
+                , rs.getBoolean("is_cu")
         );
     }
 }

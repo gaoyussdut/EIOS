@@ -34,13 +34,22 @@ public class OuEntity {
     /**
      * 从数据库中加载OU充血模型，在retrieve方法中调用
      */
-    private void initOuData() {
+    public void initOuData() {
         /*
             ou初始化
          */
-        List<OrgnazitionUnitDao> orgnazitionUnitDaos = ouRepository.findAll();
+        this.orgnazitionUnitModelThreadLocal.set(new OrgnazitionUnitModel(ouRepository.findAllOrgnazitionUnitDao()));
+    }
 
-        this.orgnazitionUnitModelThreadLocal.set(new OrgnazitionUnitModel(orgnazitionUnitDaos));
+
+    /**
+     * 从数据库中加载OU充血模型，在retrieve方法中调用
+     */
+    public void initOuAttributesData() {
+        /*
+            ou初始化
+         */
+        this.orgnazitionUnitModelThreadLocal.get().buildorgnazitionUnitAttributes(ouRepository.findAllOrgnazitionUnitAttributeDao());
     }
 
     private void initIndicator() {
@@ -134,7 +143,7 @@ public class OuEntity {
      * @param ouId 业务组织id
      * @return 业务组织属性
      */
-    public OrgnazitionUnitBaseInfoDto getOrgnazitionUnitDao(String ouId) {
+    public OrgnazitionUnitBaseInfoDto getOrgnazitionUnitBaseInfo(String ouId) {
         try {
             return this.orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitDao(ouId).buildOrgnazitionUnitBaseInfoDto();
         } catch (Exception e) {
@@ -171,7 +180,9 @@ public class OuEntity {
      */
     public void updateOrgnazitionUnitAttributes(String ouId, List<OrgnazitionUnitAttribute> orgnazitionUnitAttributes) {
         this.orgnazitionUnitModelThreadLocal.get().updateOrgnazitionUnitAttributes(ouId, orgnazitionUnitAttributes);
-        //  TODO    持久化数据库
+        for (OrgnazitionUnitAttribute orgnazitionUnitAttribute : orgnazitionUnitAttributes) {
+            ouRepository.saveOrgnazitionUnitAttribute(ouId, orgnazitionUnitAttribute);
+        }
     }
 
     /**
