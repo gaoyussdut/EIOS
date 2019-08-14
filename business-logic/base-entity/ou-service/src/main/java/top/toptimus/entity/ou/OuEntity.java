@@ -1,5 +1,7 @@
 package top.toptimus.entity.ou;
 
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.toptimus.indicator.indicatorBill.dao.IndicatorOuRelDao;
 import top.toptimus.indicator.indicatorBill.dto.IndicatorOuRelDto;
@@ -9,6 +11,7 @@ import top.toptimus.indicator.ou.dto.OrgnazitionUnitAttribute;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitBaseInfoDto;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitDto;
 import top.toptimus.indicator.ou.model.OrgnazitionUnitModel;
+import top.toptimus.repository.ou.OuRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,8 +26,10 @@ import java.util.UUID;
  */
 @Component
 public class OuEntity {
+    @Getter
     private final ThreadLocal<OrgnazitionUnitModel> orgnazitionUnitModelThreadLocal = ThreadLocal.withInitial(OrgnazitionUnitModel::new);   //  单据线程缓存
-
+    @Autowired
+    private OuRepository ouRepository;  //  ou repo
 
     /**
      * 从数据库中加载OU充血模型，在retrieve方法中调用
@@ -33,7 +38,7 @@ public class OuEntity {
         /*
             ou初始化
          */
-        List<OrgnazitionUnitDao> orgnazitionUnitDaos = new ArrayList<>();   //  TODO    从数据库中取数据
+        List<OrgnazitionUnitDao> orgnazitionUnitDaos = ouRepository.findAll();
 
         this.orgnazitionUnitModelThreadLocal.set(new OrgnazitionUnitModel(orgnazitionUnitDaos));
     }
@@ -67,8 +72,29 @@ public class OuEntity {
             , boolean isEntity
     ) {
         OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto = this.orgnazitionUnitModelThreadLocal.get().createOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser, isEntity);
-        //  TODO    持久化数据库
+        this.ouRepository.createorgnazitionUnit(new OrgnazitionUnitDao(orgnazitionUnitBaseInfoDto)); //  持久化
+        return orgnazitionUnitBaseInfoDto;
+    }
 
+    /**
+     * 新增顶层业务组织，必然为虚体，只能负责填写指标，不能分配任务
+     *
+     * @param pOuId      上级业务组织id
+     * @param ouCode     业务组织编码
+     * @param ouName     业务组织名称
+     * @param createDate 创建时间
+     * @param createUser 创建人
+     * @return 业务组织DTO
+     */
+    public OrgnazitionUnitBaseInfoDto createTopOrgnazitionUnit(
+            String pOuId
+            , String ouCode
+            , String ouName
+            , Date createDate
+            , String createUser
+    ) {
+        OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto = this.orgnazitionUnitModelThreadLocal.get().createTopOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser);
+        this.ouRepository.createorgnazitionUnit(new OrgnazitionUnitDao(orgnazitionUnitBaseInfoDto)); //  持久化
         return orgnazitionUnitBaseInfoDto;
     }
 

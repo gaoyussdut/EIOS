@@ -2,12 +2,14 @@ package top.toptimus.indicator.ou.dao;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import top.toptimus.formula.util.DateUtil;
 import top.toptimus.indicator.ou.base.BaseOrgnazitionUnit;
 import top.toptimus.indicator.ou.base.IndicatorType;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitAttribute;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitBaseInfoDto;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitDto;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,14 +38,14 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
         this.ouID = orgnazitionUnitBaseInfoDto.getOuID();
         this.ouCode = orgnazitionUnitBaseInfoDto.getOuCode();
         this.ouName = orgnazitionUnitBaseInfoDto.getOuName();
-        this.createDate = orgnazitionUnitBaseInfoDto.getCreateDate();
+        this.createDate = null == orgnazitionUnitBaseInfoDto.getCreateDate() ? new Date() : orgnazitionUnitBaseInfoDto.getCreateDate();
         this.createUser = orgnazitionUnitBaseInfoDto.getCreateUser();
-        this.enableDate = orgnazitionUnitBaseInfoDto.getEnableDate();
+        this.enableDate = null == orgnazitionUnitBaseInfoDto.getEnableDate() ? DateUtil.parseDate("1900-01-01", "yyyy-MM-DD") : orgnazitionUnitBaseInfoDto.getEnableDate(); //  TODO    bug
         this.pOuID = orgnazitionUnitBaseInfoDto.getPOuID();
         this.level = orgnazitionUnitBaseInfoDto.getLevel();
         this.description = orgnazitionUnitBaseInfoDto.getDescription();
 
-        this.disableDate = orgnazitionUnitBaseInfoDto.getDisableDate();
+        this.disableDate = null == orgnazitionUnitBaseInfoDto.getDisableDate() ? DateUtil.parseDate("1900-01-01", "yyyy-MM-DD") : orgnazitionUnitBaseInfoDto.getDisableDate();  //  TODO bug
         this.disableUser = orgnazitionUnitBaseInfoDto.getDisableUser();
         this.isEntity = orgnazitionUnitBaseInfoDto.isEntity();
     }
