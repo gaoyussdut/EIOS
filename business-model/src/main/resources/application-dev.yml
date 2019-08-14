@@ -10,8 +10,8 @@ spring:
   application:
     name: business
   jackson:
-        # 默认为ALWAYS,non_null属性为null不参加序列化, NON_EMPTY 属性为""或NULL都不序列化
-        default-property-inclusion: non_null
+    # 默认为ALWAYS,non_null属性为null不参加序列化, NON_EMPTY 属性为""或NULL都不序列化
+    default-property-inclusion: non_null
   jms:
     listener:
       acknowledge-mode: CLIENT
@@ -28,7 +28,7 @@ spring:
         max-idle: 8
         min-idle: 0
 
-### postgresql
+  ### postgresql
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: org.postgresql.Driver
@@ -61,7 +61,7 @@ spring:
     #spring.datasource.connectionProperties=druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     # 合并多个DruidDataSource的监控数据
     #spring.datasource.useGlobalDataSourceStat=true
-  
+
   ### Data
   data:
     # Cassandra
@@ -108,8 +108,8 @@ spring:
 
 # 外键服务的url和talend_id
 foreign_key_service:
-    url: http://localhost:8090
-    talend_id: 311b15e2-1513-4ef5-b88c-125cdf1cc48f
+  url: http://localhost:8090
+  talend_id: 311b15e2-1513-4ef5-b88c-125cdf1cc48f
 
 ##### Log
 logging:

@@ -203,6 +203,17 @@ public class TokenEventEntity {
     }
 
     /**
+     * 删除关系 向pg中存关系
+     *
+     * @param billTokenId
+     * @param entryTokenId
+     */
+    public void delRel(String billTokenId, String entryTokenId) {
+        //同步关系到pg
+        tokenRelationRopository.deleteMetaTokenRelation(billTokenId, entryTokenId);
+    }
+
+    /**
      * 删除ES中分录Token的关系
      *
      * @param entryTokenId 分录tokenId

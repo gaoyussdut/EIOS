@@ -15,7 +15,6 @@ import top.toptimus.common.PaginationHelper;
 import top.toptimus.exception.TopSQLException;
 import top.toptimus.model.tokenData.base.TokenDataModel;
 import top.toptimus.model.tokenData.query.EntryTokenQueryModel;
-import top.toptimus.schema.SchemaDTO;
 import top.toptimus.token.TokenDto;
 import top.toptimus.token.relation.TokenRelDTO;
 

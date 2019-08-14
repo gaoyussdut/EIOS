@@ -16,5 +16,7 @@ public class MetaRelDTO {
     private String entryMetaId; //分录、关联单据meta
     private MetaTypeEnum metaType; //分录类型。
     private int order_;  //分录顺序
+    private String tokenTemplateId; //库所Id
+    private String relTokenTemplateId; //关联单据库所id
 
 }

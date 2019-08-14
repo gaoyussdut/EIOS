@@ -207,23 +207,23 @@ public class TokenDataDto implements Serializable {
      * @param pageNo           pageNo
      * @return json data
      */
-    public TokenDataPageableDto getTokenDataPageableDto(List<TokenDataDto> tokenDataDtoList, int pageSize, int pageNo) {
-        int fromIndex = pageSize * (pageNo - 1);
-        int toIndex = pageSize * pageNo - 1 > tokenDataDtoList.size() ? tokenDataDtoList.size() : pageSize * pageNo - 1;
-        List<TokenDataDto> cleanTokenDataDto = tokenDataDtoList.subList(fromIndex, toIndex);
-
-        // 将TokenDataDto中的key,businessId,jsonData存入简化DTO中
-        List<ReducedTokenDataDto> reducedTokenDataDtoList = new ArrayList<>();
-        for (TokenDataDto tokenDataDto : cleanTokenDataDto) {
-            List<ReducedFkeyField> reducedFkeyField = new ArrayList<>();
-            // 遍历FkeyField中的数据
-            for (FkeyField fkeyField : tokenDataDto.getFields()) {
-                reducedFkeyField.add(
-                        new ReducedFkeyField(fkeyField.getKey(), fkeyField.getBusinessId(), fkeyField.getJsonData()));
-            }
-            reducedTokenDataDtoList.add(new ReducedTokenDataDto(tokenDataDto.getTokenId(), reducedFkeyField));
-        }
-        return new TokenDataPageableDto(pageSize, pageNo, reducedTokenDataDtoList);
-    }
+//    public TokenDataPageableDto getTokenDataPageableDto(List<TokenDataDto> tokenDataDtoList, int pageSize, int pageNo) {
+//        int fromIndex = pageSize * (pageNo - 1);
+//        int toIndex = pageSize * pageNo - 1 > tokenDataDtoList.size() ? tokenDataDtoList.size() : pageSize * pageNo - 1;
+//        List<TokenDataDto> cleanTokenDataDto = tokenDataDtoList.subList(fromIndex, toIndex);
+//
+//        // 将TokenDataDto中的key,businessId,jsonData存入简化DTO中
+//        List<ReducedTokenDataDto> reducedTokenDataDtoList = new ArrayList<>();
+//        for (TokenDataDto tokenDataDto : cleanTokenDataDto) {
+//            List<ReducedFkeyField> reducedFkeyField = new ArrayList<>();
+//            // 遍历FkeyField中的数据
+//            for (FkeyField fkeyField : tokenDataDto.getFields()) {
+//                reducedFkeyField.add(
+//                        new ReducedFkeyField(fkeyField.getKey(), fkeyField.getBusinessId(), fkeyField.getJsonData()));
+//            }
+//            reducedTokenDataDtoList.add(new ReducedTokenDataDto(tokenDataDto.getTokenId(), reducedFkeyField));
+//        }
+//        return new TokenDataPageableDto(pageSize, pageNo, reducedTokenDataDtoList);
+//    }
 
 }

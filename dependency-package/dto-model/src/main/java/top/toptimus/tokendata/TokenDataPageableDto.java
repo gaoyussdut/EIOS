@@ -20,16 +20,16 @@ public class TokenDataPageableDto implements Serializable {
     protected int pageSize;
     protected int pageNo;
     protected int total;
-    protected List<ReducedTokenDataDto> tokenDataDtoList;
+    protected List<TokenDataDto> tokenDataDtoList;
 
-    public TokenDataPageableDto(int pageSize, int pageNo, List<ReducedTokenDataDto> tokenDataDtoList) {
+    public TokenDataPageableDto(int pageSize, int pageNo, List<TokenDataDto> tokenDataDtoList) {
         this.pageSize = pageSize;
         this.pageNo = pageNo;
         this.total = tokenDataDtoList.size();
         this.tokenDataDtoList = tokenDataDtoList;
     }
 
-    public TokenDataPageableDto(int pageSize, int pageNo, int total, List<ReducedTokenDataDto> tokenDataDtoList) {
+    public TokenDataPageableDto(int pageSize, int pageNo, int total, List<TokenDataDto> tokenDataDtoList) {
         this.pageSize = pageSize;
         this.pageNo = pageNo;
         this.total = total;
@@ -49,7 +49,7 @@ public class TokenDataPageableDto implements Serializable {
         return this;
     }
 
-    public TokenDataPageableDto build(List<ReducedTokenDataDto> reducedTokenDataDtos) {
+    public TokenDataPageableDto build(List<TokenDataDto> reducedTokenDataDtos) {
         this.tokenDataDtoList = reducedTokenDataDtos;
         return this;
     }

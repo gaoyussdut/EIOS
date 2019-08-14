@@ -6,20 +6,22 @@ import org.springframework.stereotype.Service;
 import top.toptimus.businessUnit.*;
 import top.toptimus.businessunit.BusinessUnitModel;
 import top.toptimus.common.enums.BusinessUnitEdgeTypeEnum;
+import top.toptimus.common.enums.MetaTypeEnum;
 import top.toptimus.common.enums.RuleTypeEnum;
 import top.toptimus.common.enums.TaskStatusEnum;
 import top.toptimus.common.result.Result;
 import top.toptimus.entity.event.BusinessUnitEventEntity;
 import top.toptimus.entity.meta.query.MetaQueryFacadeEntity;
 import top.toptimus.entity.query.BusinessUnitFacadeQueryEntity;
-import top.toptimus.entity.query.SchemaFacadeQueryEntity;
 import top.toptimus.entity.tokendata.query.TokenQueryFacadeEntity;
+import top.toptimus.entity.tokentemplate.query.TokenTemplateQueryFacadeEntity;
 import top.toptimus.meta.TokenMetaInformationDto;
 import top.toptimus.meta.relation.MetaRelDTO;
 import top.toptimus.resultModel.ResultErrorModel;
+import top.toptimus.schema.BillPreviewDTO;
 import top.toptimus.schema.BillSchemaDTO;
-import top.toptimus.schema.SchemaDTO;
 import top.toptimus.token.relation.TokenRelDTO;
+import top.toptimus.tokenTemplate.TokenTemplateDefinitionDTO;
 import top.toptimus.tokendata.TokenDataDto;
 import top.toptimus.transformationService.TransformationService;
 
@@ -44,7 +46,7 @@ public class BusinessUnitService {
     @Autowired
     private TransformationService transformationService;
     @Autowired
-    private SchemaFacadeQueryEntity schemaFacadeQueryEntity;
+    private TokenTemplateQueryFacadeEntity tokenTemplateQueryFacadeEntity;
 
 
     /**
@@ -337,37 +339,55 @@ public class BusinessUnitService {
     /**
      * 获取schemaDTO
      *
-     * @param id
-     * @return
+     * @param tokenTemplateId
+     * @param tokenId
+     * @return BillPreviewDTO billPreview
      */
-    public SchemaDTO findSchemaById(String id) {
-        // 首先找出schemaId
-        SchemaDTO schemaDTO = schemaFacadeQueryEntity.findSchemaById(id);
+    public BillPreviewDTO getPreview(String tokenTemplateId, String tokenId) {
 
-        if(!StringUtils.isEmpty(schemaDTO.getBillHeader().getMetaId())){
-            List<MetaRelDTO> metaRelDTOS = metaQueryFacadeEntity.getRelMetasByBillMeta(schemaDTO.getBillHeader().getMetaId());
-            if(metaRelDTOS!=null&&metaRelDTOS.size()>0){
-                metaRelDTOS.forEach(metaRelDTO -> {
-                    schemaDTO.getRelBillDTOList().add(new BillSchemaDTO(metaRelDTO.getEntryMetaId(),metaRelDTO.getMetaType(),metaRelDTO.getOrder_()));
-                });
-            }
-            List<TokenRelDTO> tokenRelDTOs = tokenQueryFacadeEntity.getRelTokenByBillMetaIdAndBillTokenId(schemaDTO.getBillHeader().getMetaId(),schemaDTO.getBillHeader().getTokenId());
-            schemaDTO.getRelBillDTOList().forEach(relBillDTO -> {
+        TokenTemplateDefinitionDTO tokenTemplateDefinitionDTO =
+                tokenTemplateQueryFacadeEntity.findById(tokenTemplateId);
+
+        // 首先找出schemaId
+        BillPreviewDTO billPreviewDTO = new BillPreviewDTO().build(
+                tokenTemplateId
+                , tokenTemplateDefinitionDTO.getBillMetaId()
+                , tokenId
+                , MetaTypeEnum.BILL
+        );
+
+        List<MetaRelDTO> metaRelDTOS =
+                metaQueryFacadeEntity.getRelMetasByTokenTemplateId(tokenTemplateDefinitionDTO.getBillMetaId());
+        if (metaRelDTOS != null && metaRelDTOS.size() > 0) {
+            metaRelDTOS.forEach(metaRelDTO -> {
+                billPreviewDTO
+                        .getRelBillDTOList()
+                        .add(
+                                new BillSchemaDTO(
+                                        metaRelDTO.getRelTokenTemplateId()
+                                        , metaRelDTO.getEntryMetaId()
+                                        , metaRelDTO.getMetaType()
+                                        , metaRelDTO.getOrder_())
+                        );
+            });
+        }
+        if (tokenId != null) {
+            List<TokenRelDTO> tokenRelDTOs =
+                    tokenQueryFacadeEntity
+                            .getRelTokenByBillMetaIdAndBillTokenId(
+                                    tokenTemplateDefinitionDTO.getBillMetaId()
+                                    , tokenId
+                            );
+            billPreviewDTO.getRelBillDTOList().forEach(relBillDTO -> {
                 tokenRelDTOs.forEach(tokenRelDTO -> {
-                    if(relBillDTO.getMetaId().equals(tokenRelDTO.getEntryMetaId())){
+                    if (relBillDTO.getMetaId().equals(tokenRelDTO.getEntryMetaId())) {
                         relBillDTO.build(tokenRelDTO.getEntryTokenId());
                     }
                 });
             });
         }
-        return schemaDTO;
+
+        return billPreviewDTO;
     }
 
-    /**
-     * 删除schema
-     * @param id
-     */
-    public void deleteSchema(String id) {
-        businessUnitEventEntity.deleteSchema(id);
-    }
 }

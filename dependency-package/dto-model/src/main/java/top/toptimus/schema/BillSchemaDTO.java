@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * 业务描述：返回前段的单据描述画面DTO
+ *
  * @author lzs
  * @since 2019-08-06
  */
@@ -20,25 +21,28 @@ import java.util.List;
 public class BillSchemaDTO implements Serializable {
 
     private int order_;  //展示顺序
+    private String tokenTemplateId;
     private String metaId;
     private String tokenId;
     private List<String> tokenIdList = new ArrayList<>();
     private MetaTypeEnum metaType;
 
-    public BillSchemaDTO (String metaId,MetaTypeEnum metaType,int order_){
+    public BillSchemaDTO(String tokenTemplateId, String metaId, MetaTypeEnum metaType, int order_) {
+        this.tokenTemplateId = tokenTemplateId;
         this.metaId = metaId;
         this.metaType = metaType;
         this.order_ = order_;
     }
 
-    public BillSchemaDTO build(String metaId,String tokenId,MetaTypeEnum metaType){
-        this.metaId=metaId;
+    public BillSchemaDTO build(String tokenTemplateId, String metaId, String tokenId, MetaTypeEnum metaType) {
+        this.tokenTemplateId = tokenTemplateId;
+        this.metaId = metaId;
         this.tokenId = tokenId;
-        this.metaType=metaType;
+        this.metaType = metaType;
         return this;
     }
 
-    public BillSchemaDTO build(String tokenId){
+    public BillSchemaDTO build(String tokenId) {
         this.tokenIdList.add(tokenId);
         return this;
     }

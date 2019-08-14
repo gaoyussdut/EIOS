@@ -37,7 +37,9 @@ public class BillEntryMetaRepository {
 
     @Transactional(readOnly = true)
     public List<MetaRelDTO> getRelMetasByBillMeta(String billMetaId) {
-        String sql = "SELECT bill_meta_id,entry_meta_id,order_,entry_type from r_bill_entry_meta"
+        String sql = "SELECT rbem.token_template_id,rbem.bill_meta_id,rbem.entry_meta_id,rbem.order_,rbem.entry_type,ttd.token_template_id as rel_ttid"
+                + " FROM r_bill_entry_meta rbem"
+                + " LEFT JOIN t_tokentemplate_definition ttd ON ttd.bill_meta_id = rbem.entry_meta_id"
                 + " WHERE bill_meta_id = '"
                 + billMetaId + "' ";
         return jdbcTemplate.query(sql, new MetaRelDTORowMapper());
@@ -62,6 +64,8 @@ public class BillEntryMetaRepository {
                     , rs.getString("entry_meta_id")
                     , MetaTypeEnum.valueOf(rs.getString("entry_type"))
                     , rs.getInt("order_")
+                    , rs.getString("token_template_id")
+                    , rs.getString("rel_ttid")
             );
         }
     }

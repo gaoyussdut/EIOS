@@ -78,7 +78,8 @@ public class TokenRelationRopository {
     public void deleteMetaTokenRelation(BillTokenSaveResultDTO billTokenSaveResultDTO) {
         String sql = "DELETE FROM r_bill_entry_token"
                 + " WHERE entry_token_id = '"
-                + billTokenSaveResultDTO.getBillTokenResultBody().getEntryTokenData().getTokenId() + "'";
+                + billTokenSaveResultDTO.getBillTokenResultBody().getEntryTokenData().getTokenId() + "'"
+                + " AND bill_token_id = '" + billTokenSaveResultDTO.getBillTokenResultBody().getBillTokenId() + "'";
         try {
             jdbcTemplate.execute(sql);
         } catch (Exception e) {
@@ -86,6 +87,23 @@ public class TokenRelationRopository {
         }
 
     }
+
+    /**
+     * 删除旧关系
+     */
+    public void deleteMetaTokenRelation(String billTokenId,String entryTokenId) {
+        String sql = "DELETE FROM r_bill_entry_token"
+                + " WHERE entry_token_id = '"
+                + entryTokenId + "'"
+                + " AND bill_token_id = '" + billTokenId + "'";
+        try {
+            jdbcTemplate.execute(sql);
+        } catch (Exception e) {
+            throw new RuntimeException("删除关系失败！");
+        }
+
+    }
+
 
     /**
      * 根据表头meta获取分录token

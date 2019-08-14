@@ -28,45 +28,69 @@ public class BillController {
     @Autowired
     private BusinessUnitService businessUnitService;
 
-    /*
-        表头URL处理接口
-     */
 
     /**
-     * 一览
-     * 备查账查询数据(带有link信息)
+     * 单据一览界面
      *
-     * @param metaId     当前的基础资料备查账的metaId
-     * @param selectType 当前选择的type页
-     * @param pageNumber 当前页
-     * @param pageSize   当前页大小
-     * @return Result
+     * @param tokenTemplateId
+     * @return result
      */
-    @GetMapping(value = "/memorandvn/meta-id")
-    public Result getMemorandvnData(
-            @RequestParam String metaId
-            , @RequestParam(required = false) String selectType
-            , @RequestParam Integer pageNumber
+    @ApiOperation(value = "单据一览界面")
+    @GetMapping(value = "/generalView")
+    public Result getGeneralView(
+            @RequestParam String tokenTemplateId
             , @RequestParam Integer pageSize
+            , @RequestParam Integer pageNo
     ) {
-        return placeService.getMemorandvnData(metaId, selectType, pageNumber, pageSize);
+        return placeService.getGeneralView(tokenTemplateId, pageSize, pageNo);
+    }
+
+    /**
+     * 单据预览界面
+     *
+     * @param tokenTemplateId
+     * @param tokenId
+     * @return result
+     */
+    @ApiOperation(value = "单据预览界面")
+    @GetMapping(value = "/preview")
+    public Result getPreview(
+            @RequestParam String tokenTemplateId
+            , @RequestParam(required = false) String tokenId
+    ) {
+        return placeService.getPreview(tokenTemplateId, tokenId);
+    }
+
+    /**
+     * 获取表单详细数据
+     *
+     * @param metaId  metaid
+     * @param tokenId tokenid
+     * @return Result(toendataDTO)
+     */
+    @ApiOperation(value = "获取表单详细数据")
+    @GetMapping(value = "/getBillDetail")
+    public Result getBillToken(
+            @RequestParam String metaId
+            , @RequestParam String tokenId
+
+    ) {
+        return placeService.getBillToken(metaId, tokenId);
     }
 
     /**
      * 创建表单
      *
-     * @param businessUnitCode 业务单元Id
      * @param metaId           表头meta id
      * @return Result
      */
-    @ApiOperation(value = "表单创建")
-    @PutMapping(value = "/bill/business-unit-code/{businessUnitCode}/meta-id/{metaId}")
-    public Result createBill(
-            @PathVariable String businessUnitCode,
-            @PathVariable String metaId
-    ) {
-        return placeService.createBill(businessUnitCode, metaId);
-    }
+//    @ApiOperation(value = "表单创建")
+//    @PutMapping(value = "/bill/business-unit-code/{businessUnitCode}/meta-id/{metaId}")
+//    public Result createBill(
+//            @PathVariable String metaId
+//    ) {
+//        return placeService.createBill(businessUnitCode, metaId);
+//    }
 
     /**
      * 编辑的时候，存表头信息
@@ -79,40 +103,64 @@ public class BillController {
     @PostMapping(value = "/saveBill")
     public Result submitBillToken(
             @RequestParam String metaId
-            , @RequestParam String schemaId
-            , @RequestParam String id
             , @RequestBody TokenDataDto tokenDataDto
     ) {
-        return placeService.saveBillToken(tokenDataDto, metaId, schemaId, id);
+        return placeService.saveBillToken(tokenDataDto, metaId);
     }
 
-    /**
-     * 表单预览
-     *
-     * @param metaId  表头meta id
-     * @param tokenId 表头tokenid
-     * @return Result(toendataDTO)
-     */
-    @ApiOperation(value = "表单详细:表单预览")
-    @GetMapping(value = "/getBillDetail")
-    public Result getBillToken(
-            @RequestParam String metaId
-            , @RequestParam String tokenId
-
-    ) {
-        return placeService.getBillToken(metaId, tokenId);
-    }
 
     /**
      * 删除单据
      *
-     * @param id 表头tokenId
+     * @param tokenId 表头tokenId
      * @return Result
      */
     @ApiOperation(value = "表单详细:删除单据")
     @DeleteMapping(value = "/deleteBill")
-    public Result deleteBillToken(@RequestParam String id) {
-        return placeService.deleteBillToken(id);
+    public Result deleteBillToken(
+            @RequestParam String tokenTemplateId
+            , @RequestParam String tokenId
+    ) {
+        return placeService.deleteBillToken(tokenTemplateId, tokenId);
+    }
+
+    /**
+     * 存分录信息
+     *
+     * @param billTokenId  表头token id
+     * @param tokenDataDto 分录token
+     * @param entryMetaId  分录meta id
+     * @return result
+     */
+    @ApiOperation(value = "表单详细:分录保存")
+    @PostMapping(value = "/saveEntry")
+    public Result submitEntryToken(
+            @RequestParam String billMetaId
+            , @RequestParam String billTokenId
+            , @RequestParam String entryMetaId
+            , @RequestParam MetaTypeEnum entryType
+            , @RequestBody TokenDataDto tokenDataDto
+    ) {
+        return placeService.saveEntryToken(billTokenId, billMetaId, tokenDataDto, entryMetaId, entryType);
+    }
+
+    /**
+     * 删除分录
+     *
+     * @param entryMetaId  分录meta id
+     * @param entryTokenId 分录token id
+     * @param billTokenId  表头token id
+     * @return result
+     */
+    @ApiOperation(value = "表单详细:删除分录")
+    @DeleteMapping(value = "/deleteEntry")
+    public Result deleteBillToken(
+            @RequestParam String billMetaId
+            , @RequestParam String entryMetaId
+            , @RequestParam String entryTokenId
+            , @RequestParam String billTokenId
+    ) {
+        return placeService.deleteEntryToken(billMetaId, billTokenId, entryMetaId, entryTokenId);
     }
 
 //    /**
@@ -143,23 +191,6 @@ public class BillController {
         分录处理
      */
 
-    /**
-     * 删除分录  TODO
-     *
-     * @param entryMetaId  分录meta id
-     * @param entryTokenId 分录token id
-     * @param billTokenId  表头token id
-     * @return result
-     */
-    @ApiOperation(value = "表单详细:删除分录")
-    @DeleteMapping(value = "/deleteEntry")
-    public Result deleteBillToken(
-            @RequestParam String entryMetaId
-            , @RequestParam String entryTokenId
-            , @RequestParam String billTokenId
-    ) {
-        return placeService.deleteEntryToken(billTokenId, entryMetaId, entryTokenId);
-    }
 
     /**
      * 新增分录
@@ -168,35 +199,15 @@ public class BillController {
      * @param billTokenId 表头token
      * @return Result
      */
-    @ApiOperation(value = "表单详细:新建分录")
-    @PutMapping(value = "/entry/bill-token-id/entry-meta-id")
-    public Result createEntryToken(
-            @RequestParam String entryMetaId
-            , @RequestParam String billTokenId
-            , @RequestParam String billMetaId
-    ) {
-        return placeService.createEntryToken(billTokenId, billMetaId, entryMetaId);
-    }
-
-    /**
-     * 存分录信息
-     *
-     * @param billTokenId  表头token id
-     * @param tokenDataDto 分录token
-     * @param entryMetaId  分录meta id
-     * @return result
-     */
-    @ApiOperation(value = "表单详细:分录保存")
-    @PostMapping(value = "/saveEntry")
-    public Result submitEntryToken(
-            @RequestParam String entryMetaId
-            , @RequestParam String billTokenId
-            , @RequestParam String billMetaId
-            , @RequestParam MetaTypeEnum entryType
-            , @RequestBody TokenDataDto tokenDataDto
-    ) {
-        return placeService.saveEntryToken(billTokenId, billMetaId, tokenDataDto, entryMetaId, entryType);
-    }
+//    @ApiOperation(value = "表单详细:新建分录")
+//    @PutMapping(value = "/entry/bill-token-id/entry-meta-id")
+//    public Result createEntryToken(
+//            @RequestParam String entryMetaId
+//            , @RequestParam String billTokenId
+//            , @RequestParam String billMetaId
+//    ) {
+//        return placeService.createEntryToken(billTokenId, billMetaId, entryMetaId);
+//    }
 
 
     /**
@@ -208,16 +219,16 @@ public class BillController {
      * @param tokenDataDto 数据
      * @return result 结果
      */
-    @ApiOperation(value = "表单详细:分录保存")
-    @PostMapping(value = "/entry/bill-token-id/entry-meta-id/sync")
-    public Result submitEntryTokenSync(
-            @RequestParam String entryMetaId
-            , @RequestParam String billTokenId
-            , @RequestParam String billMetaId
-            , @RequestBody TokenDataDto tokenDataDto
-    ) {
-        return placeService.saveEntryTokenSync(billTokenId, billMetaId, tokenDataDto, entryMetaId);
-    }
+//    @ApiOperation(value = "表单详细:分录保存")
+//    @PostMapping(value = "/entry/bill-token-id/entry-meta-id/sync")
+//    public Result submitEntryTokenSync(
+//            @RequestParam String entryMetaId
+//            , @RequestParam String billTokenId
+//            , @RequestParam String billMetaId
+//            , @RequestBody TokenDataDto tokenDataDto
+//    ) {
+//        return placeService.saveEntryTokenSync(billTokenId, billMetaId, tokenDataDto, entryMetaId);
+//    }
 
 
 //    /**
@@ -271,15 +282,15 @@ public class BillController {
      * @param billMetaId       主数据表头metaId
      * @return Result
      */
-    @ApiOperation(value = "表单详细:查询单据引用的备查账数据")
-    @GetMapping(value = "/entry/bill-meta-id/bill-token-id/memorandvn-meta-id")
-    public Result getMemorandvnTokenDatas(
-            @RequestParam String memorandvnMetaId
-            , @RequestParam String billTokenId
-            , @RequestParam String billMetaId
-    ) {
-        return placeService.getMemorandvnTokenDatas(billTokenId, billMetaId, memorandvnMetaId);
-    }
+//    @ApiOperation(value = "表单详细:查询单据引用的备查账数据")
+//    @GetMapping(value = "/entry/bill-meta-id/bill-token-id/memorandvn-meta-id")
+//    public Result getMemorandvnTokenDatas(
+//            @RequestParam String memorandvnMetaId
+//            , @RequestParam String billTokenId
+//            , @RequestParam String billMetaId
+//    ) {
+//        return placeService.getMemorandvnTokenDatas(billTokenId, billMetaId, memorandvnMetaId);
+//    }
 
     /**
      * 单据引用备查账
@@ -290,16 +301,16 @@ public class BillController {
      * @param tokenIds         引用备查账的tokenids
      * @return Result
      */
-    @ApiOperation(value = "表单详细:单据引用备查账")
-    @PostMapping(value = "/entry/bill-meta-id/bill-token-id/memorandvn-meta-id")
-    public Result createBillQuoteMemorandvn(
-            @RequestParam String billMetaId
-            , @RequestParam String billTokenId
-            , @RequestParam String memorandvnMetaId
-            , @RequestBody List<String> tokenIds
-    ) {
-        return placeService.createBillQuoteMemorandvn(billMetaId, billTokenId, memorandvnMetaId, tokenIds);
-    }
+//    @ApiOperation(value = "表单详细:单据引用备查账")
+//    @PostMapping(value = "/entry/bill-meta-id/bill-token-id/memorandvn-meta-id")
+//    public Result createBillQuoteMemorandvn(
+//            @RequestParam String billMetaId
+//            , @RequestParam String billTokenId
+//            , @RequestParam String memorandvnMetaId
+//            , @RequestBody List<String> tokenIds
+//    ) {
+//        return placeService.createBillQuoteMemorandvn(billMetaId, billTokenId, memorandvnMetaId, tokenIds);
+//    }
 
     /**
      * 删除单据对备查账的引用
@@ -333,13 +344,13 @@ public class BillController {
      * @param tokenId          tokenId
      * @return Result
      */
-    @ApiOperation(value = "获取业务单元可新增/下推meta")
-    @GetMapping(value = "/getPushDownMeta")
-    public Result getPushDownMeta(@RequestParam String businessUnitCode
-            , @RequestParam String metaId
-            , @RequestParam String tokenId) {
-        return placeService.getPushDownMeta(businessUnitCode, metaId, tokenId);
-    }
+//    @ApiOperation(value = "获取业务单元可新增/下推meta")
+//    @GetMapping(value = "/getPushDownMeta")
+//    public Result getPushDownMeta(@RequestParam String businessUnitCode
+//            , @RequestParam String metaId
+//            , @RequestParam String tokenId) {
+//        return placeService.getPushDownMeta(businessUnitCode, metaId, tokenId);
+//    }
 
     /**
      * 获取业务节点的关联meta
@@ -348,11 +359,11 @@ public class BillController {
      * @param metaId
      * @return Result
      */
-    @ApiOperation(value = "获取业务节点的关联meta")
-    @GetMapping(value = "/getRelMeta")
-    public Result getRelMeta(@RequestParam String businessUnitCode, @RequestParam(required = false) String metaId) {
-        return placeService.getRelMeta(businessUnitCode, metaId);
-    }
+//    @ApiOperation(value = "获取业务节点的关联meta")
+//    @GetMapping(value = "/getRelMeta")
+//    public Result getRelMeta(@RequestParam String businessUnitCode, @RequestParam(required = false) String metaId) {
+//        return placeService.getRelMeta(businessUnitCode, metaId);
+//    }
 
     /**
      * 获取业务节点的关联meta下的数据
@@ -363,14 +374,14 @@ public class BillController {
      * @param metaId           当前metaId
      * @return Result
      */
-    @ApiOperation(value = "获取业务节点的关联meta下的数据")
-    @GetMapping(value = "/getRelData")
-    public Result getRelData(@RequestParam String businessUnitCode
-            , @RequestParam(required = false) String preMetaId
-            , @RequestParam(required = false) String preTokenId
-            , @RequestParam String metaId) {
-        return placeService.getRelData(businessUnitCode, preMetaId, preTokenId, metaId);
-    }
+//    @ApiOperation(value = "获取业务节点的关联meta下的数据")
+////    @GetMapping(value = "/getRelData")
+////    public Result getRelData(@RequestParam String businessUnitCode
+////            , @RequestParam(required = false) String preMetaId
+////            , @RequestParam(required = false) String preTokenId
+////            , @RequestParam String metaId) {
+////        return placeService.getRelData(businessUnitCode, preMetaId, preTokenId, metaId);
+////    }
 
     /**
      * 手动下推
@@ -381,14 +392,14 @@ public class BillController {
      * @param metaId           下推到的metaId
      * @return Result
      */
-    @ApiOperation(value = "获取业务节点的关联meta下的数据")
-    @GetMapping(value = "/pushDown")
-    public Result pushDown(@RequestParam String businessUnitCode
-            , @RequestParam String preMetaId
-            , @RequestParam String preTokenId
-            , @RequestParam String metaId) {
-        return placeService.pushDown(businessUnitCode, preMetaId, preTokenId, metaId);
-    }
+//    @ApiOperation(value = "获取业务节点的关联meta下的数据")
+//    @GetMapping(value = "/pushDown")
+//    public Result pushDown(@RequestParam String businessUnitCode
+//            , @RequestParam String preMetaId
+//            , @RequestParam String preTokenId
+//            , @RequestParam String metaId) {
+//        return placeService.pushDown(businessUnitCode, preMetaId, preTokenId, metaId);
+//    }
 
     /**
      * 获取表单分录meta
@@ -410,15 +421,15 @@ public class BillController {
      * @param billTokenId 表头tokenid
      * @return Result
      */
-    @ApiOperation(value = "表单详细:查询分录数据")
-    @GetMapping(value = "/entry/bill-meta-id/bill-token-id/entry-meta-id")
-    public Result getEntryToken(
-            @RequestParam String entryMetaId
-            , @RequestParam String billMetaId
-            , @RequestParam String billTokenId
-    ) {
-        return placeService.getEntryToken(billMetaId, billTokenId, entryMetaId);
-    }
+//    @ApiOperation(value = "表单详细:查询分录数据")
+//    @GetMapping(value = "/entry/bill-meta-id/bill-token-id/entry-meta-id")
+//    public Result getEntryToken(
+//            @RequestParam String entryMetaId
+//            , @RequestParam String billMetaId
+//            , @RequestParam String billTokenId
+//    ) {
+//        return placeService.getEntryToken(billMetaId, billTokenId, entryMetaId);
+//    }
 
     /**
      * 提交表单
@@ -427,15 +438,15 @@ public class BillController {
      * @param metaId       表头meta id
      * @return result
      */
-    @ApiOperation(value = "表单详细:表头保存")
-    @PostMapping(value = "/submit/meta-id")
-    public Result submit(
-            @RequestParam String businessUnitCode
-            , @RequestParam String metaId
-            , @RequestBody TokenDataDto tokenDataDto
-    ) {
-        return placeService.submit(businessUnitCode, tokenDataDto, metaId);
-    }
+//    @ApiOperation(value = "表单详细:表头保存")
+//    @PostMapping(value = "/submit/meta-id")
+//    public Result submit(
+//            @RequestParam String businessUnitCode
+//            , @RequestParam String metaId
+//            , @RequestBody TokenDataDto tokenDataDto
+//    ) {
+//        return placeService.submit(businessUnitCode, tokenDataDto, metaId);
+//    }
 
     /**
      * 调存储过程
@@ -443,22 +454,12 @@ public class BillController {
      * @param metaId 表头meta id
      * @return result
      */
-    @ApiOperation(value = "提交后调用存储过程")
-    @GetMapping(value = "/submit/storeProcedure")
-    public Result submitStoreProcedure(@RequestParam String metaId, @RequestParam String tokenId
-    ) {
-        return placeService.submitStoreProcedure(metaId, tokenId);
-    }
+//    @ApiOperation(value = "提交后调用存储过程")
+//    @GetMapping(value = "/submit/storeProcedure")
+//    public Result submitStoreProcedure(@RequestParam String metaId, @RequestParam String tokenId
+//    ) {
+//        return placeService.submitStoreProcedure(metaId, tokenId);
+//    }
 
-    /**
-     * 单据预览schema查询接口
-     *
-     * @param id
-     * @return result
-     */
-    @ApiOperation(value = "单据预览schema查询接口")
-    @GetMapping(value = "/preview")
-    public Result getPreview(@RequestParam String id) {
-        return placeService.getPreview(id);
-    }
+
 }

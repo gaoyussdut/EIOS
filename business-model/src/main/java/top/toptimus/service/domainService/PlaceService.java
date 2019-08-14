@@ -23,13 +23,16 @@ import top.toptimus.entity.security.query.UserQueryFacadeEntity;
 import top.toptimus.entity.tokendata.event.TokenEventEntity;
 import top.toptimus.entity.tokendata.query.TokenMetaQueryFacadeEntity;
 import top.toptimus.entity.tokendata.query.TokenQueryFacadeEntity;
+import top.toptimus.entity.tokentemplate.query.TokenTemplateQueryFacadeEntity;
 import top.toptimus.exception.TopErrorCode;
 import top.toptimus.exception.TopException;
 import top.toptimus.meta.TokenMetaInformationDto;
+import top.toptimus.meta.relation.MetaRelDTO;
 import top.toptimus.place.BillTokenSaveResultDTO;
 import top.toptimus.resultModel.ResultErrorModel;
-import top.toptimus.schema.SchemaDTO;
 import top.toptimus.service.BusinessUnitService;
+import top.toptimus.tokenTemplate.GeneralViewDTO;
+import top.toptimus.tokenTemplate.TokenTemplateDefinitionDTO;
 import top.toptimus.tokendata.TokenDataDto;
 import top.toptimus.tokendata.field.FkeyField;
 
@@ -75,6 +78,8 @@ public class PlaceService {
     private BusinessUnitFacadeQueryEntity businessUnitFacadeQueryEntity;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private TokenTemplateQueryFacadeEntity tokenTemplateQueryFacadeEntity;
 
 
     /**
@@ -229,11 +234,8 @@ public class PlaceService {
      * @param metaId       表头meta
      * @return Result
      */
-    public Result saveBillToken(TokenDataDto tokenDataDto, String metaId, String schemaId, String id) {
+    public Result saveBillToken(TokenDataDto tokenDataDto, String metaId) {
         placeRedisEntity.saveBillToken(tokenDataDto, metaId);
-        if(!businessUnitFacadeQueryEntity.isExistSchema(id)){
-            businessUnitEventEntity.saveSchema(new SchemaDTO(id,schemaId).build(tokenDataDto.getTokenId()));
-        }
         return Result.success();
     }
 
@@ -347,25 +349,40 @@ public class PlaceService {
     /**
      * 删除分录
      *
+     * @param billMetaId   表头meta id
      * @param billTokenId  表头token id
      * @param entryMetaId  分录meta id
      * @param entryTokenId 分录token id
      * @return result
      */
-    public Result deleteEntryToken(String billTokenId, String entryMetaId, String entryTokenId) {
+    public Result deleteEntryToken(String billMetaId, String billTokenId, String entryMetaId, String entryTokenId) {
+
+        tokenEventEntity.delRel(billTokenId, entryTokenId);
+
+        List<MetaRelDTO> metaRelDTOS =
+                metaQueryFacadeEntity.getRelMetasByTokenTemplateId(billMetaId);
+
+        metaRelDTOS.forEach(metaRelDTO -> {
+            if (metaRelDTO.getEntryMetaId().equals(entryMetaId)) {
+                if (metaRelDTO.getMetaType().equals(MetaTypeEnum.ENTRY)) {
+                    tokenService.delTokenData(entryMetaId, entryTokenId);
+                }
+            }
+        });
+
         return placeRedisEntity.deleteEntryToken(billTokenId, entryMetaId, entryTokenId);
     }
 
     /**
      * 删除单据
      *
-     * @param id id
+     * @param tokenTemplateId tokenTemplateId
+     * @param tokenId         tokenId
      * @return result
      */
-    public Result deleteBillToken(String id) {
-        SchemaDTO schemaDTO = businessUnitService.findSchemaById(id);
-        businessUnitService.deleteSchema(id);
-        tokenService.delTokenData(schemaDTO.getBillHeader().getMetaId(),schemaDTO.getBillHeader().getTokenId());
+    public Result deleteBillToken(String tokenTemplateId, String tokenId) {
+        TokenTemplateDefinitionDTO tokenTemplateDefinitionDTO = tokenTemplateQueryFacadeEntity.findById(tokenTemplateId);
+        tokenService.delTokenData(tokenTemplateDefinitionDTO.getBillMetaId(), tokenId);
         return Result.success();
     }
 
@@ -730,13 +747,31 @@ public class PlaceService {
     /**
      * 获取单据预览页面
      *
-     * @param id
+     * @param tokenTemplateId
+     * @param tokenId
      * @return
      */
-    public Result getPreview(String id) {
-        try{
-            return Result.success(businessUnitService.findSchemaById(id));
-        }catch (Exception e){
+    public Result getPreview(String tokenTemplateId, String tokenId) {
+        try {
+            return Result.success(businessUnitService.getPreview(tokenTemplateId, tokenId));
+        } catch (Exception e) {
+            return new ResultErrorModel(e).getResult();
+        }
+    }
+
+    /**
+     * 获取单据一览
+     *
+     * @param tokenTemplateId
+     * @return result
+     */
+    public Result getGeneralView(String tokenTemplateId, Integer pageSize, Integer pageNo) {
+        try {
+            TokenTemplateDefinitionDTO tokenTemplateDefinitionDTO = tokenTemplateQueryFacadeEntity.findById(tokenTemplateId);
+            GeneralViewDTO generalViewDTO = new GeneralViewDTO(tokenTemplateId, tokenTemplateDefinitionDTO.getBillMetaId());
+            generalViewDTO.build(tokenQueryFacadeEntity.getTokenDataList(tokenTemplateDefinitionDTO.getBillMetaId(), pageSize, pageNo));
+            return Result.success(generalViewDTO);
+        } catch (Exception e) {
             return new ResultErrorModel(e).getResult();
         }
     }

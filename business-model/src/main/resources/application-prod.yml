@@ -1,7 +1,7 @@
-#### 生产环境配置
+#### 开发环境配置
 ##### Basic
 server:
-  port: 9090
+  port: 8090
   tomcat:
     maxHttpHeaderSize: 10240000
     maxHttpPostSize: 10240000
@@ -10,8 +10,8 @@ spring:
   application:
     name: business
   jackson:
-        # 默认为ALWAYS,non_null属性为null不参加序列化, NON_EMPTY 属性为""或NULL都不序列化
-        default-property-inclusion: non_null
+    # 默认为ALWAYS,non_null属性为null不参加序列化, NON_EMPTY 属性为""或NULL都不序列化
+    default-property-inclusion: non_null
   jms:
     listener:
       acknowledge-mode: CLIENT
@@ -27,13 +27,15 @@ spring:
         max-active: 8
         max-idle: 8
         min-idle: 0
-### postgresql
+
+  ### postgresql
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://101.71.4.178:15333/hospital
+    url: jdbc:postgresql://101.71.4.181:15333/EIOS
     username: fp
     password: fp@123
+
     # 下面为连接池的补充设置，应用到上面所有数据源中
     # 初始化大小，最小，最大
     initialSize: 5
@@ -72,18 +74,18 @@ spring:
       schema-action: create_if_not_exists
     # Elasticsearch
     elasticsearch:
-      cluster-nodes: 101.71.4.178:24004
+      cluster-nodes: localhost:9200
       # 不加 cluster-name 属性会/home/gaoshize报错:
       #   NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{jyzih8cJQj6axOEAERo7ew}{192.168.1.97}{192.168.1.97:9300}]]
       # 其他解决方案暂不清楚
-      cluster-name: my-application
+      cluster-name: docker-cluster
       repositories:
         enabled: true
 
   ### RabbitMQ
   rabbitmq:
-    host: 192.168.1.163
-    port: 5672
+    host: localhost
+    port: 15672
     virtual-host: jianghao
     username: jianghao
     password: jianghao
@@ -99,19 +101,20 @@ spring:
       group-id: test-group
   ### Activemq
   activemq:
-    broker-url: tcp://localhost:61616
+    broker-url: tcp://localhost:61617
     in-memory: true
     pool:
       enabled: false #如果此处设置为true，需要加如下的依赖包，否则会自动配置失败，报JmsMessagingTemplate注入失败
 
 # 外键服务的url和talend_id
 foreign_key_service:
-    url: http://localhost:8090
-    talend_id: 311b15e2-1513-4ef5-b88c-125cdf1cc48f
+  url: http://localhost:8090
+  talend_id: 311b15e2-1513-4ef5-b88c-125cdf1cc48f
 
 ##### Log
 logging:
   level:
     root: info
+
 
 

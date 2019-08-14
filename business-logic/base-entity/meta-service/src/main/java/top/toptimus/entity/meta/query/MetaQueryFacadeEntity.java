@@ -291,7 +291,7 @@ public class MetaQueryFacadeEntity {
      * @param billMetaId
      * @return
      */
-    public List<MetaRelDTO> getRelMetasByBillMeta(String billMetaId){
+    public List<MetaRelDTO> getRelMetasByTokenTemplateId(String billMetaId){
         return billEntryMetaRepository.getRelMetasByBillMeta(billMetaId);
     }
 
