@@ -320,12 +320,12 @@ public class OrgnazitionUnitModel {
     public List<OrgnazitionUnitDto> getParentOrgnazitionUnitsByIndicatorType(String ouId, IndicatorType indicatorType) {
         if (this.orgnazitionAttributeMap.containsKey(indicatorType)) {
             return new ArrayList<OrgnazitionUnitDto>() {{
-                if (orgnazitionAttributeMap.get(indicatorType).containsKey(
-                        orgnazitionUnitMap.get(ouId).getPOuID()
-                )) {    //  通过pid找上级组织
-                    add(orgnazitionAttributeMap.get(indicatorType).get(
-                            orgnazitionUnitMap.get(ouId).getPOuID()
-                    ));
+                //  上级组织编码  TODO 依然待测试
+                String pid = orgnazitionAttributeMap.get(indicatorType).containsKey(ouId)
+                        ? orgnazitionAttributeMap.get(indicatorType).get(ouId).getPOuID()
+                        : orgnazitionUnitMap.get(ouId).getPOuID();
+                if (orgnazitionAttributeMap.get(indicatorType).containsKey(pid)) {    //  通过pid找上级组织
+                    add(orgnazitionAttributeMap.get(indicatorType).get(pid));
                 }
             }};
         } else {
