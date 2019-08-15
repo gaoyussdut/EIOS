@@ -32,8 +32,15 @@ public class OuTest {
 
     @Test
     public void testOU() {
-        this.initDataByCode();
-//        this.initDataByDb();
+//        this.initDataByCode();
+        this.initDataByDb();
+        /*
+            8665e23e-299c-4776-91f4-fddffdbd7d71    正泰
+                eef9f15c-ec71-4832-9651-e8a0e0f7767a    市场部
+                9ec4393b-a8a8-406b-a3d6-64ea655727e6    销售部
+                    482a50de-1a87-41b2-8e47-9c3549d1fb21    销售一部
+                    d575fd19-aeed-441e-a303-a526734790ba    销售二部
+         */
 
 
         logger.info("所有组织属性");
@@ -42,79 +49,56 @@ public class OuTest {
                         ouRepository.findAllOrgnazitionUnitDao()
                 ));
 
-        logger.info("头结点属性");
+        logger.info("正泰结点属性");
         logger.info(
                 JSON.toJSONString(
                         this.ouEntity.getOrgnazitionUnitBaseInfo(
                                 this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
+                                //  8665e23e-299c-4776-91f4-fddffdbd7d71  正泰
                         )
                 ));
-        logger.info("头结点下级属性");
+        logger.info("正泰结点下级属性");
         logger.info(
                 JSON.toJSONString(
                         this.ouEntity.getChildOrgnazitionUnits(
                                 this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
+                                //  8665e23e-299c-4776-91f4-fddffdbd7d71
                         )
                 )
         );
-        logger.info("取上级节点属性");
+        logger.info("取销售部上级节点属性");
         logger.info(
                 JSON.toJSONString(
                         this.ouEntity.getParentOrgnazitionUnit(
-                                this.ouEntity.getChildOrgnazitionUnits(
-                                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
-                                ).get(0).getOuID()
+                                "9ec4393b-a8a8-406b-a3d6-64ea655727e6"  //  销售部
                         )
                 )
         );
-        logger.info("取上级节点属性");
+        logger.info("取销售一部上级节点属性");
         logger.info(
                 JSON.toJSONString(
                         this.ouEntity.getParentOrgnazitionUnit(
-                                this.ouEntity.getChildOrgnazitionUnits(
-                                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
-                                ).get(0).getOuID()
+                                "482a50de-1a87-41b2-8e47-9c3549d1fb21"  //  销售一部
                         )
                 )
         );
 
-        logger.info("带业务组织属性的组织信息");
-        logger.info(
-                JSON.toJSONString(
-                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getOrgnazitionUnitMap()
-//                        this.ouEntity.getOrgnazitionUnitBaseInfo(
-//                                "3fd305db-12d3-4fff-aa86-247819f63ffa"
-//                        )
-                )
-        );
-
-        logger.info("按照业务类别选择上级业务组");
+        logger.info("按照业务类别选择销售二部上级销售组织");
         logger.info(
                 JSON.toJSONString(
                         this.ouEntity.getParentOrgnazitionUnitByIndicatorType(
-                                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
-                                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
-                                ).get(0).getOuID()
+                                "d575fd19-aeed-441e-a303-a526734790ba"  //  销售二部
                                 , IndicatorType.Sales
                         )
                 )
         );
 
-        logger.info("按照业务类别选择上级业务组——报错");
-        logger.info(
-                JSON.toJSONString(
-                        this.ouEntity.getParentOrgnazitionUnitByIndicatorType(
-                                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
-                                , IndicatorType.Sales
-                        )
-                )
-        );
-
-        logger.info("按照业务类别选择下级业务组");
+        logger.info("按照业务类别选择正泰下级销售组织");
         logger.info(
                 JSON.toJSONString(
                         this.ouEntity.getChildOrgnazitionUnits(
                                 this.ouEntity.getTopLevelOrgnazitionUnitDao().getOuID()
+                                //  8665e23e-299c-4776-91f4-fddffdbd7d71  正泰
                                 , IndicatorType.Sales
                         )
                 )
@@ -123,12 +107,32 @@ public class OuTest {
     }
 
     private void initDataByDb() {
+        jdbcTemplate.execute("delete from orgnazition_unit;");
+        jdbcTemplate.execute("insert into orgnazition_unit (ou_id,ou_code,ou_name,create_date,create_user,enable_date,p_ou_id,level,is_disabled,disable_date,disable_user,description,is_entity) values \n" +
+                "('482a50de-1a87-41b2-8e47-9c3549d1fb21','ouCode4','销售一部','2019-08-15','猪',null,'9ec4393b-a8a8-406b-a3d6-64ea655727e6',2,False,null,null,null,True)\n" +
+                ",('8665e23e-299c-4776-91f4-fddffdbd7d71','ouCode1','正泰','2019-08-15','猪',null,null,0,False,null,null,null,False)\n" +
+                ",('9ec4393b-a8a8-406b-a3d6-64ea655727e6','ouCode3','销售部','2019-08-15','猪',null,'8665e23e-299c-4776-91f4-fddffdbd7d71',1,False,null,null,null,True)\n" +
+                ",('d575fd19-aeed-441e-a303-a526734790ba','ouCode5','销售二部','2019-08-15','猪',null,'9ec4393b-a8a8-406b-a3d6-64ea655727e6',2,False,null,null,null,True)\n" +
+                ",('eef9f15c-ec71-4832-9651-e8a0e0f7767a','ouCode2','市场部','2019-08-15','猪',null,'8665e23e-299c-4776-91f4-fddffdbd7d71',1,False,null,null,null,True);");
+        jdbcTemplate.execute("delete from orgnazition_unit_attribute;");
+        jdbcTemplate.execute("insert into orgnazition_unit_attribute (ou_id,indicator_type,parent_id,is_cu) values\n" +
+                "('482a50de-1a87-41b2-8e47-9c3549d1fb21','Administration','9ec4393b-a8a8-406b-a3d6-64ea655727e6',False)\n" +
+                ",('482a50de-1a87-41b2-8e47-9c3549d1fb21','Sales','9ec4393b-a8a8-406b-a3d6-64ea655727e6',False)\n" +
+                ",('8665e23e-299c-4776-91f4-fddffdbd7d71','Administration',null,False)\n" +
+                ",('8665e23e-299c-4776-91f4-fddffdbd7d71','Sales',null,False)\n" +
+                ",('9ec4393b-a8a8-406b-a3d6-64ea655727e6','Administration','8665e23e-299c-4776-91f4-fddffdbd7d71',False)\n" +
+                ",('9ec4393b-a8a8-406b-a3d6-64ea655727e6','Sales','8665e23e-299c-4776-91f4-fddffdbd7d71',False)\n" +
+                ",('d575fd19-aeed-441e-a303-a526734790ba','Administration','9ec4393b-a8a8-406b-a3d6-64ea655727e6',False)\n" +
+                ",('d575fd19-aeed-441e-a303-a526734790ba','Sales','9ec4393b-a8a8-406b-a3d6-64ea655727e6',False)\n" +
+                ",('eef9f15c-ec71-4832-9651-e8a0e0f7767a','Administration','8665e23e-299c-4776-91f4-fddffdbd7d71',False)\n" +
+                ",('eef9f15c-ec71-4832-9651-e8a0e0f7767a','Sales','8665e23e-299c-4776-91f4-fddffdbd7d71',False)");
+
         this.ouEntity.initOuData();
     }
 
+
+
     private void initDataByCode() {
-        jdbcTemplate.execute("delete from orgnazition_unit;");
-        jdbcTemplate.execute("delete from orgnazition_unit_attribute;");
 
         logger.info(JSON.toJSONString(
                 this.ouEntity.createTopOrgnazitionUnit(
