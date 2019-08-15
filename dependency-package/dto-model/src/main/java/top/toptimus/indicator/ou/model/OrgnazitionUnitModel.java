@@ -320,15 +320,13 @@ public class OrgnazitionUnitModel {
     public List<OrgnazitionUnitDto> getParentOrgnazitionUnitsByIndicatorType(String ouId, IndicatorType indicatorType) {
         if (this.orgnazitionAttributeMap.containsKey(indicatorType)) {
             return new ArrayList<OrgnazitionUnitDto>() {{
-                orgnazitionAttributeMap.get(indicatorType).keySet().forEach(id -> {
-                    if (orgnazitionAttributeMap.get(indicatorType).containsKey(
-                            orgnazitionAttributeMap.get(indicatorType).get(id).getPOuID()
-                    )) {    //  通过pid找上级组织
-                        add(orgnazitionAttributeMap.get(indicatorType).get(
-                                orgnazitionAttributeMap.get(indicatorType).get(id).getPOuID()
-                        ));
-                    }
-                });
+                if (orgnazitionAttributeMap.get(indicatorType).containsKey(
+                        orgnazitionUnitMap.get(ouId).getPOuID()
+                )) {    //  通过pid找上级组织
+                    add(orgnazitionAttributeMap.get(indicatorType).get(
+                            orgnazitionUnitMap.get(ouId).getPOuID()
+                    ));
+                }
             }};
         } else {
             throw new RuntimeException(indicatorType.name() + "组织列表为空");

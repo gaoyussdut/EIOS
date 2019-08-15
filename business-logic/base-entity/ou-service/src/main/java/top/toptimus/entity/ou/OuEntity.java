@@ -204,7 +204,6 @@ public class OuEntity {
      * @param indicatorType 业务组织类型
      * @return 下级业务组织dto列表
      */
-    @Deprecated
     public List<OrgnazitionUnitDto> getChildOrgnazitionUnits(String ouId, IndicatorType indicatorType) {
         try {
             return this.orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(ouId, indicatorType);
