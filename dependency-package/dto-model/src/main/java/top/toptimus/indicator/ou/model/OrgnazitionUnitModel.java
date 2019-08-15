@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import top.toptimus.indicator.indicatorBill.dao.IndicatorOuRelDao;
 import top.toptimus.indicator.indicatorBill.model.IndicatorBillRelModel;
 import top.toptimus.indicator.ou.base.IndicatorType;
@@ -25,7 +23,6 @@ import java.util.*;
  */
 @NoArgsConstructor
 public class OrgnazitionUnitModel {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Getter
     private Map<String, OrgnazitionUnitDao> orgnazitionUnitMap = new HashMap<>();   //  OU列表
     /*
@@ -54,9 +51,8 @@ public class OrgnazitionUnitModel {
      * 维护业务组织属性
      *
      * @param orgnazitionUnitAttributeDaos 业务组织属性列表
-     * @return this
      */
-    public OrgnazitionUnitModel buildorgnazitionUnitAttributes(List<OrgnazitionUnitAttributeDao> orgnazitionUnitAttributeDaos) {
+    public void buildorgnazitionUnitAttributes(List<OrgnazitionUnitAttributeDao> orgnazitionUnitAttributeDaos) {
         Map<String, List<OrgnazitionUnitAttribute>> orgnazitionUnitAttributeMap = new HashMap<>();
 
         for (OrgnazitionUnitAttributeDao orgnazitionUnitAttributeDao : orgnazitionUnitAttributeDaos) {
@@ -72,7 +68,6 @@ public class OrgnazitionUnitModel {
             this.updateOrgnazitionUnitAttributes(ouId, orgnazitionUnitAttributeMap.get(ouId));
 
         }
-        return this;
     }
 
 
@@ -320,10 +315,7 @@ public class OrgnazitionUnitModel {
     public List<OrgnazitionUnitDto> getParentOrgnazitionUnitsByIndicatorType(String ouId, IndicatorType indicatorType) {
         if (this.orgnazitionAttributeMap.containsKey(indicatorType)) {
             return new ArrayList<OrgnazitionUnitDto>() {{
-                //  上级组织编码  TODO 依然待测试
-                String pid = orgnazitionAttributeMap.get(indicatorType).containsKey(ouId)
-                        ? orgnazitionAttributeMap.get(indicatorType).get(ouId).getPOuID()
-                        : orgnazitionUnitMap.get(ouId).getPOuID();
+                String pid = orgnazitionAttributeMap.get(indicatorType).get(ouId).getPOuID();   //  通过业务组织属性找上级组织id
                 if (orgnazitionAttributeMap.get(indicatorType).containsKey(pid)) {    //  通过pid找上级组织
                     add(orgnazitionAttributeMap.get(indicatorType).get(pid));
                 }

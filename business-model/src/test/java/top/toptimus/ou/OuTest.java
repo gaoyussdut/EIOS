@@ -94,7 +94,17 @@ public class OuTest {
                         this.ouEntity.getParentOrgnazitionUnitByIndicatorType(
                                 this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
                                         this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
-                                ).get(1).getOuID()
+                                ).get(0).getOuID()
+                                , IndicatorType.Sales
+                        )
+                )
+        );
+
+        logger.info("按照业务类别选择上级业务组——报错");
+        logger.info(
+                JSON.toJSONString(
+                        this.ouEntity.getParentOrgnazitionUnitByIndicatorType(
+                                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
                                 , IndicatorType.Sales
                         )
                 )
@@ -232,6 +242,26 @@ public class OuTest {
                     );
                 }}
         );
+
+        this.ouEntity.updateOrgnazitionUnitAttributes(
+                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()  //  二级部门
+                , new ArrayList<OrgnazitionUnitAttribute>() {{
+                    //  模拟业务组织ouCode2，拥有财务属性
+                    add(
+                            new OrgnazitionUnitAttribute(
+                                    ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                    , IndicatorType.Sales
+                                    , false)
+                    );
+                    add(
+                            new OrgnazitionUnitAttribute(
+                                    ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                    , IndicatorType.Administration
+                                    , false)
+                    );
+                }}
+        );
+
 
         this.ouEntity.updateOrgnazitionUnitAttributes(
                 this.ouEntity.getTopLevelOrgnazitionUnitDao().getOuID()  //  正泰
