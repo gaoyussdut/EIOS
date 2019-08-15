@@ -150,18 +150,37 @@ public class OuEntity {
      */
 
     /**
-     * 按照业务类别选择下级业务组
+     * 按照业务类别选择上级业务组
      *
      * @param ouId          业务组织dto id
      * @param indicatorType 业务组织类型
-     * @return 下级业务组织dto列表
+     * @return 上级业务组织dto列表
      */
-    public List<OrgnazitionUnitDto> getParentOrgnazitionUnitsByIndicatorType(String ouId, IndicatorType indicatorType) {
+    public OrgnazitionUnitDto getParentOrgnazitionUnitByIndicatorType(String ouId, IndicatorType indicatorType) {
         try {
-            return this.orgnazitionUnitModelThreadLocal.get().getParentOrgnazitionUnitsByIndicatorType(ouId, indicatorType);
+            return this.getParentOrgnazitionUnitsByIndicatorType(ouId, indicatorType);
         } catch (Exception e) {
             this.initOuData();
-            return this.orgnazitionUnitModelThreadLocal.get().getParentOrgnazitionUnitsByIndicatorType(ouId, indicatorType);
+            return this.getParentOrgnazitionUnitsByIndicatorType(ouId, indicatorType);
+        }
+    }
+
+
+    /**
+     * 清洗列表，按照业务类别选择上级业务组
+     *
+     * @param ouId          业务组织dto id
+     * @param indicatorType 业务组织类型
+     * @return 上级业务组织dto列表
+     */
+    private OrgnazitionUnitDto getParentOrgnazitionUnitsByIndicatorType(String ouId, IndicatorType indicatorType) {
+        List<OrgnazitionUnitDto> orgnazitionUnitDtos = this.orgnazitionUnitModelThreadLocal.get().getParentOrgnazitionUnitsByIndicatorType(ouId, indicatorType);
+        if (orgnazitionUnitDtos.isEmpty()) {
+            throw new RuntimeException("未找到上级组织");
+        } else if (1 != orgnazitionUnitDtos.size()) {
+            throw new RuntimeException("上级组织为多条");
+        } else {
+            return orgnazitionUnitDtos.get(0);
         }
     }
 
@@ -185,6 +204,7 @@ public class OuEntity {
      * @param indicatorType 业务组织类型
      * @return 下级业务组织dto列表
      */
+    @Deprecated
     public List<OrgnazitionUnitDto> getChildOrgnazitionUnits(String ouId, IndicatorType indicatorType) {
         try {
             return this.orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(ouId, indicatorType);
@@ -201,6 +221,7 @@ public class OuEntity {
      * @param indicatorType 业务组织类型
      * @return 上级业务组织dto
      */
+    @Deprecated
     public OrgnazitionUnitDto getParentOrgnazitionUnit(String ouId, IndicatorType indicatorType) {
         try {
             return this.orgnazitionUnitModelThreadLocal.get().getParentOrgnazitionUnit(ouId, indicatorType);
@@ -234,6 +255,7 @@ public class OuEntity {
      * @param ouId ou id
      * @return 指标单据转换配置关系列表
      */
+    @Deprecated
     public List<IndicatorOuRelDto> getIndicatorOuRelDaosByOuId(String ouId, IndicatorType indicatorType) {
         try {
             return this.orgnazitionUnitModelThreadLocal.get()
@@ -258,6 +280,7 @@ public class OuEntity {
      *
      * @param indicatorOuRelDto 指标单据meta和ou的关系配置
      */
+    @Deprecated
     public void buildIndicatorOURel(IndicatorOuRelDto indicatorOuRelDto) {
         this.orgnazitionUnitModelThreadLocal.get().getIndicatorBillRelModel().buildIndicatorOURel(indicatorOuRelDto);
     }
@@ -284,6 +307,7 @@ public class OuEntity {
      * @param ouId                     业务组织id
      * @param orgnazitionUnitAttribute 业务组织属性
      */
+    @Deprecated
     public void generateOrgnazitionUnitAttribute(String ouId, OrgnazitionUnitAttribute orgnazitionUnitAttribute) {
         OrgnazitionUnitDto orgnazitionUnitDto = this.orgnazitionUnitModelThreadLocal.get().generateOrgnazitionUnitAttribute(ouId, orgnazitionUnitAttribute);
         //  TODO    持久化数据库
@@ -295,6 +319,7 @@ public class OuEntity {
      * 记录指标单据meta和ou的关系配置,从数据库中初始化调用
      * TODO 异步，一次性加载可能有性能问题
      */
+    @Deprecated
     public void initIndicatorBillRel() {
         //  指标单据meta和ou的关系配置    TODO    从数据库中取
         List<IndicatorOuRelDao> indicatorOURelDaos = new ArrayList<>();
@@ -313,6 +338,7 @@ public class OuEntity {
      * @param procedureName 如果是下推，要执行的存储过程名（或者流计算或者restful api）
      * @param indicatorType 业务类型
      */
+    @Deprecated
     public void addIndicatorBillRel(
             String sourceOuId
             , String targetOuId

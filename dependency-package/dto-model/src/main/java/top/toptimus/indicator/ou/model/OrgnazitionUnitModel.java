@@ -321,11 +321,13 @@ public class OrgnazitionUnitModel {
         if (this.orgnazitionAttributeMap.containsKey(indicatorType)) {
             return new ArrayList<OrgnazitionUnitDto>() {{
                 orgnazitionAttributeMap.get(indicatorType).keySet().forEach(id -> {
-                    if (id.equals(ouId))
-                        logger.info("orgnazitionAttributeMap.get(indicatorType).get(id).getOuID():" + orgnazitionAttributeMap.get(indicatorType).get(id).getPOuID());
-                    add(orgnazitionAttributeMap.get(indicatorType).get(
+                    if (orgnazitionAttributeMap.get(indicatorType).containsKey(
                             orgnazitionAttributeMap.get(indicatorType).get(id).getPOuID()
-                    ));
+                    )) {    //  通过pid找上级组织
+                        add(orgnazitionAttributeMap.get(indicatorType).get(
+                                orgnazitionAttributeMap.get(indicatorType).get(id).getPOuID()
+                        ));
+                    }
                 });
             }};
         } else {

@@ -91,7 +91,7 @@ public class OuTest {
         logger.info("按照业务类别选择上级业务组");
         logger.info(
                 JSON.toJSONString(
-                        this.ouEntity.getParentOrgnazitionUnitsByIndicatorType(
+                        this.ouEntity.getParentOrgnazitionUnitByIndicatorType(
                                 this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
                                         this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
                                 ).get(1).getOuID()
