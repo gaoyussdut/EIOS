@@ -32,7 +32,8 @@ public class OuTest {
 
     @Test
     public void testOU() {
-        this.initDataByDb();
+        this.initDataByCode();
+//        this.initDataByDb();
 
 
         logger.info("所有组织属性");
@@ -44,24 +45,24 @@ public class OuTest {
         logger.info("头结点属性");
         logger.info(
                 JSON.toJSONString(
-                        ouEntity.getOrgnazitionUnitBaseInfo(
-                                ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
+                        this.ouEntity.getOrgnazitionUnitBaseInfo(
+                                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
                         )
                 ));
         logger.info("头结点下级属性");
         logger.info(
                 JSON.toJSONString(
-                        ouEntity.getChildOrgnazitionUnits(
-                                ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
+                        this.ouEntity.getChildOrgnazitionUnits(
+                                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
                         )
                 )
         );
         logger.info("取上级节点属性");
         logger.info(
                 JSON.toJSONString(
-                        ouEntity.getParentOrgnazitionUnit(
-                                ouEntity.getChildOrgnazitionUnits(
-                                        ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
+                        this.ouEntity.getParentOrgnazitionUnit(
+                                this.ouEntity.getChildOrgnazitionUnits(
+                                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
                                 ).get(0).getOuID()
                         )
                 )
@@ -69,9 +70,9 @@ public class OuTest {
         logger.info("取上级节点属性");
         logger.info(
                 JSON.toJSONString(
-                        ouEntity.getParentOrgnazitionUnit(
-                                ouEntity.getChildOrgnazitionUnits(
-                                        ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
+                        this.ouEntity.getParentOrgnazitionUnit(
+                                this.ouEntity.getChildOrgnazitionUnits(
+                                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
                                 ).get(0).getOuID()
                         )
                 )
@@ -80,54 +81,81 @@ public class OuTest {
         logger.info("带业务组织属性的组织信息");
         logger.info(
                 JSON.toJSONString(
-                        ouEntity.getOrgnazitionUnitModelThreadLocal().get().getOrgnazitionUnitMap()
-//                        ouEntity.getOrgnazitionUnitBaseInfo(
+                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getOrgnazitionUnitMap()
+//                        this.ouEntity.getOrgnazitionUnitBaseInfo(
 //                                "3fd305db-12d3-4fff-aa86-247819f63ffa"
 //                        )
                 )
         );
+
+        logger.info("按照业务类别选择上级业务组");
+        logger.info(
+                JSON.toJSONString(
+                        this.ouEntity.getParentOrgnazitionUnitsByIndicatorType(
+                                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
+                                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
+                                ).get(1).getOuID()
+                                , IndicatorType.Sales
+                        )
+                )
+        );
+
+        logger.info("按照业务类别选择下级业务组");
+        logger.info(
+                JSON.toJSONString(
+                        this.ouEntity.getChildOrgnazitionUnits(
+                                this.ouEntity.getTopLevelOrgnazitionUnitDao().getOuID()
+                                , IndicatorType.Sales
+                        )
+                )
+        );
+
     }
 
     private void initDataByDb() {
         this.ouEntity.initOuData();
-        this.ouEntity.initOuAttributesData();
     }
 
     private void initDataByCode() {
         jdbcTemplate.execute("delete from orgnazition_unit;");
+        jdbcTemplate.execute("delete from orgnazition_unit_attribute;");
 
-        ouEntity.createTopOrgnazitionUnit(
-                null
-                , "ouCode1"
-                , "正泰"
-                , null
-                , "猪"
-        );
+        logger.info(JSON.toJSONString(
+                this.ouEntity.createTopOrgnazitionUnit(
+                        null
+                        , "ouCode1"
+                        , "正泰"
+                        , null
+                        , "猪"
+                )
+        ));
 
-        ouEntity.createOrgnazitionUnit(
-                ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
-                , "ouCode2"
-                , "市场部"
-                , null
-                , "猪"
-                , true
-        );
+        logger.info(JSON.toJSONString(
+                this.ouEntity.createOrgnazitionUnit(
+                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
+                        , "ouCode2"
+                        , "市场部"
+                        , null
+                        , "猪"
+                        , true
+                )));
 
-        ouEntity.createOrgnazitionUnit(
-                ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
-                , "ouCode3"
-                , "销售部"
-                , null
-                , "猪"
-                , true
-        );
+        logger.info(JSON.toJSONString(
+                this.ouEntity.createOrgnazitionUnit(
+                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
+                        , "ouCode3"
+                        , "销售部"
+                        , null
+                        , "猪"
+                        , true
+                )));
 
         /*
             补充销售一部销售二部
          */
-        ouEntity.createOrgnazitionUnit(
-                ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
-                        ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
+        this.ouEntity.createOrgnazitionUnit(
+                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
+                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
                 ).get(1).getOuID()
                 , "ouCode4"
                 , "销售一部"
@@ -135,9 +163,9 @@ public class OuTest {
                 , "猪"
                 , true
         );
-        ouEntity.createOrgnazitionUnit(
-                ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
-                        ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
+        this.ouEntity.createOrgnazitionUnit(
+                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
+                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
                 ).get(1).getOuID()
                 , "ouCode5"
                 , "销售二部"
@@ -145,9 +173,9 @@ public class OuTest {
                 , "猪"
                 , true
         );
-        ouEntity.updateOrgnazitionUnitAttributes(
-                ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
-                        ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()
+        this.ouEntity.updateOrgnazitionUnitAttributes(
+                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
+                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()
                 ).get(0).getOuID()  //  销售一部
                 , new ArrayList<OrgnazitionUnitAttribute>() {{
                     //  模拟业务组织ouCode2，拥有财务属性
@@ -165,9 +193,9 @@ public class OuTest {
                     );
                 }}
         );
-        ouEntity.updateOrgnazitionUnitAttributes(
-                ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
-                        ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()
+        this.ouEntity.updateOrgnazitionUnitAttributes(
+                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
+                        this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()
                 ).get(1).getOuID()  //  销售一部
                 , new ArrayList<OrgnazitionUnitAttribute>() {{
                     //  模拟业务组织ouCode2，拥有财务属性
@@ -180,6 +208,44 @@ public class OuTest {
                     add(
                             new OrgnazitionUnitAttribute(
                                     ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                    , IndicatorType.Administration
+                                    , false)
+                    );
+                }}
+        );
+
+        this.ouEntity.updateOrgnazitionUnitAttributes(
+                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()).get(0).getOuID()  //  二级部门
+                , new ArrayList<OrgnazitionUnitAttribute>() {{
+                    //  模拟业务组织ouCode2，拥有财务属性
+                    add(
+                            new OrgnazitionUnitAttribute(
+                                    ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                    , IndicatorType.Sales
+                                    , false)
+                    );
+                    add(
+                            new OrgnazitionUnitAttribute(
+                                    ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()  //  ouCode1
+                                    , IndicatorType.Administration
+                                    , false)
+                    );
+                }}
+        );
+
+        this.ouEntity.updateOrgnazitionUnitAttributes(
+                this.ouEntity.getTopLevelOrgnazitionUnitDao().getOuID()  //  正泰
+                , new ArrayList<OrgnazitionUnitAttribute>() {{
+                    //  模拟业务组织正泰，拥有财务属性
+                    add(
+                            new OrgnazitionUnitAttribute(
+                                    null  //  无上级
+                                    , IndicatorType.Sales
+                                    , false)
+                    );
+                    add(
+                            new OrgnazitionUnitAttribute(
+                                    null  //  无上级
                                     , IndicatorType.Administration
                                     , false)
                     );

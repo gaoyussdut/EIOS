@@ -39,15 +39,8 @@ public class OuEntity {
             ou初始化
          */
         this.orgnazitionUnitModelThreadLocal.set(new OrgnazitionUnitModel(ouRepository.findAllOrgnazitionUnitDao()));
-    }
-
-
-    /**
-     * 从数据库中加载OU充血模型，在retrieve方法中调用
-     */
-    public void initOuAttributesData() {
         /*
-            ou初始化
+            ou属性初始化
          */
         this.orgnazitionUnitModelThreadLocal.get().buildorgnazitionUnitAttributes(ouRepository.findAllOrgnazitionUnitAttributeDao());
     }
@@ -157,18 +150,18 @@ public class OuEntity {
      */
 
     /**
-     * 选择上级业务组
+     * 按照业务类别选择下级业务组
      *
      * @param ouId          业务组织dto id
      * @param indicatorType 业务组织类型
      * @return 下级业务组织dto列表
      */
-    public List<OrgnazitionUnitDto> getOrgnazitionUnitsByIndicatorType(String ouId, IndicatorType indicatorType) {
+    public List<OrgnazitionUnitDto> getParentOrgnazitionUnitsByIndicatorType(String ouId, IndicatorType indicatorType) {
         try {
-            return this.orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitsByIndicatorType(ouId, indicatorType);
+            return this.orgnazitionUnitModelThreadLocal.get().getParentOrgnazitionUnitsByIndicatorType(ouId, indicatorType);
         } catch (Exception e) {
             this.initOuData();
-            return this.orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitsByIndicatorType(ouId, indicatorType);
+            return this.orgnazitionUnitModelThreadLocal.get().getParentOrgnazitionUnitsByIndicatorType(ouId, indicatorType);
         }
     }
 

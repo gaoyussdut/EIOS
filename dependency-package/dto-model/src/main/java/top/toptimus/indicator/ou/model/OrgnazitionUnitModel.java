@@ -1,10 +1,11 @@
 package top.toptimus.indicator.ou.model;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import top.toptimus.indicator.indicatorBill.dao.IndicatorOuRelDao;
 import top.toptimus.indicator.indicatorBill.model.IndicatorBillRelModel;
 import top.toptimus.indicator.ou.base.IndicatorType;
@@ -24,6 +25,7 @@ import java.util.*;
  */
 @NoArgsConstructor
 public class OrgnazitionUnitModel {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Getter
     private Map<String, OrgnazitionUnitDao> orgnazitionUnitMap = new HashMap<>();   //  OU列表
     /*
@@ -313,14 +315,17 @@ public class OrgnazitionUnitModel {
      *
      * @param ouId          业务组织dto id
      * @param indicatorType 业务组织类型
-     * @return 下级业务组织dto列表
+     * @return 上级业务组织dto列表
      */
-    public List<OrgnazitionUnitDto> getOrgnazitionUnitsByIndicatorType(String ouId, IndicatorType indicatorType) {
+    public List<OrgnazitionUnitDto> getParentOrgnazitionUnitsByIndicatorType(String ouId, IndicatorType indicatorType) {
         if (this.orgnazitionAttributeMap.containsKey(indicatorType)) {
             return new ArrayList<OrgnazitionUnitDto>() {{
                 orgnazitionAttributeMap.get(indicatorType).keySet().forEach(id -> {
-                    if (!id.equals(ouId))
-                        add(orgnazitionAttributeMap.get(indicatorType).get(id));
+                    if (id.equals(ouId))
+                        logger.info("orgnazitionAttributeMap.get(indicatorType).get(id).getOuID():" + orgnazitionAttributeMap.get(indicatorType).get(id).getPOuID());
+                    add(orgnazitionAttributeMap.get(indicatorType).get(
+                            orgnazitionAttributeMap.get(indicatorType).get(id).getPOuID()
+                    ));
                 });
             }};
         } else {
@@ -329,7 +334,7 @@ public class OrgnazitionUnitModel {
     }
 
     /**
-     * 取得下级业务组织列表
+     * 取得上级业务组织列表
      *
      * @param parentOuID 上级ou id
      * @param unitMap    业务组织列表
