@@ -66,7 +66,6 @@ public class OrgnazitionUnitModel {
         }
         for (String ouId : orgnazitionUnitAttributeMap.keySet()) {
             this.updateOrgnazitionUnitAttributes(ouId, orgnazitionUnitAttributeMap.get(ouId));
-
         }
     }
 
@@ -269,9 +268,9 @@ public class OrgnazitionUnitModel {
      * @return 上级业务组织dto
      */
     public OrgnazitionUnitBaseInfoDto getParentOrgnazitionUnit(String ouId) {
-        return this.orgnazitionUnitMap.get(
-                this.orgnazitionUnitMap.get(ouId).getPOuID()
-        ).buildOrgnazitionUnitBaseInfoDto();
+        return this.orgnazitionUnitMap
+                .get(this.orgnazitionUnitMap.get(ouId).getPOuID())
+                .buildOrgnazitionUnitBaseInfoDto();
     }
 
     /**
@@ -354,8 +353,8 @@ public class OrgnazitionUnitModel {
      * @param ouId 业务组织id
      * @return 业务组织属性
      */
-    public OrgnazitionUnitDao getOrgnazitionUnitDao(String ouId) {
-        return this.getOrgnazitionUnitMap().get(ouId);
+    public OrgnazitionUnitBaseInfoDto getOrgnazitionUnitDao(String ouId) {
+        return this.getOrgnazitionUnitMap().get(ouId).buildOrgnazitionUnitBaseInfoDto();
     }
 
     /**

@@ -138,10 +138,10 @@ public class OuEntity {
      */
     public OrgnazitionUnitBaseInfoDto getOrgnazitionUnitBaseInfo(String ouId) {
         try {
-            return this.orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitDao(ouId).buildOrgnazitionUnitBaseInfoDto();
+            return this.orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitDao(ouId);
         } catch (Exception e) {
             this.initOuData();
-            return this.orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitDao(ouId).buildOrgnazitionUnitBaseInfoDto();
+            return this.orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitDao(ouId);
         }
     }
 
