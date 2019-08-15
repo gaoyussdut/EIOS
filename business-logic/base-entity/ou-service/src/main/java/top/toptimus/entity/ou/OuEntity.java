@@ -185,12 +185,12 @@ public class OuEntity {
     }
 
     /**
-     * 更新业务组织
+     * 创建业务组织属性
      *
      * @param ouId                      业务组织id
      * @param orgnazitionUnitAttributes 业务组织属性列表
      */
-    public void updateOrgnazitionUnitAttributes(String ouId, List<OrgnazitionUnitAttribute> orgnazitionUnitAttributes) {
+    public void createOrgnazitionUnitAttributes(String ouId, List<OrgnazitionUnitAttribute> orgnazitionUnitAttributes) {
         this.orgnazitionUnitModelThreadLocal.get().updateOrgnazitionUnitAttributes(ouId, orgnazitionUnitAttributes);
         for (OrgnazitionUnitAttribute orgnazitionUnitAttribute : orgnazitionUnitAttributes) {
             ouRepository.saveOrgnazitionUnitAttribute(ouId, orgnazitionUnitAttribute);

@@ -127,11 +127,13 @@ public class OuTest {
                 ",('eef9f15c-ec71-4832-9651-e8a0e0f7767a','Administration','8665e23e-299c-4776-91f4-fddffdbd7d71',False)\n" +
                 ",('eef9f15c-ec71-4832-9651-e8a0e0f7767a','Sales','8665e23e-299c-4776-91f4-fddffdbd7d71',False)");
 
-        this.ouEntity.initOuData();
+        this.ouEntity.initOuData(); //  初始化数据
     }
 
 
-
+    /**
+     *  之前造测试数据的。
+     */
     private void initDataByCode() {
 
         logger.info(JSON.toJSONString(
@@ -187,7 +189,7 @@ public class OuTest {
                 , "猪"
                 , true
         );
-        this.ouEntity.updateOrgnazitionUnitAttributes(
+        this.ouEntity.createOrgnazitionUnitAttributes(
                 this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
                         this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()
                 ).get(0).getOuID()  //  销售一部
@@ -207,7 +209,7 @@ public class OuTest {
                     );
                 }}
         );
-        this.ouEntity.updateOrgnazitionUnitAttributes(
+        this.ouEntity.createOrgnazitionUnitAttributes(
                 this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
                         this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()
                 ).get(1).getOuID()  //  销售一部
@@ -228,7 +230,7 @@ public class OuTest {
                 }}
         );
 
-        this.ouEntity.updateOrgnazitionUnitAttributes(
+        this.ouEntity.createOrgnazitionUnitAttributes(
                 this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()).get(0).getOuID()  //  二级部门
                 , new ArrayList<OrgnazitionUnitAttribute>() {{
                     //  模拟业务组织ouCode2，拥有财务属性
@@ -247,7 +249,7 @@ public class OuTest {
                 }}
         );
 
-        this.ouEntity.updateOrgnazitionUnitAttributes(
+        this.ouEntity.createOrgnazitionUnitAttributes(
                 this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()).get(1).getOuID()  //  二级部门
                 , new ArrayList<OrgnazitionUnitAttribute>() {{
                     //  模拟业务组织ouCode2，拥有财务属性
@@ -267,7 +269,7 @@ public class OuTest {
         );
 
 
-        this.ouEntity.updateOrgnazitionUnitAttributes(
+        this.ouEntity.createOrgnazitionUnitAttributes(
                 this.ouEntity.getTopLevelOrgnazitionUnitDao().getOuID()  //  正泰
                 , new ArrayList<OrgnazitionUnitAttribute>() {{
                     //  模拟业务组织正泰，拥有财务属性
