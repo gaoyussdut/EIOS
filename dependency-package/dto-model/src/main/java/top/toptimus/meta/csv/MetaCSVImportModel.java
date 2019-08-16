@@ -68,7 +68,7 @@ public class MetaCSVImportModel {
                     if (i != 0) {//不读取第一行
                         String s = dataList.get(i);
                         String[] as = s.split(",");
-                        add(new MetaIndexDTO(as[0], as[1]));
+                        add(new MetaIndexDTO(as[0], as[1], as[2]));
                     }
                 }
             }

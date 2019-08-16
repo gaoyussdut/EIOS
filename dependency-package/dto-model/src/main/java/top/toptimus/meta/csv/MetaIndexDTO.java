@@ -22,8 +22,9 @@ public class MetaIndexDTO {
      * @param metaId        meta id
      * @param tokenMetaName 文件名，也是token meta名称
      */
-    public MetaIndexDTO(String metaId, String tokenMetaName) {
+    MetaIndexDTO(String metaId, String tokenMetaName, String isModify) {
         this.metaId = metaId;
         this.tokenMetaName = tokenMetaName;
+        this.isModify = isModify.toLowerCase().equals("true");    //  当注明是修改的时候才是修改
     }
 }

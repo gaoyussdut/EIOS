@@ -121,17 +121,15 @@ public class MetaTableDDLRepository {
             if (metaInfoDTO.getKey().equals("id")) {
                 return;
             }
-            stringBuilder.append(",");
 
-            stringBuilder.append(key).append(" ");
+            stringBuilder.append(",").append(key).append(" ")
+                    .append(convert2ColType(FkeyTypeEnum.valueOf(metaInfoDTO.getFkeytype())))
+                    .append(" ");
 
-            stringBuilder.append(convert2ColType(FkeyTypeEnum.valueOf(metaInfoDTO.getFkeytype()))).append(" ");
-
-            String comment = metaInfoDTO.getCaption();
-            comment = comment.replaceAll("\'", "");
-            comment = comment.replaceAll("\"", "");
-
-            commentList.add("COMMENT ON COLUMN " + tableName + "." + key + " IS \'" + comment + "\'");
+            commentList.add("COMMENT ON COLUMN " + tableName + "." + key + " IS \'"
+                    + metaInfoDTO.getCaption().replaceAll("\'", "").replaceAll("\"", "")
+                    + "\'"
+            );  //  comment
 
         });
 
@@ -139,6 +137,33 @@ public class MetaTableDDLRepository {
         stringBuilder.append(") ");
 
         this.executeTable(tableName, stringBuilder.toString(), commentList);
+    }
+
+    /**
+     * ALTER TABLE xxx add column
+     *
+     * @param tableName   表名
+     * @param metaInfoMap K:字段key，V:meta 字段信息
+     */
+    public void alterTableAddColumnsByMetaInfo(String tableName, Map<String, MetaInfoDTO> metaInfoMap) {
+
+
+        metaInfoMap.forEach((key, metaInfoDTO) -> {
+            if (FkeyTypeEnum.SELECT_INTERN.name().equals(metaInfoDTO.getFkeytype())) {
+                return;
+            }
+            if (metaInfoDTO.getKey().equals("id")) {
+                return;
+            }
+
+            jdbcTemplate.execute(
+                    "ALTER TABLE " + tableName + " ADD COLUMN " + key + " " + convert2ColType(FkeyTypeEnum.valueOf(metaInfoDTO.getFkeytype())) + ";"
+            ); //  alter table
+            jdbcTemplate.execute("COMMENT ON COLUMN " + tableName + "." + key + " IS \'"
+                    + metaInfoDTO.getCaption().replaceAll("\'", "").replaceAll("\"", "")
+                    + "\';"
+            );    //  comment
+        });
     }
 
     /**

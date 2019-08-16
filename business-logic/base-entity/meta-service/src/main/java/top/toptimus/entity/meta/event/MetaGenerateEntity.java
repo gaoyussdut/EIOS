@@ -24,13 +24,27 @@ public class MetaGenerateEntity {
      */
     public void importBaseMeta(String metaIndexFile, String csvPath) {
         for (MetaIndexDTO metaIndexDTO : MetaCSVImportModel.generateMetaIndexDTO(metaIndexFile)) {
-            metaEventEntity.saveMetaInfoDTO(
-                    MetaCSVImportModel.generateMetaInfoFromCSV(
-                            metaIndexDTO.getMetaId()
-                            , metaIndexDTO.getTokenMetaName()
-                            , csvPath + "/" + metaIndexDTO.getTokenMetaName() + ".csv"  //  文件名
-                    )
-            );
+
+            if (metaIndexDTO.isModify()) {
+                //  修改
+                metaEventEntity.alterTableAddColumnsByMetaInfo(
+                        metaIndexDTO.getMetaId()
+                        , MetaCSVImportModel.generateMetaInfoFromCSV( //  变更后的meta info
+                                metaIndexDTO.getMetaId()
+                                , metaIndexDTO.getTokenMetaName()
+                                , csvPath + "/" + metaIndexDTO.getTokenMetaName() + ".csv"  //  文件名
+                        )   //  变更后的meta
+                );
+            } else {
+                //  新增
+                metaEventEntity.saveMetaInfoDTO(
+                        MetaCSVImportModel.generateMetaInfoFromCSV(
+                                metaIndexDTO.getMetaId()
+                                , metaIndexDTO.getTokenMetaName()
+                                , csvPath + "/" + metaIndexDTO.getTokenMetaName() + ".csv"  //  文件名
+                        )
+                );  //  新建表
+            }
         }
     }
 }
