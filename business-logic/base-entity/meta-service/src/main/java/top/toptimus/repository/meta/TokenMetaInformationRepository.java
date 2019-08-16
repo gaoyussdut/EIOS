@@ -235,6 +235,17 @@ public class TokenMetaInformationRepository {
         String strSQL = "SELECT "+storedProcedureName +"('"+preTokenId+"')";
         return jdbcTemplate.queryForObject(strSQL,String.class);
     }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void delete(String metaId) {
+        String sql = "DELETE FROM t_token_meta_formation WHERE token_meta_id = '" + metaId + "'";
+        try {
+            jdbcTemplate.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("保存TokenMetaInformationDao失败");
+        }
+    }
 }
 
 

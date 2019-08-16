@@ -3,11 +3,9 @@ package top.toptimus.model.meta.event;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import top.toptimus.baseModel.BaseModel;
-import top.toptimus.meta.FKeyDto;
-import top.toptimus.meta.FKeyOrderDto;
-import top.toptimus.meta.RWpermissionDto;
-import top.toptimus.meta.RalValueDto;
+import top.toptimus.meta.*;
 import top.toptimus.meta.metaview.MetaInfoDTO;
+import top.toptimus.tokenTemplate.TokenTemplateDefinitionDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +23,19 @@ public class SaveMetaInfoModel extends BaseModel {
     private List<RWpermissionDto> rWpermissionDaos = new ArrayList<>();
     private List<RalValueDto> ralValueDaos = new ArrayList<>();
     private List<FKeyOrderDto> fKeyOrderDaos = new ArrayList<>();
+    private TokenMetaInformationDto tokenMetaInformationDto = new TokenMetaInformationDto();
+    private String tableName;
+    private TokenTemplateDefinitionDTO tokenTemplateDefinitionDTO = new TokenTemplateDefinitionDTO();
+    private List<MetaInfoDTO> metaInfoDaos = new ArrayList<>();
 
     public SaveMetaInfoModel(List<MetaInfoDTO> metaInfoDTOs) {
+        this.metaInfoDaos = metaInfoDTOs;
         try {
             if (metaInfoDTOs == null || metaInfoDTOs.size() == 0) {
                 this.metaId = null;
             } else {
                 this.metaId = metaInfoDTOs.get(0).getMetaId();
+                this.tableName = metaId;
                 for (MetaInfoDTO metaInfoDTO : metaInfoDTOs) {
                     // meta中key的信息保存 t_token_meta_fkey
                     this.fKeyDaos.add(new FKeyDto().build(metaInfoDTO));
@@ -53,4 +57,15 @@ public class SaveMetaInfoModel extends BaseModel {
             e.printStackTrace();
         }
     }
+
+    public SaveMetaInfoModel build(TokenMetaInformationDto tokenMetaInformationDto){
+        this.tokenMetaInformationDto = tokenMetaInformationDto;
+        return this;
+    }
+
+    public SaveMetaInfoModel build(TokenTemplateDefinitionDTO tokenTemplateDefinitionDTO){
+        this.tokenTemplateDefinitionDTO = tokenTemplateDefinitionDTO;
+        return this;
+    }
+
 }

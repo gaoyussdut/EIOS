@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 import top.toptimus.common.enums.DomainTypeEnum;
 import top.toptimus.entity.meta.aop.eventHandler.MetaSaveHandler;
 import top.toptimus.entity.meta.event.MetaEventEntity;
+import top.toptimus.meta.TokenMetaInformationDto;
 import top.toptimus.model.meta.event.SaveMetaInfoModel;
 import top.toptimus.model.meta.event.SaveMetaInfosModel;
 import top.toptimus.model.meta.event.SaveMetaModel;
 import top.toptimus.repository.meta.*;
+import top.toptimus.repository.meta.tokentemplate.TokenTemplateRepository;
 
 @Aspect
 @Component
@@ -30,6 +32,12 @@ public class MetaAop {
     private MetaEventEntity metaEventEntity;
     @Autowired
     private MetaTableDDLRepository metaTableDDLRepository;
+    @Autowired
+    private ProcessTableRepository processTableRepository;
+    @Autowired
+    private TokenMetaInformationRepository tokenMetaInformationRepository;
+    @Autowired
+    private TokenTemplateRepository tokenTemplateRepository;
 
     /**
      * 保存meta 分成4个结构
@@ -53,7 +61,7 @@ public class MetaAop {
      */
     @AfterReturning(returning = "retValue"
             , pointcut = "execution(" +
-            "public * top.toptimus.entity.meta.event.MetaEventEntity.saveMetaInfoDTO(..))"
+            "public * top.toptimus.entity.meta.event.MetaEventEntity.saveMetaInfo(..))"
     )
     public void saveMetaInfoDTOAfterReturning(Object retValue) {
         SaveMetaInfoModel saveMetaInfoModel = (SaveMetaInfoModel) retValue;
@@ -64,6 +72,10 @@ public class MetaAop {
                 rwPermissionRepository.deleteByMetaId(saveMetaInfoModel.getMetaId());
                 ralValueRepository.deleteByMetaId(saveMetaInfoModel.getMetaId());
                 fKeyOrderRepository.deleteByMetaId(saveMetaInfoModel.getMetaId());
+                processTableRepository.delete(saveMetaInfoModel.getMetaId());
+                tokenMetaInformationRepository.delete(saveMetaInfoModel.getTokenMetaInformationDto().getTokenMetaId());
+                tokenTemplateRepository.delete(saveMetaInfoModel.getTokenTemplateDefinitionDTO().getTokenTemplateId());
+
                 // t_token_meta_fkey
                 fKeyRepository.saveAll(saveMetaInfoModel.getFKeyDaos());
                 // t_token_meta_permissions
@@ -74,6 +86,12 @@ public class MetaAop {
                 }
                 // t_token_meta_fkey_order
                 fKeyOrderRepository.saveAll(saveMetaInfoModel.getFKeyOrderDaos());
+                // t_process_table
+                processTableRepository.save(saveMetaInfoModel.getTableName(),saveMetaInfoModel.getMetaId());
+                // t_token_meta_formation
+                tokenMetaInformationRepository.save(saveMetaInfoModel.getTokenMetaInformationDto());
+                // t_tokentemplate_definition
+                tokenTemplateRepository.save(saveMetaInfoModel.getTokenTemplateDefinitionDTO());
             }
         }
         //  TODO    错误日志
@@ -87,7 +105,7 @@ public class MetaAop {
      */
     @AfterReturning(returning = "retValue"
             , pointcut = "execution(" +
-            "public * top.toptimus.entity.meta.event.MetaEventEntity.saveMetaInfoDTOS(..))"
+            "public * top.toptimus.entity.meta.event.MetaEventEntity.saveMetaInfoDTO(..))"
     )
     public void saveMetaInfoDTOSAfterReturning(Object retValue) {
         SaveMetaInfosModel saveMetaInfosModel = (SaveMetaInfosModel) retValue;

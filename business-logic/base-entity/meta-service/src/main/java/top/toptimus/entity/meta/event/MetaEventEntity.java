@@ -13,9 +13,7 @@ import top.toptimus.meta.property.MetaFieldDTO;
 import top.toptimus.model.meta.event.SaveMetaInfoModel;
 import top.toptimus.model.meta.event.SaveMetaModel;
 import top.toptimus.model.meta.event.SaveMetaSelectInfoModel;
-import top.toptimus.repository.meta.FKeyTypeRepository;
-import top.toptimus.repository.meta.MetaTableDDLRepository;
-import top.toptimus.repository.meta.SelfDefiningMetaRepository;
+import top.toptimus.repository.meta.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +38,10 @@ public class MetaEventEntity {
     private MetaQueryFacadeEntity metaQueryFacadeEntity;
     @Autowired
     private SelfDefiningMetaRepository selfDefiningMetaRepository;
+    @Autowired
+    private ProcessTableRepository processTableRepository;
+    @Autowired
+    private FKeyRepository fKeyRepository;
 
     /**
      * 保存meta 分成4个结构
@@ -152,6 +154,22 @@ public class MetaEventEntity {
         for (FKeyCaptionDto fKeyCaptionDto : fKeyCaptionDtos) {
             fKeyTypeRepository.updateMetaFkeyCaption(masterMetaId, fKeyCaptionDto.getKey(), fKeyCaptionDto.getCaption());
         }
+    }
+
+    /**
+     * 保存meta信息，
+     *
+     * @param saveMetaInfoModel meta信息列表
+     * @apiNote top.toptimus.entity.meta.aop.MetaAop#saveMetaInfoDTOAfterReturning(java.lang.Object)
+     */
+    @SuppressWarnings("UnusedReturnValue")
+    public SaveMetaInfoModel saveMetaInfo(SaveMetaInfoModel saveMetaInfoModel) {
+        this.createTableByMetaInfoDTOS(saveMetaInfoModel.getMetaId(), saveMetaInfoModel.getMetaInfoDaos());  //  创建表
+//        processTableRepository.save(saveMetaInfoModel.getTableName(),saveMetaInfoModel.getMetaId());//存table表
+//        fKeyRepository.saveAll(saveMetaInfoModel.getFKeyDaos());
+
+        // 保存用的model
+        return saveMetaInfoModel;
     }
 
 
