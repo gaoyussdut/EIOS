@@ -105,7 +105,7 @@ public class TestOrg {
 
         System.out.println("选择上级业务组织一览");
         System.out.println(JSON.toJSONString(
-                orgnazitionUnitModelThreadLocal.get().getOrgnazitionUnitsByIndicatorType(
+                orgnazitionUnitModelThreadLocal.get().getParentOrgnazitionUnitsByIndicatorType(
                         orgnazitionUnitModelThreadLocal.get().getChildOrgnazitionUnits(orgnazitionUnitModelThreadLocal.get().getTopLevelOrgnazitionUnitDao().getOuID(), IndicatorType.Sales)
                                 .get(0)
                                 .getOuID()

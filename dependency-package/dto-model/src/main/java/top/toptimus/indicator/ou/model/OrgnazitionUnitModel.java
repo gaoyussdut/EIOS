@@ -1,6 +1,5 @@
 package top.toptimus.indicator.ou.model;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,9 +51,8 @@ public class OrgnazitionUnitModel {
      * 维护业务组织属性
      *
      * @param orgnazitionUnitAttributeDaos 业务组织属性列表
-     * @return this
      */
-    public OrgnazitionUnitModel buildorgnazitionUnitAttributes(List<OrgnazitionUnitAttributeDao> orgnazitionUnitAttributeDaos) {
+    public void buildorgnazitionUnitAttributes(List<OrgnazitionUnitAttributeDao> orgnazitionUnitAttributeDaos) {
         Map<String, List<OrgnazitionUnitAttribute>> orgnazitionUnitAttributeMap = new HashMap<>();
 
         for (OrgnazitionUnitAttributeDao orgnazitionUnitAttributeDao : orgnazitionUnitAttributeDaos) {
@@ -68,9 +66,7 @@ public class OrgnazitionUnitModel {
         }
         for (String ouId : orgnazitionUnitAttributeMap.keySet()) {
             this.updateOrgnazitionUnitAttributes(ouId, orgnazitionUnitAttributeMap.get(ouId));
-
         }
-        return this;
     }
 
 
@@ -272,9 +268,9 @@ public class OrgnazitionUnitModel {
      * @return 上级业务组织dto
      */
     public OrgnazitionUnitBaseInfoDto getParentOrgnazitionUnit(String ouId) {
-        return this.orgnazitionUnitMap.get(
-                this.orgnazitionUnitMap.get(ouId).getPOuID()
-        ).buildOrgnazitionUnitBaseInfoDto();
+        return this.orgnazitionUnitMap
+                .get(this.orgnazitionUnitMap.get(ouId).getPOuID())
+                .buildOrgnazitionUnitBaseInfoDto();
     }
 
     /**
@@ -313,15 +309,15 @@ public class OrgnazitionUnitModel {
      *
      * @param ouId          业务组织dto id
      * @param indicatorType 业务组织类型
-     * @return 下级业务组织dto列表
+     * @return 上级业务组织dto列表
      */
-    public List<OrgnazitionUnitDto> getOrgnazitionUnitsByIndicatorType(String ouId, IndicatorType indicatorType) {
+    public List<OrgnazitionUnitDto> getParentOrgnazitionUnitsByIndicatorType(String ouId, IndicatorType indicatorType) {
         if (this.orgnazitionAttributeMap.containsKey(indicatorType)) {
             return new ArrayList<OrgnazitionUnitDto>() {{
-                orgnazitionAttributeMap.get(indicatorType).keySet().forEach(id -> {
-                    if (!id.equals(ouId))
-                        add(orgnazitionAttributeMap.get(indicatorType).get(id));
-                });
+                String pid = orgnazitionAttributeMap.get(indicatorType).get(ouId).getPOuID();   //  通过业务组织属性找上级组织id
+                if (orgnazitionAttributeMap.get(indicatorType).containsKey(pid)) {    //  通过pid找上级组织
+                    add(orgnazitionAttributeMap.get(indicatorType).get(pid));
+                }
             }};
         } else {
             throw new RuntimeException(indicatorType.name() + "组织列表为空");
@@ -329,7 +325,7 @@ public class OrgnazitionUnitModel {
     }
 
     /**
-     * 取得下级业务组织列表
+     * 取得上级业务组织列表
      *
      * @param parentOuID 上级ou id
      * @param unitMap    业务组织列表
@@ -357,8 +353,8 @@ public class OrgnazitionUnitModel {
      * @param ouId 业务组织id
      * @return 业务组织属性
      */
-    public OrgnazitionUnitDao getOrgnazitionUnitDao(String ouId) {
-        return this.getOrgnazitionUnitMap().get(ouId);
+    public OrgnazitionUnitBaseInfoDto getOrgnazitionUnitDao(String ouId) {
+        return this.getOrgnazitionUnitMap().get(ouId).buildOrgnazitionUnitBaseInfoDto();
     }
 
     /**

@@ -64,7 +64,7 @@ public class BuildMetaTest {
     /**
      * metainfomation
      *
-     * @return
+     * @return meta info列表
      */
     private List<MetaInfoDTO> buildMeta(String metaId, String metaName) {
         return new ArrayList<MetaInfoDTO>() {{
