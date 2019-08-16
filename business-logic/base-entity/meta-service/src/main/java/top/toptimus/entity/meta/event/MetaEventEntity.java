@@ -135,6 +135,67 @@ public class MetaEventEntity {
     }
 
     /**
+     * ALTER TABLE xxx add column
+     *
+     * @param metaId       meta id，也就是表名
+     * @param metaInfoDTOS meta信息列表
+     * @apiNote TODO
+     */
+    @SuppressWarnings("UnusedReturnValue")
+    public SaveMetaInfoModel alterTableAddColumnsByMetaInfo(String metaId, List<MetaInfoDTO> metaInfoDTOS) {
+        List<MetaInfoDTO> originalMetaInfoDTOs =
+                metaQueryFacadeEntity.findByMetaId(metaId);   //  数据库当前的的meta info
+        List<MetaInfoDTO> alterMetaInfoDTOS = new ArrayList<>();    //  变更后的meta
+
+        if (metaInfoDTOS.isEmpty()) {
+            throw new RuntimeException("meta list为空");
+        } else {
+            this.alterTableAddColumns(
+                    metaId
+                    , new ArrayList<MetaInfoDTO>() {
+                        {
+                            metaInfoDTOS.forEach(
+                                    metaInfoDTO -> {
+                                        boolean isAlterKey = true; //  要做add column的key
+                                        for (MetaInfoDTO originalMetaInfoDTO : originalMetaInfoDTOs) {
+                                            if (originalMetaInfoDTO.getFKey().equals(metaInfoDTO.getFKey())) {
+                                                //  key相同时不变更
+                                                isAlterKey = false;
+                                                break;
+                                            }
+                                        }
+                                        if (isAlterKey) {
+                                            add(metaInfoDTO);   //  要做add column的key记录
+                                            alterMetaInfoDTOS.add(metaInfoDTO);
+                                        }
+                                    }
+                            );
+                        }
+                    }
+            );   //  变更表
+        }
+
+        return new SaveMetaInfoModel(alterMetaInfoDTOS);
+    }
+
+
+    /**
+     * ALTER TABLE xxx add column
+     *
+     * @param tableName    表名
+     * @param metaInfoDTOS meta info list
+     */
+    private void alterTableAddColumns(String tableName, List<MetaInfoDTO> metaInfoDTOS) {
+        Map<String, MetaInfoDTO> metaInfoMap = new HashMap<String, MetaInfoDTO>() {{
+            for (MetaInfoDTO metaInfoDTO : metaInfoDTOS) {
+                put(metaInfoDTO.getKey(), metaInfoDTO);
+            }
+        }};
+
+        metaTableDDLRepository.createTableByMetaInfo(tableName, metaInfoMap);
+    }
+
+    /**
      * 保存自定义meta
      *
      * @param selfDefiningMetaDTO 用户自定义meta
