@@ -17,6 +17,7 @@ import top.toptimus.meta.MetaRelation.MasterBillMetaRelationDTO;
 import top.toptimus.meta.MetaRelation.MetaAuthRelationDTO;
 import top.toptimus.meta.MetaRelation.MetaRelationDTO;
 import top.toptimus.meta.metaview.MetaInfoDTO;
+import top.toptimus.model.meta.event.SaveMetaInfoModel;
 import top.toptimus.resultModel.ResultErrorModel;
 import top.toptimus.service.secutiry.UserService;
 import top.toptimus.user.UserDTO;
@@ -618,6 +619,21 @@ public class MetaService {
         try {
             return Result.success(
                     metaQueryFacadeEntity.getConstantByKey(fkey)
+            );
+        } catch (Exception e) {
+            return new ResultErrorModel(e).getResult();
+        }
+    }
+
+    /**
+     * 追加多条MetaInfos
+     *
+     * @param saveMetaInfoModel meta列表
+     */
+    public Result saveMetaInfo(SaveMetaInfoModel saveMetaInfoModel) {
+        try {
+            return Result.success(
+                    metaEventEntity.saveMetaInfo(saveMetaInfoModel)
             );
         } catch (Exception e) {
             return new ResultErrorModel(e).getResult();
