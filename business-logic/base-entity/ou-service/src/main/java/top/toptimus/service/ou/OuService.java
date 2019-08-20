@@ -34,49 +34,6 @@ public class OuService {
     }
 
     /**
-     * 新增业务组织
-     *
-     * @param pOuId       上级业务组织id
-     * @param ouCode      业务组织编码
-     * @param ouName      业务组织名称
-     * @param createDate  创建时间
-     * @param createUser  创建人
-     * @param description 描述
-     * @return 业务组织DTO
-     */
-    public OrgnazitionUnitBaseInfoDto createOrgnazitionUnit(
-            String pOuId
-            , String ouCode
-            , String ouName
-            , Date createDate
-            , String createUser
-            , String description
-    ) {
-        this.ouEntity.initOuData();
-        if (this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getOrgnazitionUnitMap().isEmpty()) {
-            pOuId = UUID.randomUUID().toString();   //  给要创建的组织赋初值
-            //  业务组织未初始化
-            this.ouEntity.createTopOrgnazitionUnit( //  仅针对正泰,创建头部组织
-                    null
-                    , pOuId
-                    , "正泰"
-                    , createDate
-                    , createUser
-                    , ""
-            );
-        }
-        return this.ouEntity.createOrgnazitionUnit(
-                pOuId
-                , ouCode
-                , ouName
-                , createDate
-                , createUser
-                , true
-                , description
-        );
-    }
-
-    /**
      * 取得组织机构一览kv
      *
      * @return 组织机构一览kv

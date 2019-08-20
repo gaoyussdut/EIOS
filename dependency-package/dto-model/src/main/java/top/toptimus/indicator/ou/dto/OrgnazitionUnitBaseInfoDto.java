@@ -3,6 +3,8 @@ package top.toptimus.indicator.ou.dto;
 import lombok.Getter;
 import top.toptimus.indicator.ou.base.BaseOrgnazitionUnit;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 /**
@@ -35,6 +37,29 @@ public class OrgnazitionUnitBaseInfoDto extends BaseOrgnazitionUnit {
     public OrgnazitionUnitBaseInfoDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, Date enableDate, String pOuID, int level, boolean isDisabled, Date disableDate, String disableUser, String description, boolean isEntity) {
         super(ouCode, ouName, createDate, createUser, enableDate, pOuID, level, isDisabled, disableDate, disableUser, description, isEntity);
         this.ouID = ouID;
+    }
+
+    /**
+     * dao转dto用
+     *
+     * @param rs 查询结果集
+     */
+    public OrgnazitionUnitBaseInfoDto(ResultSet rs) throws SQLException {
+        super(rs.getString("ou_code")
+                , rs.getString("ou_name")
+                , rs.getDate("create_date")
+                , rs.getString("create_user")
+                , rs.getDate("enable_date")
+                , rs.getString("p_ou_id")
+                , rs.getInt("level")
+                , rs.getBoolean("is_disabled")
+                , rs.getDate("disable_date")
+                , rs.getString("disable_user")
+                , rs.getString("description")
+                , rs.getBoolean("is_entity")
+        );
+        this.ouID = rs.getString("ou_id");
+        this.pOuName = rs.getString("p_ou_name");
     }
 
     /**
