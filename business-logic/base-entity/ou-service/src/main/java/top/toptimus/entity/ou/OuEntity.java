@@ -375,4 +375,15 @@ public class OuEntity {
                 )
         );
     }
+
+    /**
+     * 更新业务组织基础信息
+     *
+     * @param ouId 业务组织id
+     */
+    public void updateOrgnazitionUnitBaseInfo(String ouId) {
+        ouRepository.updateOrgnazitionUnitBaseInfo(
+                this.getOrgnazitionUnitModelThreadLocal().get().updateOrgnazitionUnitBaseInfo(ouId)    //  更新线程池
+        );
+    }
 }

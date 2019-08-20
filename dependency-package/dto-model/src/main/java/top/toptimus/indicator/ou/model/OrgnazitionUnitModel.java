@@ -89,6 +89,16 @@ public class OrgnazitionUnitModel {
 
 
     /**
+     * 更新业务组织基础信息
+     *
+     * @param ouId 业务组织id
+     */
+    public OrgnazitionUnitDao updateOrgnazitionUnitBaseInfo(String ouId) {
+        this.orgnazitionUnitMap.put(ouId, this.getOrgnazitionUnitMap().get(ouId));
+        return this.getOrgnazitionUnitMap().get(ouId);
+    }
+
+    /**
      * 更新业务组织
      *
      * @param orgnazitionUnitBaseInfoDto 业务组织dto,不带业务组织属性

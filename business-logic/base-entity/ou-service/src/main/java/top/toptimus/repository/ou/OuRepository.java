@@ -1,5 +1,6 @@
 package top.toptimus.repository.ou;
 
+import org.elasticsearch.common.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -85,6 +86,30 @@ public class OuRepository {
     public List<OrgnazitionUnitDao> findAllOrgnazitionUnitDao() {
         String sql = "SELECT ou_id,ou_code,ou_name,create_date,create_user,enable_date,p_ou_id,level,is_disabled,disable_date,disable_user,description,is_entity from orgnazition_unit;";
         return jdbcTemplate.query(sql, new OrgnazitionUnitDaoRowMapper());
+    }
+
+    /**
+     * 更新业务组织基础信息
+     *
+     * @param orgnazitionUnitDao 业务组织dao
+     */
+    @Transactional
+    public void updateOrgnazitionUnitBaseInfo(OrgnazitionUnitDao orgnazitionUnitDao) {
+        String sql = "update orgnazition_unit\n" +
+                "set \n" +
+                (Strings.isNullOrEmpty(orgnazitionUnitDao.getOuCode()) ? "" : "ou_code = '" + orgnazitionUnitDao.getOuCode() + "'\n") +
+                (Strings.isNullOrEmpty(orgnazitionUnitDao.getOuName()) ? "" : "ou_name = '" + orgnazitionUnitDao.getOuName() + "'\n") +
+                (Strings.isNullOrEmpty(orgnazitionUnitDao.getPOuID()) ? "" : "p_ou_id = '" + orgnazitionUnitDao.getPOuID() + "'\n") +
+                "level = '" + orgnazitionUnitDao.getLevel() + "'\n" +
+                (Strings.isNullOrEmpty(orgnazitionUnitDao.getDescription()) ? "" : "description = '" + orgnazitionUnitDao.getDescription() + "'\n") +
+                orgnazitionUnitDao.isEntity() + "'\n" +
+                "where ou_id= '" + orgnazitionUnitDao.getOuID() + "'";
+        try {
+            jdbcTemplate.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("更新ou失败");
+        }
     }
 
     /**

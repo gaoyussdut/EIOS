@@ -84,4 +84,13 @@ public class OuService {
     public Map<String, String> getOrgIdAndName() {
         return this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getOrgIdAndName();
     }
+
+    /**
+     * 更新业务组织基础信息
+     *
+     * @param ouId 业务组织id
+     */
+    public void updateOrgnazitionUnitBaseInfo(String ouId) {
+        this.ouEntity.updateOrgnazitionUnitBaseInfo(ouId);
+    }
 }
