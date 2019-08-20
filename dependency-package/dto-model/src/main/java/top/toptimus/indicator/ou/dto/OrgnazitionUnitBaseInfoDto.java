@@ -14,6 +14,8 @@ import java.util.Date;
 public class OrgnazitionUnitBaseInfoDto extends BaseOrgnazitionUnit {
     @Getter
     private String ouID;    //  ou的id
+    @Getter
+    private String pOuName; //  上级ou名称
 
     /**
      * dao转dto用
@@ -33,6 +35,17 @@ public class OrgnazitionUnitBaseInfoDto extends BaseOrgnazitionUnit {
     public OrgnazitionUnitBaseInfoDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, Date enableDate, String pOuID, int level, boolean isDisabled, Date disableDate, String disableUser, String description, boolean isEntity) {
         super(ouCode, ouName, createDate, createUser, enableDate, pOuID, level, isDisabled, disableDate, disableUser, description, isEntity);
         this.ouID = ouID;
+    }
+
+    /**
+     * 补充上级业务组织名称
+     *
+     * @param pOuName 上级业务组织名称
+     * @return this
+     */
+    public OrgnazitionUnitBaseInfoDto buildPOuName(String pOuName) {
+        this.pOuName = pOuName;
+        return this;
     }
 
     /**

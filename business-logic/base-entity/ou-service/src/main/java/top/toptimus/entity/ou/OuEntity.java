@@ -51,6 +51,17 @@ public class OuEntity {
         this.orgnazitionUnitModelThreadLocal.get().buildIndicatorBillRelModel(indicatorOURelDaos);
     }
 
+    /**
+     * 取得所有业务组织
+     *
+     * @param pageNo   页号
+     * @param pageSize 页宽
+     * @return 业务组织列表
+     */
+    public List<OrgnazitionUnitBaseInfoDto> getAllOrgnazition(int pageNo, int pageSize) {
+        return this.orgnazitionUnitModelThreadLocal.get().getAllOrgnazition(pageNo, pageSize);
+    }
+
     /*
         业务组织基本信息维护（不带业务组织类型
      */

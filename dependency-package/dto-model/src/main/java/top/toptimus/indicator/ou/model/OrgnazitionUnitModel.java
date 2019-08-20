@@ -24,7 +24,7 @@ import java.util.*;
 @NoArgsConstructor
 public class OrgnazitionUnitModel {
     @Getter
-    private Map<String, OrgnazitionUnitDao> orgnazitionUnitMap = new HashMap<>();   //  OU列表
+    private Map<String, OrgnazitionUnitDao> orgnazitionUnitMap = new HashMap<>();   //  OU列表 ,K:ou id
     /*
         各类型业务组织的dto
      */
@@ -394,5 +394,54 @@ public class OrgnazitionUnitModel {
      */
     public void buildIndicatorBillRelModel(List<IndicatorOuRelDao> indicatorOURelDaos) {
         this.indicatorBillRelModel = new IndicatorBillRelModel(indicatorOURelDaos);
+    }
+
+    /**
+     * 取得所有业务组织
+     *
+     * @param pageNo   页号
+     * @param pageSize 页宽
+     * @return 业务组织列表
+     */
+    public List<OrgnazitionUnitBaseInfoDto> getAllOrgnazition(int pageNo, int pageSize) {
+        List<OrgnazitionUnitDao> orgnazitionUnitDaos = new ArrayList<OrgnazitionUnitDao>() {{
+            getOrgnazitionUnitMap().keySet().forEach(ouId -> add(getOrgnazitionUnitMap().get(ouId)));
+        }};
+
+        if (orgnazitionUnitDaos.size() < (pageNo - 1) * pageSize) {
+            throw new RuntimeException("分页下标越界");
+        } else {
+            //  排序
+            orgnazitionUnitDaos.sort(
+                    Comparator.comparingInt(OrgnazitionUnitDao::getLevel)   //  按照层级排序
+                            .thenComparing(OrgnazitionUnitDao::getOuCode)   //  按照编码排序
+            );
+            return new ArrayList<OrgnazitionUnitBaseInfoDto>() {{
+                if (orgnazitionUnitDaos.size() >= pageNo * pageSize)
+                    orgnazitionUnitDaos.subList((pageNo - 1) * pageSize, pageNo * pageSize).forEach(orgnazitionUnitDao -> add(
+                            buildOrgnazitionUnitBaseInfoDtoWithPOuName(orgnazitionUnitDao)
+                    ));
+                else
+                    orgnazitionUnitDaos.subList((pageNo - 1) * pageSize, orgnazitionUnitDaos.size()).forEach(orgnazitionUnitDao -> add(
+                            buildOrgnazitionUnitBaseInfoDtoWithPOuName(orgnazitionUnitDao)
+                    ));
+            }};
+        }
+    }
+
+    /**
+     * 带上级组织名称返回OU定义
+     *
+     * @param orgnazitionUnitDao OU定义dao
+     * @return OU定义
+     */
+    private OrgnazitionUnitBaseInfoDto buildOrgnazitionUnitBaseInfoDtoWithPOuName(OrgnazitionUnitDao orgnazitionUnitDao) {
+        if (this.getOrgnazitionUnitMap().containsKey(orgnazitionUnitDao.getPOuID()))
+            return orgnazitionUnitDao.buildOrgnazitionUnitBaseInfoDto()
+                    .buildPOuName(
+                            this.getOrgnazitionUnitMap().get(orgnazitionUnitDao.getPOuID()).getOuName()
+                    );
+        else
+            return orgnazitionUnitDao.buildOrgnazitionUnitBaseInfoDto();
     }
 }
