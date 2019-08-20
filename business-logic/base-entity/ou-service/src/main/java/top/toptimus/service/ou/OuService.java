@@ -29,6 +29,7 @@ public class OuService {
      * @return 业务组织列表
      */
     public List<OrgnazitionUnitBaseInfoDto> getAllOrgnazition(int pageNo, int pageSize) {
+        this.ouEntity.initOuData();
         return this.ouEntity.getAllOrgnazition(pageNo, pageSize);
     }
 
