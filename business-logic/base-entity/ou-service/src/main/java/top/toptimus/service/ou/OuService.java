@@ -86,11 +86,20 @@ public class OuService {
     }
 
     /**
-     * 更新业务组织基础信息
+     * 取得业务组织基础信息
      *
      * @param ouId 业务组织id
      */
-    public void updateOrgnazitionUnitBaseInfo(String ouId) {
-        this.ouEntity.updateOrgnazitionUnitBaseInfo(ouId);
+    public OrgnazitionUnitBaseInfoDto getOrgnazitionUnitBaseInfo(String ouId) {
+        return this.ouEntity.getOrgnazitionUnitBaseInfo(ouId);
+    }
+
+    /**
+     * 更新业务组织基础信息
+     *
+     * @param orgnazitionUnitBaseInfoDto 业务组织基础属性
+     */
+    public void updateOrgnazitionUnitBaseInfo(OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto) {
+        this.ouEntity.updateOrgnazitionUnitBaseInfo(orgnazitionUnitBaseInfoDto);
     }
 }

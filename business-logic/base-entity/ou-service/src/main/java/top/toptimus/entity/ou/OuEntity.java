@@ -379,11 +379,12 @@ public class OuEntity {
     /**
      * 更新业务组织基础信息
      *
-     * @param ouId 业务组织id
+     * @param orgnazitionUnitBaseInfoDto 业务组织基础属性
      */
-    public void updateOrgnazitionUnitBaseInfo(String ouId) {
+    public void updateOrgnazitionUnitBaseInfo(OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto) {
+        this.getOrgnazitionUnitModelThreadLocal().get().updateOrgnazitionUnit(orgnazitionUnitBaseInfoDto);    //  更新线程池
         ouRepository.updateOrgnazitionUnitBaseInfo(
-                this.getOrgnazitionUnitModelThreadLocal().get().updateOrgnazitionUnitBaseInfo(ouId)    //  更新线程池
+                new OrgnazitionUnitDao(orgnazitionUnitBaseInfoDto)
         );
     }
 }
