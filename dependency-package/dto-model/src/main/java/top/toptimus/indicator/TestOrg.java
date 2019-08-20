@@ -178,6 +178,7 @@ public class TestOrg {
                                 , "正泰"
                                 , new Date()
                                 , "猪"
+                                , ""
                         )
                 )
                 .updateOrgnazitionUnit(
@@ -188,6 +189,7 @@ public class TestOrg {
                                 , new Date()
                                 , "猪"
                                 , true
+                                , ""
                         )
                 )
                 .updateOrgnazitionUnit(
@@ -198,6 +200,7 @@ public class TestOrg {
                                 , new Date()
                                 , "猪"
                                 , true
+                                , ""
                         )
                 );
 
@@ -274,6 +277,7 @@ public class TestOrg {
                                 , new Date()
                                 , "猪"
                                 , true
+                                , ""
                         )
                 )
                 .updateOrgnazitionUnit(
@@ -286,6 +290,7 @@ public class TestOrg {
                                 , new Date()
                                 , "猪"
                                 , true
+                                , ""
                         )
                 );
 

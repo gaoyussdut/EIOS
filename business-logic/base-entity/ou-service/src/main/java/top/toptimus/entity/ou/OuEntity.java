@@ -69,11 +69,13 @@ public class OuEntity {
     /**
      * 新增业务组织
      *
-     * @param pOuId      上级业务组织id
-     * @param ouCode     业务组织编码
-     * @param ouName     业务组织名称
-     * @param createDate 创建时间
-     * @param createUser 创建人
+     * @param pOuId       上级业务组织id
+     * @param ouCode      业务组织编码
+     * @param ouName      业务组织名称
+     * @param createDate  创建时间
+     * @param createUser  创建人
+     * @param isEntity    是否实体
+     * @param description 描述
      * @return 业务组织DTO
      */
     public OrgnazitionUnitBaseInfoDto createOrgnazitionUnit(
@@ -83,8 +85,9 @@ public class OuEntity {
             , Date createDate
             , String createUser
             , boolean isEntity
+            , String description
     ) {
-        OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto = this.orgnazitionUnitModelThreadLocal.get().createOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser, isEntity);
+        OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto = this.orgnazitionUnitModelThreadLocal.get().createOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser, isEntity, description);
         this.ouRepository.createorgnazitionUnit(new OrgnazitionUnitDao(orgnazitionUnitBaseInfoDto)); //  持久化
         return orgnazitionUnitBaseInfoDto;
     }
@@ -105,8 +108,9 @@ public class OuEntity {
             , String ouName
             , Date createDate
             , String createUser
+            , String description
     ) {
-        OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto = this.orgnazitionUnitModelThreadLocal.get().createTopOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser);
+        OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto = this.orgnazitionUnitModelThreadLocal.get().createTopOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser, description);
         this.ouRepository.createorgnazitionUnit(new OrgnazitionUnitDao(orgnazitionUnitBaseInfoDto)); //  持久化
         return orgnazitionUnitBaseInfoDto;
     }

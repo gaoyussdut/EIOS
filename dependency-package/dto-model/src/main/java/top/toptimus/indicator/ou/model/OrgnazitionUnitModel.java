@@ -34,6 +34,24 @@ public class OrgnazitionUnitModel {
     private IndicatorBillRelModel indicatorBillRelModel = new IndicatorBillRelModel();    //  记录指标关系的model
 
     /**
+     * 取得组织机构一览kv
+     *
+     * @return 组织机构一览kv
+     */
+    public Map<String, String> getOrgIdAndName() {
+        return new HashMap<String, String>() {
+            {
+                orgnazitionUnitMap.keySet().forEach(ouId -> {
+                    put(
+                            ouId
+                            , orgnazitionUnitMap.get(ouId).getOuName()
+                    );
+                });
+            }
+        };
+    }
+
+    /**
      * 构造函数，初始化OU列表
      *
      * @param orgnazitionUnitDaos 数据库中的ou列表
@@ -148,11 +166,12 @@ public class OrgnazitionUnitModel {
     /**
      * 新增顶层业务组织，必然为虚体，只能负责填写指标，不能分配任务
      *
-     * @param pOuId      上级业务组织id
-     * @param ouCode     业务组织编码
-     * @param ouName     业务组织名称
-     * @param createDate 创建时间
-     * @param createUser 创建人
+     * @param pOuId       上级业务组织id
+     * @param ouCode      业务组织编码
+     * @param ouName      业务组织名称
+     * @param createDate  创建时间
+     * @param createUser  创建人
+     * @param description 描述
      * @return 业务组织DTO
      */
     public OrgnazitionUnitBaseInfoDto createTopOrgnazitionUnit(
@@ -161,19 +180,21 @@ public class OrgnazitionUnitModel {
             , String ouName
             , Date createDate
             , String createUser
+            , String description
     ) {
-        return this.createOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser, false);
+        return this.createOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser, false, description);
     }
 
     /**
      * 新增业务组织
      *
-     * @param pOuId      上级业务组织id
-     * @param ouCode     业务组织编码
-     * @param ouName     业务组织名称
-     * @param createDate 创建时间
-     * @param createUser 创建人
-     * @param isEntity   是否实体
+     * @param pOuId       上级业务组织id
+     * @param ouCode      业务组织编码
+     * @param ouName      业务组织名称
+     * @param createDate  创建时间
+     * @param createUser  创建人
+     * @param isEntity    是否实体
+     * @param description 描述
      * @return 业务组织DTO
      */
     public OrgnazitionUnitBaseInfoDto createOrgnazitionUnit(
@@ -183,6 +204,7 @@ public class OrgnazitionUnitModel {
             , Date createDate
             , String createUser
             , boolean isEntity
+            , String description
     ) {
         //  新建组织树
         OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto = new OrgnazitionUnitBaseInfoDto(
@@ -192,6 +214,7 @@ public class OrgnazitionUnitModel {
                 , createDate
                 , createUser
                 , isEntity
+                , description
         );
         if (StringUtils.isEmpty(pOuId)) {
             //  没有上级业务组织，就是完全新建逻辑

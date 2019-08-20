@@ -51,13 +51,14 @@ public class OrgnazitionUnitBaseInfoDto extends BaseOrgnazitionUnit {
     /**
      * 构造函数，初始化基础属性，不带业务组织级别
      *
-     * @param ouID       ou id
-     * @param ouCode     ou编码
-     * @param ouName     ou名称
-     * @param createDate 创建时间
-     * @param createUser 创建人
+     * @param ouID        ou id
+     * @param ouCode      ou编码
+     * @param ouName      ou名称
+     * @param createDate  创建时间
+     * @param createUser  创建人
+     * @param description 描述
      */
-    public OrgnazitionUnitBaseInfoDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, boolean isEntity) {
+    public OrgnazitionUnitBaseInfoDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, boolean isEntity, String description) {
         super();
         this.ouID = ouID;
         this.ouCode = ouCode;
@@ -65,6 +66,7 @@ public class OrgnazitionUnitBaseInfoDto extends BaseOrgnazitionUnit {
         this.createDate = createDate;
         this.createUser = createUser;
         this.isEntity = isEntity;
+        this.description = description;
     }
 
     /**

@@ -153,6 +153,7 @@ public class OuTest {
                         , "正泰"
                         , null
                         , "猪"
+                        , ""
                 )
         ));
 
@@ -164,6 +165,7 @@ public class OuTest {
                         , null
                         , "猪"
                         , true
+                        , ""
                 )));
 
         logger.info(JSON.toJSONString(
@@ -174,6 +176,7 @@ public class OuTest {
                         , null
                         , "猪"
                         , true
+                        , ""
                 )));
 
         /*
@@ -188,6 +191,7 @@ public class OuTest {
                 , new Date()
                 , "猪"
                 , true
+                , ""
         );
         this.ouEntity.createOrgnazitionUnit(
                 this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
@@ -198,6 +202,7 @@ public class OuTest {
                 , new Date()
                 , "猪"
                 , true
+                , ""
         );
         this.ouEntity.createOrgnazitionUnitAttributes(
                 this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
