@@ -33,10 +33,12 @@ public class OrgnazitionUnitBaseInfoDto extends BaseOrgnazitionUnit {
      * @param disableDate 禁用时间
      * @param disableUser 禁用人
      * @param description 描述
+     * @param pOuName     上级业务组织名称
      */
-    public OrgnazitionUnitBaseInfoDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, Date enableDate, String pOuID, int level, boolean isDisabled, Date disableDate, String disableUser, String description, boolean isEntity) {
+    public OrgnazitionUnitBaseInfoDto(String ouID, String ouCode, String ouName, Date createDate, String createUser, Date enableDate, String pOuID, int level, boolean isDisabled, Date disableDate, String disableUser, String description, boolean isEntity, String pOuName) {
         super(ouCode, ouName, createDate, createUser, enableDate, pOuID, level, isDisabled, disableDate, disableUser, description, isEntity);
         this.ouID = ouID;
+        this.pOuName = pOuName;
     }
 
     /**

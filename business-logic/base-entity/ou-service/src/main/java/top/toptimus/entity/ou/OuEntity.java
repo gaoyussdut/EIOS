@@ -52,7 +52,7 @@ public class OuEntity {
     }
 
     /**
-     * 取得所有业务组织
+     * 取得所有业务组织——分页
      *
      * @param pageNo   页号
      * @param pageSize 页宽
@@ -60,6 +60,15 @@ public class OuEntity {
      */
     public List<OrgnazitionUnitBaseInfoDto> getAllOrgnazition(int pageNo, int pageSize) {
         return this.orgnazitionUnitModelThreadLocal.get().getAllOrgnazition(pageNo, pageSize);
+    }
+
+    /**
+     * 取得所有业务组织——不分页
+     *
+     * @return 业务组织列表
+     */
+    public List<OrgnazitionUnitBaseInfoDto> getAllOrgnazition() {
+        return this.orgnazitionUnitModelThreadLocal.get().getAllOrgnazition();
     }
 
     /*

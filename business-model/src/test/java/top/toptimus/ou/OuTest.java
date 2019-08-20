@@ -13,6 +13,7 @@ import top.toptimus.BusinessModelApplication;
 import top.toptimus.entity.ou.OuEntity;
 import top.toptimus.indicator.ou.base.IndicatorType;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitAttribute;
+import top.toptimus.service.ou.Ou_zhengtai_Service;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,21 +28,24 @@ public class OuTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private Ou_zhengtai_Service ou_zhengtai_service;
+
     @Test
     public void testOU() {
 //        this.initDataByCode();
         this.initDataByDb();
 
-        logger.info("所有组织属性——越界");
+        logger.info("所有组织属性-精确查询");
         logger.info(
                 JSON.toJSONString(
-                        ouEntity.getAllOrgnazition(1, 10)
+                        ou_zhengtai_service.getAllOrgnazitionByParameter(null, null, 1, 10)
                 ));
 
-        logger.info("所有组织属性——不越界");
+        logger.info("所有组织属性——模糊查询");
         logger.info(
                 JSON.toJSONString(
-                        ouEntity.getAllOrgnazition(1, 3)
+                        ou_zhengtai_service.getAllOrgnazitionByParameter("销售", "正泰", 1, 10)
                 ));
 
         /*
@@ -52,67 +56,60 @@ public class OuTest {
                     d575fd19-aeed-441e-a303-a526734790ba    销售二部
          */
 
+        logger.info("正泰结点属性");
+        logger.info(
+                JSON.toJSONString(
+                        this.ouEntity.getOrgnazitionUnitBaseInfo(
+                                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
+                                //  8665e23e-299c-4776-91f4-fddffdbd7d71  正泰
+                        )
+                ));
+        logger.info("正泰结点下级属性");
+        logger.info(
+                JSON.toJSONString(
+                        this.ouEntity.getChildOrgnazitionUnits(
+                                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
+                                //  8665e23e-299c-4776-91f4-fddffdbd7d71
+                        )
+                )
+        );
+        logger.info("取销售部上级节点属性");
+        logger.info(
+                JSON.toJSONString(
+                        this.ouEntity.getParentOrgnazitionUnit(
+                                "9ec4393b-a8a8-406b-a3d6-64ea655727e6"  //  销售部
+                        )
+                )
+        );
+        logger.info("取销售一部上级节点属性");
+        logger.info(
+                JSON.toJSONString(
+                        this.ouEntity.getParentOrgnazitionUnit(
+                                "482a50de-1a87-41b2-8e47-9c3549d1fb21"  //  销售一部
+                        )
+                )
+        );
 
-//        logger.info("所有组织属性");
-//        logger.info(
-//                JSON.toJSONString(
-//                        ouRepository.findAllOrgnazitionUnitDao()
-//                ));
-//
-//        logger.info("正泰结点属性");
-//        logger.info(
-//                JSON.toJSONString(
-//                        this.ouEntity.getOrgnazitionUnitBaseInfo(
-//                                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
-//                                //  8665e23e-299c-4776-91f4-fddffdbd7d71  正泰
-//                        )
-//                ));
-//        logger.info("正泰结点下级属性");
-//        logger.info(
-//                JSON.toJSONString(
-//                        this.ouEntity.getChildOrgnazitionUnits(
-//                                this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getTopLevelOrgnazitionUnitDao().getOuID()
-//                                //  8665e23e-299c-4776-91f4-fddffdbd7d71
-//                        )
-//                )
-//        );
-//        logger.info("取销售部上级节点属性");
-//        logger.info(
-//                JSON.toJSONString(
-//                        this.ouEntity.getParentOrgnazitionUnit(
-//                                "9ec4393b-a8a8-406b-a3d6-64ea655727e6"  //  销售部
-//                        )
-//                )
-//        );
-//        logger.info("取销售一部上级节点属性");
-//        logger.info(
-//                JSON.toJSONString(
-//                        this.ouEntity.getParentOrgnazitionUnit(
-//                                "482a50de-1a87-41b2-8e47-9c3549d1fb21"  //  销售一部
-//                        )
-//                )
-//        );
-//
-//        logger.info("按照业务类别选择销售二部上级销售组织");
-//        logger.info(
-//                JSON.toJSONString(
-//                        this.ouEntity.getParentOrgnazitionUnitByIndicatorType(
-//                                "d575fd19-aeed-441e-a303-a526734790ba"  //  销售二部
-//                                , IndicatorType.Sales
-//                        )
-//                )
-//        );
-//
-//        logger.info("按照业务类别选择正泰下级销售组织");
-//        logger.info(
-//                JSON.toJSONString(
-//                        this.ouEntity.getChildOrgnazitionUnits(
-//                                this.ouEntity.getTopLevelOrgnazitionUnitDao().getOuID()
-//                                //  8665e23e-299c-4776-91f4-fddffdbd7d71  正泰
-//                                , IndicatorType.Sales
-//                        )
-//                )
-//        );
+        logger.info("按照业务类别选择销售二部上级销售组织");
+        logger.info(
+                JSON.toJSONString(
+                        this.ouEntity.getParentOrgnazitionUnitByIndicatorType(
+                                "d575fd19-aeed-441e-a303-a526734790ba"  //  销售二部
+                                , IndicatorType.Sales
+                        )
+                )
+        );
+
+        logger.info("按照业务类别选择正泰下级销售组织");
+        logger.info(
+                JSON.toJSONString(
+                        this.ouEntity.getChildOrgnazitionUnits(
+                                this.ouEntity.getTopLevelOrgnazitionUnitDao().getOuID()
+                                //  8665e23e-299c-4776-91f4-fddffdbd7d71  正泰
+                                , IndicatorType.Sales
+                        )
+                )
+        );
 
     }
 

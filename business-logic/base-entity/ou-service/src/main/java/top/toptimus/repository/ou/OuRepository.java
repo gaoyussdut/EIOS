@@ -161,10 +161,3 @@ class OrgnazitionUnitAttributeDaoRowMapper implements RowMapper<OrgnazitionUnitA
         );
     }
 }
-
-class OrgnazitionUnitBaseInfoDtoRowMapper implements RowMapper<OrgnazitionUnitBaseInfoDto> {
-    @Override
-    public OrgnazitionUnitBaseInfoDto mapRow(@SuppressWarnings("NullableProblems") ResultSet rs, int rowNum) throws SQLException {
-        return new OrgnazitionUnitBaseInfoDto(rs);
-    }
-}

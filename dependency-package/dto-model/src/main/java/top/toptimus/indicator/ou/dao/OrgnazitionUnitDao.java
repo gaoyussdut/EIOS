@@ -23,6 +23,8 @@ import java.util.Map;
 @NoArgsConstructor
 public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
     protected String ouID;    //  ou的id
+    private String pOuName; //  上级ou名称
+
 
     /*
         K:业务指标类型，此处为了定义业务组织类型,V:业务组织属性
@@ -48,6 +50,7 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
         this.disableDate = null == orgnazitionUnitBaseInfoDto.getDisableDate() ? DateUtil.parseDate("1900-01-01", "yyyy-MM-DD") : orgnazitionUnitBaseInfoDto.getDisableDate();  //  TODO bug
         this.disableUser = orgnazitionUnitBaseInfoDto.getDisableUser();
         this.isEntity = orgnazitionUnitBaseInfoDto.isEntity();
+        this.pOuName = orgnazitionUnitBaseInfoDto.getPOuName();
     }
 
     public OrgnazitionUnitDao(OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto, OrgnazitionUnitAttribute orgnazitionUnitAttribute) {
@@ -94,6 +97,7 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
                     , this.disableUser
                     , this.description
                     , this.isEntity
+                    , this.pOuName
             ).buildOrgnazitionUnitAttribute(this.orgnazitionUnitAttributes.get(indicatorType));
         } else {
             throw new RuntimeException("业务组织类型" + indicatorType.name() + "不存在");
@@ -120,6 +124,7 @@ public class OrgnazitionUnitDao extends BaseOrgnazitionUnit {
                 , this.disableUser
                 , this.description
                 , this.isEntity
+                , this.pOuName
         );
     }
 }
