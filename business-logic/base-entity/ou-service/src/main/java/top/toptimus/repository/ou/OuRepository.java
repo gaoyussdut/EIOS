@@ -15,6 +15,8 @@ import top.toptimus.indicator.ou.dto.OrgnazitionUnitBaseInfoDto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -96,12 +98,12 @@ public class OuRepository {
     @Transactional
     public void updateOrgnazitionUnitBaseInfo(OrgnazitionUnitDao orgnazitionUnitDao) {
         String sql = "update orgnazition_unit\n" +
-                "set \n" +
-                (Strings.isNullOrEmpty(orgnazitionUnitDao.getOuCode()) ? "" : "ou_code = '" + orgnazitionUnitDao.getOuCode() + "'\n") +
-                (Strings.isNullOrEmpty(orgnazitionUnitDao.getOuName()) ? "" : "ou_name = '" + orgnazitionUnitDao.getOuName() + "'\n") +
-                (Strings.isNullOrEmpty(orgnazitionUnitDao.getPOuID()) ? "" : "p_ou_id = '" + orgnazitionUnitDao.getPOuID() + "'\n") +
-                "level = '" + orgnazitionUnitDao.getLevel() + "'\n" +
-                (Strings.isNullOrEmpty(orgnazitionUnitDao.getDescription()) ? "" : "description = '" + orgnazitionUnitDao.getDescription() + "'\n") +
+                "set create_date = '" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "'\n" +
+                (Strings.isNullOrEmpty(orgnazitionUnitDao.getOuCode()) ? "" : ",ou_code = '" + orgnazitionUnitDao.getOuCode() + "'\n") +
+                (Strings.isNullOrEmpty(orgnazitionUnitDao.getOuName()) ? "" : ",ou_name = '" + orgnazitionUnitDao.getOuName() + "'\n") +
+                (Strings.isNullOrEmpty(orgnazitionUnitDao.getPOuID()) ? "" : ",p_ou_id = '" + orgnazitionUnitDao.getPOuID() + "'\n") +
+                ",level = '" + orgnazitionUnitDao.getLevel() + "'\n" +
+                (Strings.isNullOrEmpty(orgnazitionUnitDao.getDescription()) ? "" : ",description = '" + orgnazitionUnitDao.getDescription() + "'\n") +
                 orgnazitionUnitDao.isEntity() + "'\n" +
                 "where ou_id= '" + orgnazitionUnitDao.getOuID() + "'";
         try {
