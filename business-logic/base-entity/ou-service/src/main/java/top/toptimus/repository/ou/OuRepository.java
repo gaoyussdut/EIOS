@@ -1,5 +1,6 @@
 package top.toptimus.repository.ou;
 
+import org.elasticsearch.common.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,6 +15,8 @@ import top.toptimus.indicator.ou.dto.OrgnazitionUnitBaseInfoDto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -83,8 +86,47 @@ public class OuRepository {
      */
     @Transactional(readOnly = true)
     public List<OrgnazitionUnitDao> findAllOrgnazitionUnitDao() {
-        String sql = "SELECT ou_id,ou_code,ou_name,create_date,create_user,enable_date,p_ou_id,level,is_disabled,disable_date,disable_user,description,is_entity from orgnazition_unit;";
+        String sql = "SELECT orgnazition_unit.ou_id\n" +
+                ",orgnazition_unit.ou_code\n" +
+                ",orgnazition_unit.ou_name\n" +
+                ",orgnazition_unit.create_date\n" +
+                ",orgnazition_unit.create_user\n" +
+                ",orgnazition_unit.enable_date\n" +
+                ",orgnazition_unit.p_ou_id\n" +
+                ",orgnazition_unit.level\n" +
+                ",orgnazition_unit.is_disabled\n" +
+                ",orgnazition_unit.disable_date\n" +
+                ",orgnazition_unit.disable_user\n" +
+                ",orgnazition_unit.description\n" +
+                ",orgnazition_unit.is_entity \n" +
+                ",p_orgnazition_unit.ou_name as p_ou_name\n" +
+                "from orgnazition_unit \n" +
+                "left join orgnazition_unit as p_orgnazition_unit on orgnazition_unit.p_ou_id=p_orgnazition_unit.ou_id;";
         return jdbcTemplate.query(sql, new OrgnazitionUnitDaoRowMapper());
+    }
+
+    /**
+     * 更新业务组织基础信息
+     *
+     * @param orgnazitionUnitDao 业务组织dao
+     */
+    @Transactional
+    public void updateOrgnazitionUnitBaseInfo(OrgnazitionUnitDao orgnazitionUnitDao) {
+        String sql = "update orgnazition_unit\n" +
+                "set create_date = '" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "'\n" +
+                (Strings.isNullOrEmpty(orgnazitionUnitDao.getOuCode()) ? "" : ",ou_code = '" + orgnazitionUnitDao.getOuCode() + "'\n") +
+                (Strings.isNullOrEmpty(orgnazitionUnitDao.getOuName()) ? "" : ",ou_name = '" + orgnazitionUnitDao.getOuName() + "'\n") +
+                (Strings.isNullOrEmpty(orgnazitionUnitDao.getPOuID()) ? "" : ",p_ou_id = '" + orgnazitionUnitDao.getPOuID() + "'\n") +
+                ",level = '" + orgnazitionUnitDao.getLevel() + "'\n" +
+                (Strings.isNullOrEmpty(orgnazitionUnitDao.getDescription()) ? "" : ",description = '" + orgnazitionUnitDao.getDescription() + "'\n") +
+                orgnazitionUnitDao.isEntity() + "'\n" +
+                "where ou_id= '" + orgnazitionUnitDao.getOuID() + "'";
+        try {
+            jdbcTemplate.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("更新ou失败");
+        }
     }
 
     /**
@@ -103,21 +145,7 @@ class OrgnazitionUnitDaoRowMapper implements RowMapper<OrgnazitionUnitDao> {
     @Override
     public OrgnazitionUnitDao mapRow(@SuppressWarnings("NullableProblems") ResultSet rs, int rowNum) throws SQLException {
         return new OrgnazitionUnitDao(
-                new OrgnazitionUnitBaseInfoDto(
-                        rs.getString("ou_id")
-                        , rs.getString("ou_code")
-                        , rs.getString("ou_name")
-                        , rs.getDate("create_date")
-                        , rs.getString("create_user")
-                        , rs.getDate("enable_date")
-                        , rs.getString("p_ou_id")
-                        , rs.getInt("level")
-                        , rs.getBoolean("is_disabled")
-                        , rs.getDate("disable_date")
-                        , rs.getString("disable_user")
-                        , rs.getString("description")
-                        , rs.getBoolean("is_entity")
-                )
+                new OrgnazitionUnitBaseInfoDto(rs)
         );
     }
 }
@@ -130,27 +158,6 @@ class OrgnazitionUnitAttributeDaoRowMapper implements RowMapper<OrgnazitionUnitA
                 , rs.getString("parent_id")
                 , IndicatorType.valueOf(rs.getString("indicator_type"))
                 , rs.getBoolean("is_cu")
-        );
-    }
-}
-
-class OrgnazitionUnitBaseInfoDtoRowMapper implements RowMapper<OrgnazitionUnitBaseInfoDto> {
-    @Override
-    public OrgnazitionUnitBaseInfoDto mapRow(@SuppressWarnings("NullableProblems") ResultSet rs, int rowNum) throws SQLException {
-        return new OrgnazitionUnitBaseInfoDto(
-                rs.getString("ou_id")
-                , rs.getString("ou_code")
-                , rs.getString("ou_name")
-                , rs.getDate("create_date")
-                , rs.getString("create_user")
-                , rs.getDate("enable_date")
-                , rs.getString("p_ou_id")
-                , rs.getInt("level")
-                , rs.getBoolean("is_disabled")
-                , rs.getDate("disable_date")
-                , rs.getString("disable_user")
-                , rs.getString("description")
-                , rs.getBoolean("is_entity")
         );
     }
 }

@@ -13,7 +13,7 @@ import top.toptimus.BusinessModelApplication;
 import top.toptimus.entity.ou.OuEntity;
 import top.toptimus.indicator.ou.base.IndicatorType;
 import top.toptimus.indicator.ou.dto.OrgnazitionUnitAttribute;
-import top.toptimus.repository.ou.OuRepository;
+import top.toptimus.service.ou.Ou_zhengtai_Service;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,14 +26,28 @@ public class OuTest {
     @Autowired
     private OuEntity ouEntity;
     @Autowired
-    private OuRepository ouRepository;
-    @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private Ou_zhengtai_Service ou_zhengtai_service;
 
     @Test
     public void testOU() {
 //        this.initDataByCode();
         this.initDataByDb();
+
+        logger.info("所有组织属性-精确查询");
+        logger.info(
+                JSON.toJSONString(
+                        ou_zhengtai_service.getAllOrgnazitionByParameter(null, null, 1, 10)
+                ));
+
+        logger.info("所有组织属性——模糊查询");
+        logger.info(
+                JSON.toJSONString(
+                        ou_zhengtai_service.getAllOrgnazitionByParameter("销售", "正泰", 1, 10)
+                ));
+
         /*
             8665e23e-299c-4776-91f4-fddffdbd7d71    正泰
                 eef9f15c-ec71-4832-9651-e8a0e0f7767a    市场部
@@ -41,13 +55,6 @@ public class OuTest {
                     482a50de-1a87-41b2-8e47-9c3549d1fb21    销售一部
                     d575fd19-aeed-441e-a303-a526734790ba    销售二部
          */
-
-
-        logger.info("所有组织属性");
-        logger.info(
-                JSON.toJSONString(
-                        ouRepository.findAllOrgnazitionUnitDao()
-                ));
 
         logger.info("正泰结点属性");
         logger.info(
@@ -132,7 +139,7 @@ public class OuTest {
 
 
     /**
-     *  之前造测试数据的。
+     * 之前造测试数据的。
      */
     private void initDataByCode() {
 
@@ -143,6 +150,7 @@ public class OuTest {
                         , "正泰"
                         , null
                         , "猪"
+                        , ""
                 )
         ));
 
@@ -154,6 +162,7 @@ public class OuTest {
                         , null
                         , "猪"
                         , true
+                        , ""
                 )));
 
         logger.info(JSON.toJSONString(
@@ -164,6 +173,7 @@ public class OuTest {
                         , null
                         , "猪"
                         , true
+                        , ""
                 )));
 
         /*
@@ -178,6 +188,7 @@ public class OuTest {
                 , new Date()
                 , "猪"
                 , true
+                , ""
         );
         this.ouEntity.createOrgnazitionUnit(
                 this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(
@@ -188,6 +199,7 @@ public class OuTest {
                 , new Date()
                 , "猪"
                 , true
+                , ""
         );
         this.ouEntity.createOrgnazitionUnitAttributes(
                 this.ouEntity.getOrgnazitionUnitModelThreadLocal().get().getChildOrgnazitionUnits(

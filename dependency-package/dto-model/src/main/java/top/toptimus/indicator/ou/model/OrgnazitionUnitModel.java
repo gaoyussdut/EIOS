@@ -24,7 +24,7 @@ import java.util.*;
 @NoArgsConstructor
 public class OrgnazitionUnitModel {
     @Getter
-    private Map<String, OrgnazitionUnitDao> orgnazitionUnitMap = new HashMap<>();   //  OU列表
+    private Map<String, OrgnazitionUnitDao> orgnazitionUnitMap = new HashMap<>();   //  OU列表 ,K:ou id
     /*
         各类型业务组织的dto
      */
@@ -32,6 +32,22 @@ public class OrgnazitionUnitModel {
 
     @Getter
     private IndicatorBillRelModel indicatorBillRelModel = new IndicatorBillRelModel();    //  记录指标关系的model
+
+    /**
+     * 取得组织机构一览kv
+     *
+     * @return 组织机构一览kv
+     */
+    public Map<String, String> getOrgIdAndName() {
+        return new HashMap<String, String>() {
+            {
+                orgnazitionUnitMap.keySet().forEach(ouId -> put(
+                        ouId
+                        , orgnazitionUnitMap.get(ouId).getOuName()
+                ));
+            }
+        };
+    }
 
     /**
      * 构造函数，初始化OU列表
@@ -148,11 +164,12 @@ public class OrgnazitionUnitModel {
     /**
      * 新增顶层业务组织，必然为虚体，只能负责填写指标，不能分配任务
      *
-     * @param pOuId      上级业务组织id
-     * @param ouCode     业务组织编码
-     * @param ouName     业务组织名称
-     * @param createDate 创建时间
-     * @param createUser 创建人
+     * @param pOuId       上级业务组织id
+     * @param ouCode      业务组织编码
+     * @param ouName      业务组织名称
+     * @param createDate  创建时间
+     * @param createUser  创建人
+     * @param description 描述
      * @return 业务组织DTO
      */
     public OrgnazitionUnitBaseInfoDto createTopOrgnazitionUnit(
@@ -161,19 +178,21 @@ public class OrgnazitionUnitModel {
             , String ouName
             , Date createDate
             , String createUser
+            , String description
     ) {
-        return this.createOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser, false);
+        return this.createOrgnazitionUnit(pOuId, ouCode, ouName, createDate, createUser, false, description);
     }
 
     /**
      * 新增业务组织
      *
-     * @param pOuId      上级业务组织id
-     * @param ouCode     业务组织编码
-     * @param ouName     业务组织名称
-     * @param createDate 创建时间
-     * @param createUser 创建人
-     * @param isEntity   是否实体
+     * @param pOuId       上级业务组织id
+     * @param ouCode      业务组织编码
+     * @param ouName      业务组织名称
+     * @param createDate  创建时间
+     * @param createUser  创建人
+     * @param isEntity    是否实体
+     * @param description 描述
      * @return 业务组织DTO
      */
     public OrgnazitionUnitBaseInfoDto createOrgnazitionUnit(
@@ -183,6 +202,7 @@ public class OrgnazitionUnitModel {
             , Date createDate
             , String createUser
             , boolean isEntity
+            , String description
     ) {
         //  新建组织树
         OrgnazitionUnitBaseInfoDto orgnazitionUnitBaseInfoDto = new OrgnazitionUnitBaseInfoDto(
@@ -192,6 +212,7 @@ public class OrgnazitionUnitModel {
                 , createDate
                 , createUser
                 , isEntity
+                , description
         );
         if (StringUtils.isEmpty(pOuId)) {
             //  没有上级业务组织，就是完全新建逻辑
@@ -394,5 +415,65 @@ public class OrgnazitionUnitModel {
      */
     public void buildIndicatorBillRelModel(List<IndicatorOuRelDao> indicatorOURelDaos) {
         this.indicatorBillRelModel = new IndicatorBillRelModel(indicatorOURelDaos);
+    }
+
+    /**
+     * 取得所有业务组织——不分页
+     *
+     * @return 业务组织列表
+     */
+    public List<OrgnazitionUnitBaseInfoDto> getAllOrgnazition() {
+        return new ArrayList<OrgnazitionUnitBaseInfoDto>() {{
+            getOrgnazitionUnitMap().keySet().forEach(ouId -> add(getOrgnazitionUnitMap().get(ouId).buildOrgnazitionUnitBaseInfoDto()));
+        }};
+    }
+
+    /**
+     * 取得所有业务组织——分页
+     *
+     * @param pageNo   页号
+     * @param pageSize 页宽
+     * @return 业务组织列表
+     */
+    public List<OrgnazitionUnitBaseInfoDto> getAllOrgnazition(int pageNo, int pageSize) {
+        List<OrgnazitionUnitDao> orgnazitionUnitDaos = new ArrayList<OrgnazitionUnitDao>() {{
+            getOrgnazitionUnitMap().keySet().forEach(ouId -> add(getOrgnazitionUnitMap().get(ouId)));
+        }};
+
+        if (orgnazitionUnitDaos.size() < (pageNo - 1) * pageSize) {
+            throw new RuntimeException("分页下标越界");
+        } else {
+            //  排序
+            orgnazitionUnitDaos.sort(
+                    Comparator.comparingInt(OrgnazitionUnitDao::getLevel)   //  按照层级排序
+                            .thenComparing(OrgnazitionUnitDao::getOuCode)   //  按照编码排序
+            );
+            return new ArrayList<OrgnazitionUnitBaseInfoDto>() {{
+                if (orgnazitionUnitDaos.size() >= pageNo * pageSize)
+                    orgnazitionUnitDaos.subList((pageNo - 1) * pageSize, pageNo * pageSize).forEach(orgnazitionUnitDao -> add(
+                            buildOrgnazitionUnitBaseInfoDtoWithPOuName(orgnazitionUnitDao)
+                    ));
+                else
+                    orgnazitionUnitDaos.subList((pageNo - 1) * pageSize, orgnazitionUnitDaos.size()).forEach(orgnazitionUnitDao -> add(
+                            buildOrgnazitionUnitBaseInfoDtoWithPOuName(orgnazitionUnitDao)
+                    ));
+            }};
+        }
+    }
+
+    /**
+     * 带上级组织名称返回OU定义
+     *
+     * @param orgnazitionUnitDao OU定义dao
+     * @return OU定义
+     */
+    private OrgnazitionUnitBaseInfoDto buildOrgnazitionUnitBaseInfoDtoWithPOuName(OrgnazitionUnitDao orgnazitionUnitDao) {
+        if (this.getOrgnazitionUnitMap().containsKey(orgnazitionUnitDao.getPOuID()))
+            return orgnazitionUnitDao.buildOrgnazitionUnitBaseInfoDto()
+                    .buildPOuName(
+                            this.getOrgnazitionUnitMap().get(orgnazitionUnitDao.getPOuID()).getOuName()
+                    );
+        else
+            return orgnazitionUnitDao.buildOrgnazitionUnitBaseInfoDto();
     }
 }
