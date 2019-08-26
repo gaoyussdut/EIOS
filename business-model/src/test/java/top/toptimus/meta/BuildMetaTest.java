@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import top.toptimus.BusinessModelApplication;
 import top.toptimus.common.enums.MetaDataTypeEnum;
 import top.toptimus.common.enums.TokenTemplateTypeEnum;
+import top.toptimus.entity.meta.event.MetaGenerateEntity;
 import top.toptimus.meta.csv.MetaCSVImportModel;
 import top.toptimus.meta.metaview.MetaInfoDTO;
 import top.toptimus.model.meta.event.SaveMetaInfoModel;
@@ -31,6 +32,16 @@ public class BuildMetaTest {
     private MetaService metaService;
     @Autowired
     private ProcessTableRepository processTableRepository;
+    @Autowired
+    private MetaGenerateEntity metaGenerateEntity;
+
+    @Test
+    public void testImportBaseMeta(){
+        metaGenerateEntity.importBaseMeta(
+                "/Users/gaoyu/Desktop/testData/metaIndex.csv"
+                ,"/Users/gaoyu/Desktop/testData"
+        );
+    }
 
     @Test
     public void createMasterData() {

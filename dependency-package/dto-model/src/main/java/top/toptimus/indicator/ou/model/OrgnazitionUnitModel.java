@@ -41,12 +41,10 @@ public class OrgnazitionUnitModel {
     public Map<String, String> getOrgIdAndName() {
         return new HashMap<String, String>() {
             {
-                orgnazitionUnitMap.keySet().forEach(ouId -> {
-                    put(
-                            ouId
-                            , orgnazitionUnitMap.get(ouId).getOuName()
-                    );
-                });
+                orgnazitionUnitMap.keySet().forEach(ouId -> put(
+                        ouId
+                        , orgnazitionUnitMap.get(ouId).getOuName()
+                ));
             }
         };
     }
