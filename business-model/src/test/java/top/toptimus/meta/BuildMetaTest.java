@@ -36,13 +36,13 @@ public class BuildMetaTest {
     public void createMasterData() {
 
         //输入metaId
-        String metaId = "bo_xiaoshouhetong";
-        String metaName = "销售合同字典";
+        String metaId = "bo_kehudangan";
+        String metaName = "客户档案";
         String metaType = "BILL";
         MetaDataTypeEnum metaDataTypeEnum = MetaDataTypeEnum.MASTERDATA;
         //TTID配置
-        String tokenTemplateId = "xiaoshouhetong";
-        String tokenTemplateName = "销售合同字典";
+        String tokenTemplateId = "kehudangan";
+        String tokenTemplateName = "客户档案";
         TokenTemplateTypeEnum tokenTemplateTypeEnum = TokenTemplateTypeEnum.BO;
 //        logger.info(
 //                JSON.toJSONString(this.buildMeta(metaId, metaName, "/Users/gaoyu/Desktop/测试.csv"))
@@ -68,8 +68,13 @@ public class BuildMetaTest {
      */
     private List<MetaInfoDTO> buildMeta(String metaId, String metaName) {
         return new ArrayList<MetaInfoDTO>() {{
-            add(new MetaInfoDTO(metaId, metaName, "hetongbianma", "合同编码", "STRING", true, false, true, "", "", "", "", "1", "STRING"));
-            add(new MetaInfoDTO(metaId, metaName, "kehumingcheng", "客户名称", "SELECT", true, false, true, "", "", "", "", "2", "SELECT"));
+            add(new MetaInfoDTO(metaId, metaName, "bianma", "编码", "STRING", true, false, true, "", "", "", "", "1", "STRING"));
+            add(new MetaInfoDTO(metaId, metaName, "kehu", "客户", "STRING", true, false, true, "", "", "", "", "2", "STRING"));
+            add(new MetaInfoDTO(metaId, metaName, "lianxiren", "联系人", "STRING", true, false, true, "", "", "", "", "3", "STRING"));
+            add(new MetaInfoDTO(metaId, metaName, "lianxirendianhua", "联系人电话", "MOBILE", true, false, true, "", "", "", "", "4", "STRING"));
+            add(new MetaInfoDTO(metaId, metaName, "fuzeyewuyuan", "负责业务员", "STRING", true, false, true, "", "", "", "", "5", "STRING"));
+            add(new MetaInfoDTO(metaId, metaName, "mingcheng", "名称", "STRING", true, false, true, "", "", "", "", "6", "STRING"));
+
         }};
     }
 

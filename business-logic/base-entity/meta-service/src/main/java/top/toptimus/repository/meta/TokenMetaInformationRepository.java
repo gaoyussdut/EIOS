@@ -29,10 +29,11 @@ public class TokenMetaInformationRepository {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public void save(TokenMetaInformationDto tokenMetaInforMationDto) {
-        String sql = "INSERT INTO t_token_meta_formation(token_meta_id,token_meta_name,meta_type)"
+        String sql = "INSERT INTO t_token_meta_formation(token_meta_id,token_meta_name,meta_type,meta_data_type)"
                 + "VALUES ('" + tokenMetaInforMationDto.getTokenMetaId() + "','"
                 + tokenMetaInforMationDto.getTokenMetaName() + "','"
-                + tokenMetaInforMationDto.getMetaType() + "')";
+                + tokenMetaInforMationDto.getMetaType() + "','"
+                + tokenMetaInforMationDto.getMetaDataType().name() + "')";
         try {
             jdbcTemplate.execute(sql);
         } catch (Exception e) {
