@@ -45,6 +45,7 @@
         <module>business-unit-service</module>
         <module>stock-service</module>
         <module>business-logic/base-entity/ou-service</module>
+        <module>target-service</module>
     </modules>
 
     <build>

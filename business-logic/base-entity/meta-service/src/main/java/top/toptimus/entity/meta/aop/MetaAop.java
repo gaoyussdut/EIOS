@@ -98,34 +98,34 @@ public class MetaAop {
 
     }
 
-    /**
-     * 保存meta和table关系
-     *
-     * @param retValue SaveMetaInfosModel
-     */
-    @AfterReturning(returning = "retValue"
-            , pointcut = "execution(" +
-            "public * top.toptimus.entity.meta.event.MetaEventEntity.saveMetaInfoDTO(..))"
-    )
-    public void saveMetaInfoDTOSAfterReturning(Object retValue) {
-        SaveMetaInfosModel saveMetaInfosModel = (SaveMetaInfosModel) retValue;
-        //  TODO    AOP 事务控制
-        // 追加meta
-        metaEventEntity.saveMetaInfoDTO(saveMetaInfosModel.getMetaInfoDTOS());
-        // 创建视图
-        if (saveMetaInfosModel.getMetaInfoDTOS() != null && saveMetaInfosModel.getMetaInfoDTOS().size() != 0) {
-
-            if (saveMetaInfosModel.getTokenMetaInfoDTO().getMetaType().equals(DomainTypeEnum.BO.name())) { // BO的场合
-                // 删除视图
-                metaTableDDLRepository.dropViewDDL(
-                        saveMetaInfosModel.getTokenMetaInfoDTO().getTokenMetaId()
-                        , saveMetaInfosModel.getTokenMetaInfoDTO().getTokenMetaName()
-                );
-                // 创建表
-                metaTableDDLRepository.createTable(saveMetaInfosModel.getTokenMetaInfoDTO().getTokenMetaId(), saveMetaInfosModel.getMetaFieldMap());
-                // 创建视图
-                metaTableDDLRepository.createViewDDL(saveMetaInfosModel.getTokenMetaInfoDTO());
-            }
-        }
-    }
+//    /**
+//     * 保存meta和table关系
+//     *
+//     * @param retValue SaveMetaInfosModel
+//     */
+//    @AfterReturning(returning = "retValue"
+//            , pointcut = "execution(" +
+//            "public * top.toptimus.entity.meta.event.MetaEventEntity.saveMetaInfoDTO(..))"
+//    )
+//    public void saveMetaInfoDTOSAfterReturning(Object retValue) {
+//        SaveMetaInfosModel saveMetaInfosModel = (SaveMetaInfosModel) retValue;
+//        //  TODO    AOP 事务控制
+//        // 追加meta
+//        metaEventEntity.saveMetaInfoDTO(saveMetaInfosModel.getMetaInfoDTOS());
+//        // 创建视图
+//        if (saveMetaInfosModel.getMetaInfoDTOS() != null && saveMetaInfosModel.getMetaInfoDTOS().size() != 0) {
+//
+//            if (saveMetaInfosModel.getTokenMetaInfoDTO().getMetaType().equals(DomainTypeEnum.BO.name())) { // BO的场合
+//                // 删除视图
+//                metaTableDDLRepository.dropViewDDL(
+//                        saveMetaInfosModel.getTokenMetaInfoDTO().getTokenMetaId()
+//                        , saveMetaInfosModel.getTokenMetaInfoDTO().getTokenMetaName()
+//                );
+//                // 创建表
+//                metaTableDDLRepository.createTable(saveMetaInfosModel.getTokenMetaInfoDTO().getTokenMetaId(), saveMetaInfosModel.getMetaFieldMap());
+//                // 创建视图
+//                metaTableDDLRepository.createViewDDL(saveMetaInfosModel.getTokenMetaInfoDTO());
+//            }
+//        }
+//    }
 }

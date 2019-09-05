@@ -35,25 +35,25 @@ public class BuildMetaTest {
     @Autowired
     private MetaGenerateEntity metaGenerateEntity;
 
-    @Test
-    public void testImportBaseMeta(){
-        metaGenerateEntity.importBaseMeta(
-                "/Users/gaoyu/Desktop/testData/metaIndex.csv"
-                ,"/Users/gaoyu/Desktop/testData"
-        );
-    }
+//    @Test
+//    public void testImportBaseMeta(){
+//        metaGenerateEntity.importBaseMeta(
+//                "D:\\business\\CODE\\EIOS\\business-model\\src\\test\\java\\top\\toptimus\\meta\\testData\\metaIndex.csv"
+//                ,"C:\\Users\\lizongsheng\\Desktop\\工作文档\\07_20190826._001"
+//        );
+//    }
 
     @Test
     public void createMasterData() {
 
         //输入metaId
-        String metaId = "bo_kehudangan";
-        String metaName = "客户档案";
+        String metaId = "bo_jiliangdanwei";
+        String metaName = "计量单位档案";
         String metaType = "BILL";
         MetaDataTypeEnum metaDataTypeEnum = MetaDataTypeEnum.MASTERDATA;
         //TTID配置
-        String tokenTemplateId = "kehudangan";
-        String tokenTemplateName = "客户档案";
+        String tokenTemplateId = "jiliangdanwei";
+        String tokenTemplateName = "计量单位档案";
         TokenTemplateTypeEnum tokenTemplateTypeEnum = TokenTemplateTypeEnum.BO;
 //        logger.info(
 //                JSON.toJSONString(this.buildMeta(metaId, metaName, "/Users/gaoyu/Desktop/测试.csv"))
@@ -80,16 +80,12 @@ public class BuildMetaTest {
     private List<MetaInfoDTO> buildMeta(String metaId, String metaName) {
         return new ArrayList<MetaInfoDTO>() {{
             add(new MetaInfoDTO(metaId, metaName, "bianma", "编码", "STRING", true, false, true, "", "", "", "", "1", "STRING"));
-            add(new MetaInfoDTO(metaId, metaName, "kehu", "客户", "STRING", true, false, true, "", "", "", "", "2", "STRING"));
-            add(new MetaInfoDTO(metaId, metaName, "lianxiren", "联系人", "STRING", true, false, true, "", "", "", "", "3", "STRING"));
-            add(new MetaInfoDTO(metaId, metaName, "lianxirendianhua", "联系人电话", "MOBILE", true, false, true, "", "", "", "", "4", "STRING"));
-            add(new MetaInfoDTO(metaId, metaName, "fuzeyewuyuan", "负责业务员", "STRING", true, false, true, "", "", "", "", "5", "STRING"));
-            add(new MetaInfoDTO(metaId, metaName, "mingcheng", "名称", "STRING", true, false, true, "", "", "", "", "6", "STRING"));
+            add(new MetaInfoDTO(metaId, metaName, "mingcheng", "名称", "STRING", true, false, true, "", "", "", "", "2", "STRING"));
 
         }};
     }
 
-    private List<MetaInfoDTO> buildMeta(String metaId, String tokenMetaName, String filePath) {
-        return MetaCSVImportModel.generateMetaInfoFromCSV(metaId, tokenMetaName, filePath);
-    }
+//    private List<MetaInfoDTO> buildMeta(String metaId, String tokenMetaName, String filePath) {
+//        return MetaCSVImportModel.generateMetaInfoFromCSV(metaId, tokenMetaName, filePath);
+//    }
 }

@@ -71,6 +71,10 @@ public enum TopErrorCode {
      * 业务单元相关
      */
     BUSINESSUNIT_FAILED_CREATE(6001, "新增失败"),
+    /**
+     * 目标管理相关
+     */
+    TARGET_TYPE_HAS_BEEN_ASSOCIATED(7001, "目标类型已被关联"),
 
 
     /* 备查账相关异常 */
