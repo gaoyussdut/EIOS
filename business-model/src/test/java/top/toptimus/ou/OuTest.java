@@ -143,7 +143,7 @@ public class OuTest {
                 "('482a50de-1a87-41b2-8e47-9c3549d1fb21','Administration','9ec4393b-a8a8-406b-a3d6-64ea655727e6',False)\n" +
                 ",('482a50de-1a87-41b2-8e47-9c3549d1fb21','Sales','9ec4393b-a8a8-406b-a3d6-64ea655727e6',False)\n" +
                 ",('8665e23e-299c-4776-91f4-fddffdbd7d71','Administration',null,False)\n" +
-                ",('8665e23e-299c-4776-91f4-fddffdbd7d71','Sales',null,False)\n" +
+                ",('8665e23e-299c-4776-91f4-fddffdbd7d71','Sales',null,True)\n" +
                 ",('9ec4393b-a8a8-406b-a3d6-64ea655727e6','Administration','8665e23e-299c-4776-91f4-fddffdbd7d71',False)\n" +
                 ",('9ec4393b-a8a8-406b-a3d6-64ea655727e6','Sales','8665e23e-299c-4776-91f4-fddffdbd7d71',True)\n" +
                 ",('d575fd19-aeed-441e-a303-a526734790ba','Administration','9ec4393b-a8a8-406b-a3d6-64ea655727e6',False)\n" +
