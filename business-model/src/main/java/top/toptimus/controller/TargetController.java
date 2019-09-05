@@ -40,7 +40,7 @@ public class TargetController {
     public Result getTargetGeneralView(
             @RequestParam Integer pageSize
             , @RequestParam Integer pageNo
-            , @RequestBody List<FilterDTO> filterCondition
+            , @RequestBody(required = false) List<FilterDTO> filterCondition
     ) {
         return targetSercive.getTargetGeneralView(pageSize, pageNo, filterCondition);
     }

@@ -26,7 +26,7 @@ public class TargetTypeRepository {
         String countSql = "SELECT COUNT(mubiaobianma) FROM t_target_type ";
 
         TargetTypePageableDTO targetTypePageableDTO = new TargetTypePageableDTO(pageSize, pageNo);
-        targetTypePageableDTO.build(jdbcTemplate.queryForObject(sql, Integer.class));
+        targetTypePageableDTO.build(jdbcTemplate.queryForObject(countSql, Integer.class));
         targetTypePageableDTO.build(jdbcTemplate.query(sql, new TargetTypeDTOMapper()));
         return targetTypePageableDTO;
     }
@@ -42,7 +42,7 @@ public class TargetTypeRepository {
     }
 
     public void saveTargetType(TargetTypeDTO targetTypeDTO) {
-        String sql = "INSERT INTO t_target_type (mubiaobianma,beizhu,key,mubiaoleixing,ou_id) VALUES('" + targetTypeDTO.getTargetTypeId()
+        String sql = "INSERT INTO t_target_type (mubiaobianma,beizhu,mubiaoleixing,ou_id) VALUES('" + targetTypeDTO.getTargetTypeId()
                 + "','" + targetTypeDTO.getRemark() + "','" + targetTypeDTO.getTargetType() + "','" + targetTypeDTO.getOuId() + "')";
         jdbcTemplate.execute(sql);
     }
