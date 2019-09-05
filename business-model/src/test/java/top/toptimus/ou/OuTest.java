@@ -111,6 +111,13 @@ public class OuTest {
                 )
         );
 
+        logger.info("根据业务组织类型找管理单元");
+        logger.info(
+                JSON.toJSONString(
+                        this.ouEntity.getCuByIndicatorType(IndicatorType.Sales)
+                )
+        );
+
     }
 
     private void initDataByDb() {
@@ -128,7 +135,7 @@ public class OuTest {
                 ",('8665e23e-299c-4776-91f4-fddffdbd7d71','Administration',null,False)\n" +
                 ",('8665e23e-299c-4776-91f4-fddffdbd7d71','Sales',null,False)\n" +
                 ",('9ec4393b-a8a8-406b-a3d6-64ea655727e6','Administration','8665e23e-299c-4776-91f4-fddffdbd7d71',False)\n" +
-                ",('9ec4393b-a8a8-406b-a3d6-64ea655727e6','Sales','8665e23e-299c-4776-91f4-fddffdbd7d71',False)\n" +
+                ",('9ec4393b-a8a8-406b-a3d6-64ea655727e6','Sales','8665e23e-299c-4776-91f4-fddffdbd7d71',True)\n" +
                 ",('d575fd19-aeed-441e-a303-a526734790ba','Administration','9ec4393b-a8a8-406b-a3d6-64ea655727e6',False)\n" +
                 ",('d575fd19-aeed-441e-a303-a526734790ba','Sales','9ec4393b-a8a8-406b-a3d6-64ea655727e6',False)\n" +
                 ",('eef9f15c-ec71-4832-9651-e8a0e0f7767a','Administration','8665e23e-299c-4776-91f4-fddffdbd7d71',False)\n" +

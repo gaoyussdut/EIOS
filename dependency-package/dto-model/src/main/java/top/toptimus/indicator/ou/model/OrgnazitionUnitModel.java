@@ -24,7 +24,7 @@ import java.util.*;
 @NoArgsConstructor
 public class OrgnazitionUnitModel {
     @Getter
-    private Map<String, OrgnazitionUnitDao> orgnazitionUnitMap = new HashMap<>();   //  OU列表 ,K:ou id
+    private Map<String, OrgnazitionUnitDao> orgnazitionUnitMap = new HashMap<>();   //  OU id ,K:OU定义
     /*
         各类型业务组织的dto
      */
@@ -475,5 +475,21 @@ public class OrgnazitionUnitModel {
                     );
         else
             return orgnazitionUnitDao.buildOrgnazitionUnitBaseInfoDto();
+    }
+
+    /**
+     * 根据业务组织类型找管理单元
+     *
+     * @param indicatorType 业务组织类型
+     * @return 管理单元列表
+     */
+    public ArrayList<OrgnazitionUnitDto> getCuByIndicatorType(IndicatorType indicatorType) {
+        return new ArrayList<OrgnazitionUnitDto>() {{
+            orgnazitionUnitMap.keySet().forEach(ouId -> {
+                if (orgnazitionUnitMap.get(ouId).getOrgnazitionUnitAttributes().get(indicatorType).isCU())
+                    add(orgnazitionUnitMap.get(ouId).buildOrgnazitionUnitDto(indicatorType));
+            });
+
+        }};
     }
 }
