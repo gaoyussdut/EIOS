@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import top.toptimus.rule.FkeyRuleDTO;
-import top.toptimus.target.TargetTypeDTO;
-import top.toptimus.target.TargetTypePageableDTO;
+import top.toptimus.targetdto.TargetTypeDTO;
+import top.toptimus.targetdto.TargetTypePageableDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

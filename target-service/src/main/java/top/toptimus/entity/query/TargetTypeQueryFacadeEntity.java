@@ -3,8 +3,8 @@ package top.toptimus.entity.query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.toptimus.repository.TargetTypeRepository;
-import top.toptimus.target.TargetTypeDTO;
-import top.toptimus.target.TargetTypePageableDTO;
+import top.toptimus.targetdto.TargetTypeDTO;
+import top.toptimus.targetdto.TargetTypePageableDTO;
 
 /**
  * target query facade

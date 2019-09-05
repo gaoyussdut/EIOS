@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.toptimus.filter.FilterDTO;
 import top.toptimus.repository.TargetRepository;
-import top.toptimus.repository.TargetTypeRepository;
-import top.toptimus.target.TargetDataDTO;
-import top.toptimus.target.TargetPageableDTO;
+import top.toptimus.targetdto.TargetDataDTO;
+import top.toptimus.targetdto.TargetPageableDTO;
 
 import java.util.List;
 

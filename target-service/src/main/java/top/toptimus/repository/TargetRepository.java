@@ -5,10 +5,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import top.toptimus.filter.FilterDTO;
-import top.toptimus.target.TargetDataDTO;
-import top.toptimus.target.TargetPageableDTO;
-import top.toptimus.target.TargetTypeDTO;
-import top.toptimus.target.TargetTypePageableDTO;
+import top.toptimus.targetdto.TargetDataDTO;
+import top.toptimus.targetdto.TargetPageableDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

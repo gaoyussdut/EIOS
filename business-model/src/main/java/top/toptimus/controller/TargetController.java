@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import top.toptimus.common.result.Result;
 import top.toptimus.filter.FilterDTO;
 import top.toptimus.service.TargetService;
-import top.toptimus.target.TargetDataDTO;
-import top.toptimus.target.TargetTypeDTO;
+import top.toptimus.targetdto.TargetDataDTO;
+import top.toptimus.targetdto.TargetTypeDTO;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 目标管理接口

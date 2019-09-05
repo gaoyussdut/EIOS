@@ -10,8 +10,8 @@ import top.toptimus.entity.query.TargetTypeQueryFacadeEntity;
 import top.toptimus.exception.TopErrorCode;
 import top.toptimus.filter.FilterDTO;
 import top.toptimus.resultModel.ResultErrorModel;
-import top.toptimus.target.TargetDataDTO;
-import top.toptimus.target.TargetTypeDTO;
+import top.toptimus.targetdto.TargetDataDTO;
+import top.toptimus.targetdto.TargetTypeDTO;
 
 import java.util.List;
 

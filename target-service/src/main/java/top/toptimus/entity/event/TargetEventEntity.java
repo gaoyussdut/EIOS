@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.toptimus.repository.TargetRepository;
 import top.toptimus.repository.TargetTypeRepository;
-import top.toptimus.target.TargetDataDTO;
-import top.toptimus.target.TargetTypeDTO;
+import top.toptimus.targetdto.TargetDataDTO;
+import top.toptimus.targetdto.TargetTypeDTO;
 
 /**
  * target event
