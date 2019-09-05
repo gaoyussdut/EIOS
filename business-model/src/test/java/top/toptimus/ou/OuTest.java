@@ -118,6 +118,16 @@ public class OuTest {
                 )
         );
 
+        logger.info("按照业务类别选择销售部下级销售组织");
+        logger.info(
+                JSON.toJSONString(
+                        this.ouEntity.getChildOrgnazitionUnits(
+                                "9ec4393b-a8a8-406b-a3d6-64ea655727e6"
+                                , IndicatorType.Sales
+                        )
+                )
+        );
+
     }
 
     private void initDataByDb() {
