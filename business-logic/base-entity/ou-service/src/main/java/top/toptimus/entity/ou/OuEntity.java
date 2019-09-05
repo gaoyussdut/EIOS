@@ -238,6 +238,16 @@ public class OuEntity {
     }
 
     /**
+     * 根据业务组织类型找管理单元
+     *
+     * @param indicatorType 业务组织类型
+     * @return 管理单元列表
+     */
+    public ArrayList<OrgnazitionUnitDto> getCuByIndicatorType(IndicatorType indicatorType) {
+        return this.orgnazitionUnitModelThreadLocal.get().getCuByIndicatorType(indicatorType);
+    }
+
+    /**
      * 根据业务组织类型取得上级业务组织
      *
      * @param ouId          业务组织dto id
