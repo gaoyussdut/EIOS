@@ -25,22 +25,24 @@ public class TargetRepository {
     public TargetPageableDTO getTargetGeneralView(Integer pageSize, Integer pageNo, List<FilterDTO> filterCondition) {
 
         TargetPageableDTO targetPageableDTO = new TargetPageableDTO(pageSize, pageNo);
-        String sql = "SELECT target_data_id,target_data_table_name,target_type_id,is_split,zhongzhou,hengzhou,status," +
-                "create_time,target_unit_id,target_bill,target_bill_key,task_cycle,year FROM t_target";
-        String countSql = "SELECT COUNT(target_data_id) FROM t_target ";
+        String sql = "SELECT t2.* ";
+        String countSql = "SELECT COUNT(*) ";
+        String baseSql = "FROM (SELECT target_data_id AS targetDataId,target_data_table_name AS targetDataTableName,target_type_id AS targetTypeId,is_split AS isSplit,zhongzhou AS chaijiejici,hengzhou AS riqikeli,status AS status,create_time AS createTime,target_unit_id AS targetUnitId,target_bill AS targetBill,target_bill_key AS targetBillKey,task_cycle AS taskCycle,year AS year FROM t_target) t2 ";
+        sql += baseSql;
+        countSql += baseSql;
         if (filterCondition != null && filterCondition.size() > 0) {
             String querySql = targetPageableDTO.buildQuerySql(filterCondition);
             sql += querySql;
             countSql += querySql;
         }
-        sql += "LIMIT " + pageSize + " OFFSET " + (pageNo - 1) * pageSize + "";
+        sql += " LIMIT " + pageSize + " OFFSET " + (pageNo - 1) * pageSize + "";
         try {
             targetPageableDTO.build(jdbcTemplate.queryForObject(countSql, Integer.class));
         } catch (Exception e) {
             targetPageableDTO.build(0);
         }
         try {
-            targetPageableDTO.build(jdbcTemplate.query(sql, new TargetDataDTOMapper()));
+            targetPageableDTO.build(jdbcTemplate.query(sql, new TargetDataDTOConditionMapper()));
         } catch (Exception e) {
             targetPageableDTO.build(new ArrayList<>());
         }
@@ -131,6 +133,28 @@ public class TargetRepository {
                     , rs.getString("target_bill")
                     , rs.getString("target_bill_key")
                     , rs.getString("task_cycle")
+                    , rs.getString("year")
+            );
+        }
+    }
+
+    class TargetDataDTOConditionMapper implements RowMapper<TargetDataDTO> {
+        @SuppressWarnings("NullableProblems")
+        @Override
+        public TargetDataDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new TargetDataDTO(
+                    rs.getString("targetDataId")
+                    , rs.getString("targetDataTableName")
+                    , rs.getString("targetTypeId")
+                    , rs.getBoolean("isSplit")
+                    , rs.getInt("chaijiejici")
+                    , rs.getString("riqikeli")
+                    , rs.getString("status")
+                    , rs.getDate("createTime")
+                    , rs.getString("targetUnitId")
+                    , rs.getString("targetBill")
+                    , rs.getString("targetBillKey")
+                    , rs.getString("taskCycle")
                     , rs.getString("year")
             );
         }

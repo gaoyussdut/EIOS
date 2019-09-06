@@ -35,11 +35,11 @@ public class TargetController {
      * @return result
      */
     @ApiOperation(value = "目标一览界面")
-    @GetMapping(value = "/targetGeneralView")
+    @PostMapping(value = "/targetGeneralView")
     public Result getTargetGeneralView(
             @RequestParam Integer pageSize
             , @RequestParam Integer pageNo
-            , @RequestBody(required = false) List<FilterDTO> filterCondition
+            , @RequestBody List<FilterDTO> filterCondition
     ) {
         return targetSercive.getTargetGeneralView(pageSize, pageNo, filterCondition);
     }

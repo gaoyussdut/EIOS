@@ -44,12 +44,18 @@ public class TargetPageableDTO {
                     switch (filterDTO.getFkeyType()) {
                         case STRING:
                             sql += filterDTO.getKey() + " = '" + filterDTO.getFilterCondition() + "' AND ";
+                            break;
                         case DATE:
                             sql += filterDTO.getKey() + " = '" + filterDTO.getFilterCondition() + "' AND ";
+                            break;
                         case DECIMAL:
                             sql += filterDTO.getKey() + " = " + filterDTO.getFilterCondition() + " AND ";
+                            break;
                         case INTEGER:
                             sql += filterDTO.getKey() + " = " + filterDTO.getFilterCondition() + " AND ";
+                            break;
+                        default:
+                            break;
                     }
                 }
                 case BETWEEN: {
@@ -57,20 +63,29 @@ public class TargetPageableDTO {
                     switch (filterDTO.getFkeyType()) {
                         case DATE:
                             sql += filterDTO.getKey() + " BETWEEN '" + a[0] + "' AND '" + a[1] + " AND ";
+                            break;
                         case DECIMAL:
                             sql += filterDTO.getKey() + " BETWEEN '" + a[0] + "' AND '" + a[1] + " AND ";
+                            break;
                         case INTEGER:
                             sql += filterDTO.getKey() + " BETWEEN '" + a[0] + "' AND '" + a[1] + " AND ";
+                            break;
+                        default:
+                            break;
                     }
                 }
                 case LIKE: {
                     switch (filterDTO.getFkeyType()) {
                         case STRING:
                             sql += filterDTO.getKey() + " LIKE '%" + filterDTO.getFilterCondition() + "%' AND ";
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
         }
+        sql = sql.substring(0, sql.length() - 4);
         return sql;
     }
 }
