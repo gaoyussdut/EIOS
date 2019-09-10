@@ -7,7 +7,6 @@ import top.toptimus.exception.TopException;
 import top.toptimus.meta.TokenMetaInfoDTO;
 import top.toptimus.meta.property.MetaFieldDTO;
 import top.toptimus.tokendata.field.FkeyField;
-import top.toptimus.tokendata.field.ReducedFkeyField;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -71,6 +70,10 @@ public class TokenDataDto implements Serializable {
             case SELECT_INTERN:
                 // SELECT INTERN类型
                 return new FkeyField().createSelectInternFkeyField(metaField.getType().getType(),
+                        metaField.getKey(), jsonData);
+            case MULTI_SELECT:  //  TODO    待测试
+                // 多选SELECT
+                return new FkeyField().createMultiSelect(metaField.getType().getType(),
                         metaField.getKey(), jsonData);
             case BOOLEAN:
                 if (jsonData.equals(Constants.jsonData_1) || jsonData.equals(Constants.jsonData_true)) {
@@ -199,14 +202,14 @@ public class TokenDataDto implements Serializable {
         this.fields.addAll(fkeyFieldUDTList);
     }
 
-    /**
-     * 分页方法
-     *
-     * @param tokenDataDtoList token数据
-     * @param pageSize         pageSize
-     * @param pageNo           pageNo
-     * @return json data
-     */
+//    /**
+//     * 分页方法
+//     *
+//     * @param tokenDataDtoList token数据
+//     * @param pageSize         pageSize
+//     * @param pageNo           pageNo
+//     * @return json data
+//     */
 //    public TokenDataPageableDto getTokenDataPageableDto(List<TokenDataDto> tokenDataDtoList, int pageSize, int pageNo) {
 //        int fromIndex = pageSize * (pageNo - 1);
 //        int toIndex = pageSize * pageNo - 1 > tokenDataDtoList.size() ? tokenDataDtoList.size() : pageSize * pageNo - 1;

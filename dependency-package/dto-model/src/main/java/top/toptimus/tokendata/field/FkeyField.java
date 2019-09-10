@@ -1,6 +1,6 @@
 package top.toptimus.tokendata.field;
 
-import lombok.AllArgsConstructor;
+import com.alibaba.fastjson.JSON;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.toptimus.common.enums.FkeyTypeEnum;
@@ -16,7 +16,6 @@ import java.util.List;
  * @author gaoyu
  */
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class FkeyField implements Serializable {
     private static final long serialVersionUID = -5883024816746049863L;
@@ -31,7 +30,7 @@ public class FkeyField implements Serializable {
 
     protected FkeyTypeEnum dataType;
     protected String key;  //  FKey->Key 20180528
-    protected String MetaFieldType; //  @link com.footprint.model.meta.property.FieldValueType.type
+    protected String metaFieldType; //  @link com.footprint.model.meta.property.FieldValueType.type
 
     /**
      * 每个字段的特定值。
@@ -44,11 +43,28 @@ public class FkeyField implements Serializable {
      */
     protected String businessId;
     protected String jsonData;//JSON数据
+    protected List<String> multiSelectedDataBusinessIds;
+
+    public FkeyField(String fieldDomainType, FkeyTypeEnum dataType, String key, String metaFieldType, String businessId, String jsonData) {
+        this.fieldDomainType = fieldDomainType;
+        this.dataType = dataType;
+        this.key = key;
+        this.metaFieldType = metaFieldType;
+        this.businessId = businessId;
+        this.jsonData = jsonData;
+    }
 
     public FkeyField createPlainFkeyField(FkeyTypeEnum type, String key, String jsonData) {
         this.dataType = type;
         this.key = key;
         this.jsonData = jsonData;
+        return this;
+    }
+
+    public FkeyField createMultiSelect(FkeyTypeEnum type, String key, String jsonData) {
+        this.multiSelectedDataBusinessIds = JSON.parseArray(jsonData, String.class);
+        this.dataType = type;
+        this.key = key;
         return this;
     }
 
