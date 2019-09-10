@@ -61,10 +61,11 @@ public class TokenDataDto implements Serializable {
      */
     private static FkeyField getFkeyField(MetaFieldDTO metaField, Map<String, Object> tokenData) {
         String jsonData = TokenDataDto.getData(tokenData, metaField.getKey());
+        String businessId;
         switch (metaField.getType().getType()) {
             case SELECT:
                 // SELECT类型
-                String businessId = TokenDataDto.getData(tokenData, metaField.getKey() + Constants._businessId);
+                businessId = TokenDataDto.getData(tokenData, metaField.getKey() + Constants._businessId);
                 return new FkeyField().createSelectFkeyField(metaField.getType().getType(), metaField.getKey(),
                         businessId, jsonData);
             case SELECT_INTERN:
@@ -75,6 +76,11 @@ public class TokenDataDto implements Serializable {
                 // 多选SELECT
                 return new FkeyField().createMultiSelect(metaField.getType().getType(),
                         metaField.getKey(), jsonData);
+            case MULTI_SELECTED:    //  TODO    待测试
+                // 多选SELECT默认值
+                businessId = TokenDataDto.getData(tokenData, metaField.getKey() + Constants._businessId);
+                return new FkeyField().createMultiSelectd(metaField.getType().getType(),
+                        metaField.getKey(), businessId, jsonData);
             case BOOLEAN:
                 if (jsonData.equals(Constants.jsonData_1) || jsonData.equals(Constants.jsonData_true)) {
                     jsonData = Constants.jsonData_true;

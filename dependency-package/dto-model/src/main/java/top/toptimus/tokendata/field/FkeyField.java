@@ -61,10 +61,26 @@ public class FkeyField implements Serializable {
         return this;
     }
 
+    /**
+     * 多选SELECT
+     */
     public FkeyField createMultiSelect(FkeyTypeEnum type, String key, String jsonData) {
-        this.multiSelectedDataBusinessIds = JSON.parseArray(jsonData, String.class);
         this.dataType = type;
         this.key = key;
+        this.multiSelectedDataBusinessIds = JSON.parseArray(jsonData, String.class);
+        this.jsonData = jsonData;
+        return this;
+    }
+
+    /**
+     * 多选SELECT默认值
+     */
+    public FkeyField createMultiSelectd(FkeyTypeEnum type, String key, String businessId, String jsonData) {
+        this.dataType = type;
+        this.key = key;
+        this.businessId = businessId;
+        this.multiSelectedDataBusinessIds = JSON.parseArray(jsonData, String.class);
+        this.jsonData = jsonData;
         return this;
     }
 
