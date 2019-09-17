@@ -66,11 +66,6 @@ public class PlaceService {
                 ).generateBillPreviewDTO();
     }
 
-    /*
-        以下部分全部 TODO
-        集成进placeRedisEntity
-     */
-
     /**
      * 保存表头数据
      *
@@ -81,6 +76,11 @@ public class PlaceService {
     public Result saveBillToken(TokenDataDto tokenDataDto, String metaId) {
         return placeRedisEntity.saveBillToken(tokenDataDto, metaId);
     }
+
+    /*
+        以下部分全部 TODO
+        集成进placeRedisEntity
+     */
 
     /**
      * 获取单据一览
