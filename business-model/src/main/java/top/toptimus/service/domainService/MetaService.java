@@ -51,6 +51,22 @@ public class MetaService {
     @Autowired
     private ConfigQueryEntity configQueryEntity;
 
+
+    /**
+     * 获取分录meta
+     *
+     * @param billMetaId 表头meta
+     */
+    public Result getEntryMetas(String billMetaId) {
+        try {
+            return Result.success(
+                    metaQueryFacadeEntity.getEntryMetas(billMetaId)
+            );
+        } catch (Exception e) {
+            return new ResultErrorModel(e).getResult();
+        }
+    }
+
     /**
      * 获取meta中key的列表
      *
@@ -591,20 +607,20 @@ public class MetaService {
      * 根据备查帐查询单据
      *
      * @param memorandvnMetaId 备查账metaId
-     * @return Result(List<MetaRelationDTO>)
+     * @return Result(List < MetaRelationDTO >)
      */
-    public Result findByMasterMemorandvnMetaId(String memorandvnMetaId){
+    public Result findByMasterMemorandvnMetaId(String memorandvnMetaId) {
         List<MetaRelationDTO> metaRelationDTOList = metaQueryFacadeEntity.findByMasterMemorandvnMetaId(
                 tokenDataSqlRetrieveEntity.getTableName(memorandvnMetaId));
-        return Result.success(metaRelationDTOList!=null && metaRelationDTOList.size()>0 ? metaRelationDTOList.get(0) : null);
+        return Result.success(metaRelationDTOList != null && metaRelationDTOList.size() > 0 ? metaRelationDTOList.get(0) : null);
     }
 
     /**
      * 根据业务单元id取凭证metaId
-     * @param businessUnitId  业务单元id
+     *
+     * @param businessUnitId 业务单元id
      */
-    public Result getCertificateMetaIdByBUID(String businessUnitId)
-    {
+    public Result getCertificateMetaIdByBUID(String businessUnitId) {
         return Result.success(metaQueryFacadeEntity.getCertificateMetaIdByBUID(businessUnitId));
     }
 

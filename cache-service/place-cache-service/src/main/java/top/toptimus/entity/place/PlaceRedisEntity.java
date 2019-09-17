@@ -112,9 +112,9 @@ public class PlaceRedisEntity {
         TokenDataDto tokenDataDto = new TokenDataDto();
         UserDTO userDTO = userQueryFacadeEntity.findByAccessToken();
         //  2.将生成的PlaceDTO存入缓存中。初始化线程,保存数据到redis
-//        this.initPlaceCache(
-//                new PlaceDTO(metaId, tokenDataDto).buildUserId(userDTO.getId())   //  创建place
-//        );
+        this.initPlaceCache(
+                new PlaceDTO(metaId, tokenDataDto).buildUserId(userDTO.getId())   //  创建place
+        );
         //  3.提交生成的tokenDataDTO。保存数据到postgres
         this.saveBillToken(
                 tokenDataDto

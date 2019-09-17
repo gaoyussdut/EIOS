@@ -11,6 +11,7 @@ import top.toptimus.token.relation.TokenRelDTO;
 import top.toptimus.tokenTemplate.TokenTemplateDefinitionDTO;
 import top.toptimus.tokendata.TokenDataDto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,36 @@ public class PlaceDTO extends BasePlaceDTO {
     private TokenTemplateDefinitionDTO tokenTemplateDefinitionDTO;  //  tokenTemplate定义
     private List<TokenRelDTO> tokenRelDTOS;
     private List<MetaRelDTO> metaRelDTOS;
+
+    /**
+     * 构造
+     *
+     * @param metaId        表头metaid
+     * @param billTokenData billTokenData
+     */
+    public PlaceDTO(String metaId, TokenDataDto billTokenData) {
+        this.billMetaId = metaId;
+        this.billTokenId = billTokenData.getTokenId();
+        this.datas.put(metaId, new ArrayList<TokenDataDto>() {
+
+            private static final long serialVersionUID = 1563767562589956971L;
+
+            {
+                add(billTokenData);
+            }
+        });
+    }
+
+    /**
+     * 构造userid
+     *
+     * @param userId userId
+     * @return PlaceDTO
+     */
+    public PlaceDTO buildUserId(String userId) {
+        this.userId = userId;
+        return this;
+    }
 
     /**
      * 构建库所表头分录的ttid信息、token数据关系、meta关系

@@ -340,6 +340,7 @@ public class BusinessUnitService {
      * @param tokenId         表头token id
      * @return BillPreviewDTO billPreview
      */
+    @Deprecated
     public BillPreviewDTO getPreview(String tokenTemplateId, String tokenId) {
         TokenTemplateDefinitionDTO tokenTemplateDefinitionDTO =
                 tokenTemplateQueryFacadeEntity.findById(tokenTemplateId);
