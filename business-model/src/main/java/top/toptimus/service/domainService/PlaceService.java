@@ -82,25 +82,7 @@ public class PlaceService {
         集成进placeRedisEntity
      */
 
-    /**
-     * 获取单据一览
-     *
-     * @param tokenTemplateId ttid
-     * @return result
-     */
-    public Result getGeneralView(String tokenTemplateId, Integer pageSize, Integer pageNo) {
-        try {
-            TokenTemplateDefinitionDTO tokenTemplateDefinitionDTO = tokenTemplateQueryFacadeEntity.findById(tokenTemplateId);
-            return Result.success(
-                    new GeneralViewDTO(tokenTemplateId, tokenTemplateDefinitionDTO.getBillMetaId())
-                            .build(
-                                    tokenQueryFacadeEntity.getTokenDataList(tokenTemplateDefinitionDTO.getBillMetaId(), pageSize, pageNo)
-                            )
-            );
-        } catch (Exception e) {
-            return new ResultErrorModel(e).getResult();
-        }
-    }
+
 
     /**
      * 取表头数据
@@ -182,5 +164,29 @@ public class PlaceService {
 //        });
 
         return Result.success();
+    }
+
+/*
+不走placeRedisEntity的服务
+ */
+
+    /**
+     * 获取单据一览
+     *
+     * @param tokenTemplateId ttid
+     * @return result
+     */
+    public Result getGeneralView(String tokenTemplateId, Integer pageSize, Integer pageNo) {
+        try {
+            TokenTemplateDefinitionDTO tokenTemplateDefinitionDTO = tokenTemplateQueryFacadeEntity.findById(tokenTemplateId);
+            return Result.success(
+                    new GeneralViewDTO(tokenTemplateId, tokenTemplateDefinitionDTO.getBillMetaId())
+                            .build(
+                                    tokenQueryFacadeEntity.getTokenDataList(tokenTemplateDefinitionDTO.getBillMetaId(), pageSize, pageNo)
+                            )
+            );
+        } catch (Exception e) {
+            return new ResultErrorModel(e).getResult();
+        }
     }
 }
