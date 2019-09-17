@@ -16,7 +16,6 @@ import top.toptimus.entity.query.BusinessUnitFacadeQueryEntity;
 import top.toptimus.entity.tokendata.query.TokenQueryFacadeEntity;
 import top.toptimus.entity.tokentemplate.query.TokenTemplateQueryFacadeEntity;
 import top.toptimus.meta.TokenMetaInformationDto;
-import top.toptimus.place.PlaceDTO;
 import top.toptimus.resultModel.ResultErrorModel;
 import top.toptimus.schema.BillPreviewDTO;
 import top.toptimus.tokenTemplate.TokenTemplateDefinitionDTO;
@@ -335,10 +334,10 @@ public class BusinessUnitService {
     }
 
     /**
-     * 获取schemaDTO
+     * 获取schemaDTO @link top.toptimus.service.domainService.PlaceService#getBillPreview(java.lang.String, java.lang.String)
      *
-     * @param tokenTemplateId
-     * @param tokenId
+     * @param tokenTemplateId ttid
+     * @param tokenId         表头token id
      * @return BillPreviewDTO billPreview
      */
     public BillPreviewDTO getPreview(String tokenTemplateId, String tokenId) {
@@ -362,29 +361,6 @@ public class BusinessUnitService {
                                 , tokenId
                         )
                 );
-    }
-
-    /**
-     * 获取schemaDTO
-     *
-     * @param tokenTemplateId ttid
-     * @param tokenId         表头token id
-     * @return BillPreviewDTO billPreview
-     */
-    public BillPreviewDTO getBillPreview(String tokenTemplateId, String tokenId) {
-        TokenTemplateDefinitionDTO tokenTemplateDefinitionDTO =
-                tokenTemplateQueryFacadeEntity.findById(tokenTemplateId);
-
-        //  TODO    下面这堆卵子封装在entity中
-        PlaceDTO placeDTO = new PlaceDTO();    //  TODO，从缓存中取出
-        return placeDTO.build(
-                tokenTemplateDefinitionDTO
-                , tokenQueryFacadeEntity.getRelTokenByBillMetaIdAndBillTokenId(
-                        tokenTemplateDefinitionDTO.getBillMetaId()
-                        , tokenId
-                )
-                , metaQueryFacadeEntity.getRelMetasByTokenTemplateId(tokenTemplateDefinitionDTO.getBillMetaId())
-        ).generateBillPreviewDTO();
     }
 
 }
