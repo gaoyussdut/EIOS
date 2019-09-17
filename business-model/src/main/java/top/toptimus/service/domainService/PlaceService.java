@@ -79,18 +79,7 @@ public class PlaceService {
      * @return Result
      */
     public Result saveBillToken(TokenDataDto tokenDataDto, String metaId) {
-        String authId = userQueryFacadeEntity.findByAccessToken().getId();
-        BillTokenSaveResultDTO billTokenSaveResultDTO = new BillTokenSaveResultDTO(metaId, tokenDataDto, authId);
-        //保存表头数据到PG
-        tokenEventEntity.saveDatas(
-                billTokenSaveResultDTO
-                        .getBillTokenResultBody()
-                        .getBillTokenData()
-                , billTokenSaveResultDTO
-                        .getBillTokenResultBody()
-                        .getBillMetaId()
-        );
-        return Result.success();
+        return placeRedisEntity.saveBillToken(tokenDataDto, metaId);
     }
 
     /**

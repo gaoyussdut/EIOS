@@ -156,6 +156,18 @@ public class TokenEventEntity {
     /**
      * 保存tokenDataDto数据
      *
+     * @param billTokenSaveResultDTO 库所保存结果
+     */
+    public void saveDatas(BillTokenSaveResultDTO billTokenSaveResultDTO) {
+        this.saveDatas(
+                billTokenSaveResultDTO.getBillTokenResultBody().getBillTokenData()
+                , billTokenSaveResultDTO.getBillTokenResultBody().getBillMetaId()
+        );
+    }
+
+    /**
+     * 保存tokenDataDto数据
+     *
      * @param datas K:meta id, V:token数据列表
      */
     public void saveDatas(Map<String, List<TokenDataDto>> datas) {

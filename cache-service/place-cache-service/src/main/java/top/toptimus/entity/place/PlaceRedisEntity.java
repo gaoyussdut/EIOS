@@ -295,15 +295,15 @@ public class PlaceRedisEntity {
      * @param tokenDataDto 表头数据
      * @param metaId       表头meta id
      */
-    public void saveBillToken(TokenDataDto tokenDataDto, String metaId) {
+    public Result saveBillToken(TokenDataDto tokenDataDto, String metaId) {
         try {
             String authId = userQueryFacadeEntity.findByAccessToken().getId();
             savePlaceProducer.saveBillToken(new BillTokenSaveResultDTO(metaId, tokenDataDto, authId));
-            Result.success();
         } catch (Exception e) {
             e.printStackTrace();
             new ResultErrorModel(e);
         }
+        return Result.success();
     }
 
 //    /**
