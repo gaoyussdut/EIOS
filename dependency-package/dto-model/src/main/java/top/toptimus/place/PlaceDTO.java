@@ -27,7 +27,7 @@ public class PlaceDTO extends BasePlaceDTO {
     private List<MetaRelDTO> metaRelDTOS;
 
     /**
-     * 构造
+     * 构造，初始化表头
      *
      * @param metaId        表头metaid
      * @param billTokenData billTokenData

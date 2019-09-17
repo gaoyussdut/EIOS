@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import top.toptimus.common.enums.MetaTypeEnum;
 
 /**
- * 库所分录关系
+ * 库所分录meta关系
  * Created by lzs on 2019/8/7.
  */
 @NoArgsConstructor

@@ -75,12 +75,12 @@ public class TokenQueryFacadeEntity {
     /**
      * 根据metaId和tokenId取得数据 From DB
      *
-     * @param metaId   metaId
-     * @param tokenId  数据的tokenId
+     * @param metaId  metaId
+     * @param tokenId 数据的tokenId
      * @return tokenDataDto 数据
      */
-    public TokenDataDto getTokenData(String metaId , String tokenId) {
-        List<TokenDataDto> tokenDataDtos = tokenDataSqlRetrieveEntity.generateQuerySql( new TokenQueryModel(
+    public TokenDataDto getTokenData(String metaId, String tokenId) {
+        List<TokenDataDto> tokenDataDtos = tokenDataSqlRetrieveEntity.generateQuerySql(new TokenQueryModel(
                 Lists.newArrayList(tokenId)
                 , tokenDataSqlRetrieveEntity.getTableName(metaId)
                 , metaQueryFacadeEntity.getMetaInfo(metaId))).getTokenDataDtos();
@@ -96,7 +96,7 @@ public class TokenQueryFacadeEntity {
      * @param pageNo   页码
      * @return TokenDataPageableDto
      */
-    public TokenDataPageableDto getTokenDataList(String metaId ,Integer pageSize ,Integer pageNo) {
+    public TokenDataPageableDto getTokenDataList(String metaId, Integer pageSize, Integer pageNo) {
         return tokenDataSqlRetrieveEntity.generateQuerySql(new TokenQueryWithPageModel(
                 metaId, new SearchInfo(), pageNo, pageSize)).getTokenDataPageableDto();
     }
@@ -104,10 +104,10 @@ public class TokenQueryFacadeEntity {
     /**
      * 获取关联下的备查账数据
      *
-     * @param billTokenId             表头tokenid
-     * @param billMetaId              表头meta
-     * @param masterMetaId            单据主数据meta
-     * @param masterMemorandvnMetaId  关联备查账主数据meta
+     * @param billTokenId            表头tokenid
+     * @param billMetaId             表头meta
+     * @param masterMetaId           单据主数据meta
+     * @param masterMemorandvnMetaId 关联备查账主数据meta
      * @return List<TokenDataDto>
      */
     private List<TokenDataDto> getMemorandvnTokenData(String billTokenId, String billMetaId, String masterMetaId, String masterMemorandvnMetaId) {
@@ -123,12 +123,12 @@ public class TokenQueryFacadeEntity {
 
     /**
      * 根据业务单元id和指定的凭证metaId取未接收的凭证tokenIds
-     * @param businessUnitId        业务单元id
-     * @param certificateMetaId     凭证metaId
+     *
+     * @param businessUnitId    业务单元id
+     * @param certificateMetaId 凭证metaId
      * @return List<String> 凭证tokenIds
      */
-    public List<TokenDataDto> getCertificateTokenIData(String certificateMetaId,String businessUnitId)
-    {
+    public List<TokenDataDto> getCertificateTokenIData(String certificateMetaId, String businessUnitId) {
         return this.getMetaTokenData
                 (
                         certificateMetaId
@@ -136,7 +136,7 @@ public class TokenQueryFacadeEntity {
                                 .getCertificateTokenIds
                                         (
                                                 businessUnitId
-                                                ,certificateMetaId
+                                                , certificateMetaId
                                         )
                 );
     }
@@ -144,15 +144,15 @@ public class TokenQueryFacadeEntity {
     /**
      * 获取指定的metaId和tokenIds对应的数据
      *
-     * @param metaId    metaId
-     * @param tokenIds  tokenIds
+     * @param metaId   metaId
+     * @param tokenIds tokenIds
      * @return List<TokenDataDto> 数据
      */
-    public List<TokenDataDto> getMetaTokenData(String metaId , List<String> tokenIds) {
+    public List<TokenDataDto> getMetaTokenData(String metaId, List<String> tokenIds) {
         return tokenDataSqlRetrieveEntity.generateQuerySql(new EntryTokenIdQueryModel(
-                metaQueryFacadeEntity.getMetaInfo(metaId)          // meta
-                , tokenDataSqlRetrieveEntity.getTableName(metaId)  // 表名
-        ).build(tokenIds)
+                        metaQueryFacadeEntity.getMetaInfo(metaId)          // meta
+                        , tokenDataSqlRetrieveEntity.getTableName(metaId)  // 表名
+                ).build(tokenIds)
         ).getTokenDataDtos();
     }
 
@@ -271,20 +271,21 @@ public class TokenQueryFacadeEntity {
         // 根据备查账主数据metaId查询备查账对应的单剧meta
         List<MetaRelationDTO> metaRelationDaos = metaQueryFacadeEntity.findByMasterMemorandvnMetaId(tokenDataSqlRetrieveEntity.getTableName(memorandvnMetaId));
         if (metaRelationDaos != null && metaRelationDaos.size() > 0) {
-            metaTokenRelationRepository.deleteAllByBillMetaIdAndBillTokenIdAndEntryMetaIdAndEntryTokenId(billMetaId, billTokenId,  metaRelationDaos.get(0).getMasterMetaId(), tokenId);
+            metaTokenRelationRepository.deleteAllByBillMetaIdAndBillTokenIdAndEntryMetaIdAndEntryTokenId(billMetaId, billTokenId, metaRelationDaos.get(0).getMasterMetaId(), tokenId);
             metaTokenRelationRepository.refresh();
-        }else {
+        } else {
             throw new TopException(TopErrorCode.GENERAL_ERR);
         }
     }
 
     /**
      * 获取关联单据的token
-     * @param metaId
-     * @param tokenId
-     * @return
+     *
+     * @param metaId  meta id
+     * @param tokenId token id
+     * @return 表头和分录/关联单据的token关系
      */
     public List<TokenRelDTO> getRelTokenByBillMetaIdAndBillTokenId(String metaId, String tokenId) {
-        return tokenRepository.getRelTokenByBillMetaIdAndBillTokenId(metaId,tokenId);
+        return tokenRepository.getRelTokenByBillMetaIdAndBillTokenId(metaId, tokenId);
     }
 }

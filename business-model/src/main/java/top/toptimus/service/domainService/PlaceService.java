@@ -10,6 +10,7 @@ import top.toptimus.entity.security.query.UserQueryFacadeEntity;
 import top.toptimus.entity.tokendata.event.TokenEventEntity;
 import top.toptimus.entity.tokendata.query.TokenQueryFacadeEntity;
 import top.toptimus.entity.tokentemplate.query.TokenTemplateQueryFacadeEntity;
+import top.toptimus.place.PlaceDTO;
 import top.toptimus.place.place_deprecated.BillTokenSaveResultDTO;
 import top.toptimus.resultModel.ResultErrorModel;
 import top.toptimus.schema.BillPreviewDTO;
@@ -77,11 +78,39 @@ public class PlaceService {
         return placeRedisEntity.saveBillToken(tokenDataDto, metaId);
     }
 
+    /**
+     * 缓存库所数据
+     *
+     * @param billTokenId     表头token id
+     * @param tokenTemplateId ttid
+     * @return result
+     */
+    private Result getPlaceFromDB(String billTokenId, String tokenTemplateId) {
+        TokenTemplateDefinitionDTO tokenTemplateDefinitionDTO =
+                tokenTemplateQueryFacadeEntity.findById(tokenTemplateId);
+        //  缓存库所数据
+        return placeRedisEntity.initCache(
+                new PlaceDTO(
+                        tokenTemplateDefinitionDTO.getBillMetaId(),  //  表头meta id
+                        tokenQueryFacadeEntity.getTokenData(
+                                tokenTemplateDefinitionDTO.getBillMetaId()
+                                , billTokenId
+                        )   //  表头token数据
+                ).build(
+                        tokenTemplateDefinitionDTO  //  tokenTemplate定义
+                        , tokenQueryFacadeEntity.getRelTokenByBillMetaIdAndBillTokenId(
+                                tokenTemplateDefinitionDTO.getBillMetaId()
+                                , billTokenId
+                        )   //  表头和分录/关联单据的token关系
+                        , metaQueryFacadeEntity.getRelMetasByTokenTemplateId(tokenTemplateDefinitionDTO.getBillMetaId())    //  获取关联单据meta
+                )
+        );
+    }
+
     /*
         以下部分全部 TODO
         集成进placeRedisEntity
      */
-
 
 
     /**

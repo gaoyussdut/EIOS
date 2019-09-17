@@ -288,10 +288,11 @@ public class MetaQueryFacadeEntity {
 
     /**
      * 获取关联单据meta
-     * @param billMetaId
-     * @return
+     *
+     * @param billMetaId 表头meta id
+     * @return 库所分录meta关系
      */
-    public List<MetaRelDTO> getRelMetasByTokenTemplateId(String billMetaId){
+    public List<MetaRelDTO> getRelMetasByTokenTemplateId(String billMetaId) {
         return billEntryMetaRepository.getRelMetasByBillMeta(billMetaId);
     }
 
