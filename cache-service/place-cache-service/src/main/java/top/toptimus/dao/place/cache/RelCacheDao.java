@@ -10,7 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 import top.toptimus.merkle.MerklePlaceModel;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.tokendata.TokenDataDto;
 
 import java.util.ArrayList;

@@ -11,7 +11,7 @@ import top.toptimus.entity.tokendata.event.TokenEventEntity;
 import top.toptimus.entity.tokendata.query.TokenQueryFacadeEntity;
 import top.toptimus.model.tokenData.event.BillTokenSaveModel;
 import top.toptimus.model.tokenData.event.TokenDeleteModel;
-import top.toptimus.place.PlaceAlterDto;
+import top.toptimus.place.place_deprecated.PlaceAlterDto;
 import top.toptimus.repository.token.dynamicTokenQuery.DynamicTokenQueryRepository;
 
 @Component

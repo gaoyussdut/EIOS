@@ -5,26 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.toptimus.amqp.producer.TransitionEntity;
 import top.toptimus.common.enums.RuleTypeEnum;
-import top.toptimus.common.result.Result;
-import top.toptimus.entity.event.TaskEventEntity;
 import top.toptimus.entity.place.PlaceRedisEntity;
 import top.toptimus.entity.query.TransformationFacadeQueryEntity;
-import top.toptimus.entity.security.query.UserQueryFacadeEntity;
 import top.toptimus.entity.tokendata.query.TokenDataSqlRetrieveEntity;
-import top.toptimus.entity.tokendata.query.TokenMetaQueryFacadeEntity;
 import top.toptimus.entity.tokendata.query.TokenQueryFacadeEntity;
-import top.toptimus.meta.MetaRelation.MetaRelationDTO;
-import top.toptimus.place.PlaceDTO;
-import top.toptimus.repository.TaskRepository;
-import top.toptimus.resultModel.ResultErrorModel;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.tokendata.TokenDataDto;
-import top.toptimus.transformation.FkeyRuleDTO;
 import top.toptimus.transformation.RuleDefinitionDTO;
-import top.toptimus.transformation.TransformationDTO;
 import top.toptimus.transformation.TransformationModel;
-
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by lzs

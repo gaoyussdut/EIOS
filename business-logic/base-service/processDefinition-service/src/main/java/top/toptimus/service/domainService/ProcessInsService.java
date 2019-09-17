@@ -10,7 +10,7 @@ import top.toptimus.entity.event.TaskEventEntity;
 import top.toptimus.entity.processDefinition.query.ProcessQueryFacadeEntity;
 import top.toptimus.entity.processIns.event.ProcessInsEventEntity;
 import top.toptimus.entity.processIns.query.ProcessInsQueryFacadeEntity;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.processDefinition.UserTaskInsDTO;
 import top.toptimus.resultModel.ResultErrorModel;
 

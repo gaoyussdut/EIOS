@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 import top.toptimus.entity.tokendata.event.TokenEventEntity;
-import top.toptimus.place.BillTokenDelResultDTO;
-import top.toptimus.place.PlaceReduceDTO;
+import top.toptimus.place.place_deprecated.BillTokenDelResultDTO;
+import top.toptimus.place.place_deprecated.PlaceReduceDTO;
 
 @Component
 public class DeletePlaceConsumer {

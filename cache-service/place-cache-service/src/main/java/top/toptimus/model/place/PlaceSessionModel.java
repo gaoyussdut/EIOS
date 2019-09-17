@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import top.toptimus.baseModel.BaseModel;
 import top.toptimus.dao.place.cache.PlaceSession;
 import top.toptimus.merkle.MerklePlaceModel;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,9 +3,8 @@ package top.toptimus.entity.place.amqp.producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Service;
-import top.toptimus.place.BillTokenDelResultDTO;
-import top.toptimus.place.BillTokenSaveResultDTO;
-import top.toptimus.place.PlaceReduceDTO;
+import top.toptimus.place.place_deprecated.BillTokenDelResultDTO;
+import top.toptimus.place.place_deprecated.PlaceReduceDTO;
 
 
 @Service

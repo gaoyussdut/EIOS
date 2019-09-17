@@ -18,7 +18,7 @@ import top.toptimus.meta.MetaRelation.MetaRelationDTO;
 import top.toptimus.meta.SelfDefiningMetaDTO;
 import top.toptimus.meta.TokenMetaInformationDto;
 import top.toptimus.meta.signGroup.CountersignStatusUpdateDTO;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.relation.MetaTokenRelationDTO;
 import top.toptimus.relation.PreMetaTokenRelationDTO;
 import top.toptimus.repository.meta.CountersignRepository;

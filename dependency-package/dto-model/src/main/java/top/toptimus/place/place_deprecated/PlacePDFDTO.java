@@ -1,8 +1,9 @@
-package top.toptimus.place;
+package top.toptimus.place.place_deprecated;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 
 import java.io.Serializable;
 

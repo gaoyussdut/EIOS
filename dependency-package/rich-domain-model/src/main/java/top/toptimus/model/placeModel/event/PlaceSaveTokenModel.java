@@ -1,7 +1,7 @@
 package top.toptimus.model.placeModel.event;
 
 import lombok.Getter;
-import top.toptimus.place.PlaceAlterDto;
+import top.toptimus.place.place_deprecated.PlaceAlterDto;
 import top.toptimus.tokendata.TokenDataDto;
 
 import java.util.List;

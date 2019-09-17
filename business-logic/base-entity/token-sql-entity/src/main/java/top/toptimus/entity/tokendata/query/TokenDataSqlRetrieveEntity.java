@@ -11,7 +11,7 @@ import top.toptimus.entity.security.query.UserQueryFacadeEntity;
 import top.toptimus.meta.MetaTablesRelation.MetaTablesRelationDTO;
 import top.toptimus.model.tokenModel.query.baseQueryFacade.TokenQueryModel;
 import top.toptimus.model.tokenModel.query.baseQueryFacade.TokenQueryWithPageModel;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.repository.meta.MetaTablesRelation.MetaTablesRelationRepository;
 import top.toptimus.repository.token.dynamicTokenQuery.DynamicTokenQueryRepository;
 import top.toptimus.tokendata.TokenDataDto;

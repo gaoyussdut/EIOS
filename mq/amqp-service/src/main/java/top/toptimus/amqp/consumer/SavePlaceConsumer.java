@@ -1,21 +1,18 @@
 package top.toptimus.amqp.consumer;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 import top.toptimus.amqp.producer.TransitionEntity;
-import top.toptimus.dao.token.MetaTokenRelationDao;
 import top.toptimus.entity.place.PlaceRedisEntity;
 import top.toptimus.entity.tokendata.event.TokenEventEntity;
 import top.toptimus.entity.tokendata.query.TokenMetaQueryFacadeEntity;
 import top.toptimus.exception.TopErrorCode;
 import top.toptimus.exception.TopException;
-import top.toptimus.meta.MetaRelation.MetaRelationDTO;
-import top.toptimus.place.BillTokenSaveResultDTO;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.BillTokenSaveResultDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.repository.token.dynamicTokenQuery.DynamicTokenQueryRepository;
 
 @Component

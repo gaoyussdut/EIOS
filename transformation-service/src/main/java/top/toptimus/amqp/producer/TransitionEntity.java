@@ -9,7 +9,7 @@ import top.toptimus.dao.place.cache.RelCacheDao;
 import top.toptimus.entity.place.PlaceRedisEntity;
 import top.toptimus.entity.security.query.UserQueryFacadeEntity;
 import top.toptimus.merkle.MerklePlaceModel;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.repository.BusinessCodeRepository;
 import top.toptimus.repository.place.RelCacheRepository;
 import top.toptimus.tokendata.TokenDataDto;

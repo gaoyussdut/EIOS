@@ -1,9 +1,7 @@
 package top.toptimus.transaction;
 
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import top.toptimus.BusinessModelApplication;
-import top.toptimus.common.enums.DomainTypeEnum;
 import top.toptimus.common.enums.FkeyTypeEnum;
 import top.toptimus.entity.place.PlaceRedisEntity;
-import top.toptimus.model.placeModel.event.PlaceSaveTokenModel;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.tokendata.TokenDataDto;
 import top.toptimus.tokendata.field.FkeyField;
 

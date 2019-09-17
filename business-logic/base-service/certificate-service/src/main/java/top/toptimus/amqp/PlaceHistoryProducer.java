@@ -3,8 +3,8 @@ package top.toptimus.amqp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Service;
-import top.toptimus.place.PlaceDTO;
-import top.toptimus.place.PlacePDFDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlacePDFDTO;
 
 import java.util.UUID;
 

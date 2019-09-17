@@ -6,10 +6,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import top.toptimus.dao.token.MetaTokenRelationDao;
-import top.toptimus.meta.TokenMetaInformationDto;
-import top.toptimus.place.BillTokenSaveResultDTO;
+import top.toptimus.place.place_deprecated.BillTokenSaveResultDTO;
 import top.toptimus.relation.BillAndEntryMetaDTO;
-import top.toptimus.repository.meta.BillEntryMetaRepository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

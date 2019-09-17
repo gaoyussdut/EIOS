@@ -3,7 +3,7 @@ package top.toptimus.place.placeSaveResult;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.toptimus.common.enums.event.PlaceBusinessContextEnum;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 
 import java.io.Serializable;
 

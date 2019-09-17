@@ -3,7 +3,7 @@ package top.toptimus.transformation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.rule.formula.MetaAndFkeyDTO;
 import top.toptimus.tokendata.TokenDataDto;
 

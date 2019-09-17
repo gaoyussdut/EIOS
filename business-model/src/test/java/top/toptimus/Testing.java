@@ -2,7 +2,7 @@ package top.toptimus;
 
 import com.google.common.collect.Lists;
 import top.toptimus.common.enums.FkeyTypeEnum;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.tokendata.TokenDataDto;
 import top.toptimus.tokendata.field.FkeyField;
 

@@ -6,7 +6,7 @@ import top.toptimus.common.enums.process.VertexTypeEnum;
 import top.toptimus.entity.tokendata.query.TokenMetaQueryFacadeEntity;
 import top.toptimus.exception.TopErrorCode;
 import top.toptimus.exception.TopException;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.processDefinition.ProcessFileDto;
 import top.toptimus.processDefinition.UserTaskDto;
 import top.toptimus.processDefinition.UserTaskEdgeDto;

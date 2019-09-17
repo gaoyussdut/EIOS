@@ -11,7 +11,7 @@ import top.toptimus.constantConfig.Constants;
 import top.toptimus.entity.processDefinition.query.ProcessQueryFacadeEntity;
 import top.toptimus.exception.TopErrorCode;
 import top.toptimus.exception.TopException;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.processDefinition.UserTaskDto;
 import top.toptimus.processDefinition.UserTaskEdgeDto;
 import top.toptimus.processDefinition.UserTaskInsDTO;

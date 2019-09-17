@@ -2,7 +2,7 @@ package top.toptimus.processModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.processDefinition.UserTaskInsDTO;
 
 import java.util.List;

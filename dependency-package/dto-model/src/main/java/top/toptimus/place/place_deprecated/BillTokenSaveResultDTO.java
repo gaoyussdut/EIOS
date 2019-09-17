@@ -1,4 +1,4 @@
-package top.toptimus.place;
+package top.toptimus.place.place_deprecated;
 
 import lombok.Getter;
 import lombok.Setter;

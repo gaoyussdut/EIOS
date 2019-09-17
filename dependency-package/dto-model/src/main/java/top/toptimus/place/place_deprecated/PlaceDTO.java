@@ -1,4 +1,4 @@
-package top.toptimus.place;
+package top.toptimus.place.place_deprecated;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;

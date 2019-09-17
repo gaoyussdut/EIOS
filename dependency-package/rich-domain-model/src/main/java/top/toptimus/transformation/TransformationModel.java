@@ -7,7 +7,7 @@ import top.toptimus.common.enums.RuleTypeEnum;
 import top.toptimus.formula.formula.Parser;
 import top.toptimus.formula.pushDownProperty.DataProperty;
 import top.toptimus.formula.util.DefaultProperties;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.rule.RuleModel;
 import top.toptimus.tokendata.TokenDataDto;
 import top.toptimus.tokendata.field.FkeyField;

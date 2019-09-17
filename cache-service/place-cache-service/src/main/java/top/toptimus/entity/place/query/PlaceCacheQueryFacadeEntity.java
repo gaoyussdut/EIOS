@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.toptimus.dao.place.TokenRedisDao;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.repository.place.MemorandumRedisRepository;
 import top.toptimus.repository.place.PlaceRedisRepository;
 import top.toptimus.repository.place.TokenRedisRepository;

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import top.toptimus.common.enums.process.VertexTypeEnum;
 import top.toptimus.common.result.Result;
 import top.toptimus.exception.TopErrorCode;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.resultModel.ResultErrorModel;
 import top.toptimus.service.domainService.ProcessDefinitionService;
 import top.toptimus.service.domainService.ProcessInsService;

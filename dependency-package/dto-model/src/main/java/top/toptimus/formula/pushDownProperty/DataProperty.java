@@ -4,15 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.toptimus.common.enums.FkeyTypeEnum;
-import top.toptimus.common.enums.RuleTypeEnum;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.rule.formula.MetaAndFkeyDTO;
 import top.toptimus.tokendata.TokenDataDto;
 import top.toptimus.transformation.FkeyRuleDTO;
-import top.toptimus.transformation.TransformationDTO;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

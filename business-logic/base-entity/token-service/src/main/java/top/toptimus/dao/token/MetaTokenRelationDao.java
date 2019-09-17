@@ -4,12 +4,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
-import top.toptimus.place.BillTokenSaveResultDTO;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.relation.MetaTokenRelationDTO;
 import top.toptimus.relation.PreMetaTokenRelationDTO;
-
-import java.util.UUID;
 
 /**
  * 记录表头token和（分录、关联单据、引用单据）之间的token关系

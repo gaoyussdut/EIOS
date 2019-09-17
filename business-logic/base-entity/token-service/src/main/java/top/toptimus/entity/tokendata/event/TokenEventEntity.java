@@ -1,7 +1,6 @@
 package top.toptimus.entity.tokendata.event;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.toptimus.dao.token.MetaTokenRelationDao;
@@ -12,7 +11,7 @@ import top.toptimus.meta.property.MetaFieldDTO;
 import top.toptimus.meta.signGroup.CountersignSubmitDTO;
 import top.toptimus.model.tokenData.base.TokenDataModel;
 import top.toptimus.model.tokenData.event.EntryTokenSaveModel;
-import top.toptimus.place.BillTokenSaveResultDTO;
+import top.toptimus.place.place_deprecated.BillTokenSaveResultDTO;
 import top.toptimus.repository.meta.CountersignRepository;
 import top.toptimus.repository.token.MetaRelation.MetaTokenRelationRepository;
 import top.toptimus.repository.token.MetaRelation.TokenRelationRopository;

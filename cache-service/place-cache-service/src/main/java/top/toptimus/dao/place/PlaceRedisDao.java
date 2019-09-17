@@ -9,7 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 import top.toptimus.dao.place.baseDao.RedisBaseDao;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 
 /**
  * 选中的备查账的组id和库所，redis存储

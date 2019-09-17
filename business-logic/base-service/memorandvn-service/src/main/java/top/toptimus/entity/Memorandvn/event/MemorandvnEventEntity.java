@@ -4,11 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.toptimus.entity.Memorandvn.query.MemorandvnQueryFacadeEntity;
 import top.toptimus.model.procedure.ProcedureModel;
-import top.toptimus.place.PlaceDTO;
 import top.toptimus.repository.Memorandvn.BusinessFactRepository;
 import top.toptimus.repository.Memorandvn.MemorandvnRepository;
-
-import java.util.List;
 
 /**
  * 备查账事务处理

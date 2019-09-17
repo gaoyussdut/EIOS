@@ -2,7 +2,7 @@ package top.toptimus.dao.place.cache;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import top.toptimus.place.PlaceDTO;
+import top.toptimus.place.place_deprecated.PlaceDTO;
 import top.toptimus.relation.MetaTokenRelationDTO;
 import top.toptimus.relation.PreMetaTokenRelationDTO;
 
