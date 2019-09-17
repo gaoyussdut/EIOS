@@ -241,7 +241,7 @@ public class PlaceService {
                 billTokenSaveResultDTO
                         .getBillTokenResultBody()
                         .getBillTokenData()
-                ,billTokenSaveResultDTO
+                , billTokenSaveResultDTO
                         .getBillTokenResultBody()
                         .getBillMetaId()
         );
@@ -503,113 +503,6 @@ public class PlaceService {
             return new ResultErrorModel(e).getResult();
         }
     }
-
-    /**
-     * 查询所有汇签意见
-     *
-     * @param metaId            单据metaId
-     * @param tokenId           单据tokenId
-     * @param countersignMetaId 汇签metaId
-     * @return Result
-     */
-    public Result getCountersigns(String metaId, String tokenId, String countersignMetaId) {
-        //  从数据库中取出汇签信息，并缓存
-        return placeRedisEntity.initCache(
-                tokenMetaQueryFacadeEntity.buildCountersigns( //  取出库所
-                        metaId
-                        , tokenId
-                        , countersignMetaId
-                )
-        );
-    }
-
-    /**
-     * 根据taskId查询单条汇签意见
-     *
-     * @param metaId            单据metaId
-     * @param tokenId           单据tokenId
-     * @param taskId            单据任务Id
-     * @param countersignMetaId 汇签metaId
-     * @return Result
-     */
-    public Result getCountersign(String metaId, String tokenId, String taskId, String countersignMetaId) {
-        //  从数据库中取出汇签信息，并缓存
-        return placeRedisEntity.initCache(
-                tokenMetaQueryFacadeEntity.buildCountersign( //  取出库所
-                        metaId
-                        , tokenId
-                        , taskId
-                        , countersignMetaId
-                )
-        );
-    }
-
-//    /**
-//     * 提交汇签任务单据
-//     *
-//     * @param tokenDataDto          汇签任务tokendata
-//     * @param countersignTaskMetaId 汇签任务metaId
-//     * @param metaId                单据metaId
-//     * @param tokenId               单据tokenId
-//     * @return Result
-//     */
-//    public Result submitCountersignTaskToken(TokenDataDto tokenDataDto, String countersignTaskMetaId, String metaId, String tokenId) {
-//        try {
-//            //存数据
-//            Result result = placeRedisEntity.submitToken(
-//                    tokenDataDto.getTokenId()
-//                    , tokenDataDto
-//                    , countersignTaskMetaId
-//                    , true);
-//            //存关系
-//            tokenEventEntity.saveCountersignTaskRel(
-//                    taskEventEntity.getCurrentTask(metaId, tokenId)
-//                    , countersignTaskMetaId
-//                    , tokenDataDto.getTokenId()
-//            );
-//            //改状态
-////            taskEventEntity.updateTaskStatus(metaId, tokenId, TaskStatusEnum.STATUS_SIGN_FAIL);
-//            return result;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw new RuntimeException("提交汇签任务单据失败");
-//        }
-//
-//
-//    }
-
-//    /**
-//     * 批量新增分录
-//     *
-//     * @param metaId      分录metaid
-//     * @param billTokenId 表头tokenid
-//     * @return Result
-//     */
-//    public Result createEntryTokens(String metaId, String billTokenId, int count) {
-//        return placeRedisEntity.createEntryToken(metaId
-//                , billTokenId
-//                , new ArrayList<TokenDataDto>() {
-//                    private static final long serialVersionUID = 1742748055317443358L;
-//
-//                    {
-//                        for (int i = 0; i < count; i++) {
-//                            add(new TokenDataDto());
-//                        }
-//                    }
-//                });
-//    }
-
-//    /**
-//     * 批量存分录信息
-//     *
-//     * @param billTokenId   表头token id
-//     * @param tokenDataDtos token数据
-//     * @param metaId        meta id
-//     * @return Result
-//     */
-//    public Result saveEntryTokens(String billTokenId, List<TokenDataDto> tokenDataDtos, String metaId) {
-//        return placeRedisEntity.submitTokens(billTokenId, tokenDataDtos, metaId);
-//    }
 
     /**
      * 获取分录meta

@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.apache.commons.lang.StringUtils;
 import top.toptimus.constantConfig.Constants;
 import top.toptimus.dynamicSQLModel.baseModel.MainTable;
-import top.toptimus.place.place_deprecated.PlaceDTO;
+import top.toptimus.place.PlaceDTO;
 import top.toptimus.timer.LogExecuteTime;
 import top.toptimus.tokendata.TokenDataDto;
 import top.toptimus.tokendata.field.FkeyField;

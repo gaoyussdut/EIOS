@@ -2,7 +2,7 @@ package top.toptimus.dao.place.cache;
 
 import lombok.Getter;
 import top.toptimus.merkle.MerklePlaceModel;
-import top.toptimus.place.place_deprecated.PlaceDTO;
+import top.toptimus.place.PlaceDTO;
 import top.toptimus.tokendata.TokenDataDto;
 import top.toptimus.util.DateTimeUtil;
 

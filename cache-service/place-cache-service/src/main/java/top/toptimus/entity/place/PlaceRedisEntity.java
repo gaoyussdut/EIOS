@@ -7,7 +7,6 @@ import top.toptimus.common.search.SearchInfo;
 import top.toptimus.dao.place.cache.PlaceSession;
 import top.toptimus.dao.place.cache.RelCacheDao;
 import top.toptimus.entity.TokenDataThreadQueryFacadeEntity;
-import top.toptimus.entity.place.amqp.producer.DeletePlaceProducer;
 import top.toptimus.entity.place.amqp.producer.SavePlaceProducer;
 import top.toptimus.entity.security.query.UserQueryFacadeEntity;
 import top.toptimus.exception.TopErrorCode;
@@ -15,10 +14,8 @@ import top.toptimus.exception.TopException;
 import top.toptimus.merkle.MerkleBasicModel;
 import top.toptimus.merkle.MerklePlaceModel;
 import top.toptimus.model.place.PlaceSessionModel;
+import top.toptimus.place.PlaceDTO;
 import top.toptimus.place.place_deprecated.BillTokenSaveResultDTO;
-import top.toptimus.place.place_deprecated.PlaceDTO;
-import top.toptimus.place.place_deprecated.PlaceReduceDTO;
-import top.toptimus.relation.MetaTokenRelationDTO;
 import top.toptimus.repository.place.RelCacheRepository;
 import top.toptimus.resultModel.ResultErrorModel;
 import top.toptimus.timer.LogExecuteTime;
@@ -41,8 +38,6 @@ public class PlaceRedisEntity {
     private TokenDataThreadQueryFacadeEntity tokenDataThreadQueryFacadeEntity;
     @Autowired
     private SavePlaceProducer savePlaceProducer;
-    @Autowired
-    private DeletePlaceProducer deletePlaceProducer;
     @Autowired
     private RelCacheRepository relCacheRepository;
     @Autowired
@@ -212,32 +207,32 @@ public class PlaceRedisEntity {
 //    }
 
     /**
-     * 缓存中存储单据关系
+     * 缓存中存储单据关系    TODO
      *
      * @param preBillTokenId 前置单据
      * @param userDTO        用户信息
      * @param placeDTO       库所
      */
     private void saveCacheRel(String preBillTokenId, UserDTO userDTO, PlaceDTO placeDTO) {
-        //  线程池中
-        this.placeSessionModel.get().findPlace(preBillTokenId, userDTO.getId())
-                .getPlaceDTO()
-                .getMetaTokenRelationDTOS()
-                .add(new MetaTokenRelationDTO(placeDTO));
-
-        //  redis中
-        RelCacheDao relCacheDao =
-                this.findAllByBillTokenIdAndAuthId(
-                        preBillTokenId
-                        , userDTO.getId()
-                );
-        if (null != relCacheDao) {
-            relCacheDao.addRel(placeDTO);
-            relCacheRepository.save(relCacheDao);
-        } else {
-            //  TODO 超时，重新加载redis
-            throw new RuntimeException("操他妈redis挂了!");
-        }
+//        //  线程池中
+//        this.placeSessionModel.get().findPlace(preBillTokenId, userDTO.getId())
+//                .getPlaceDTO()
+//                .getMetaTokenRelationDTOS()
+//                .add(new MetaTokenRelationDTO(placeDTO));
+//
+//        //  redis中
+//        RelCacheDao relCacheDao =
+//                this.findAllByBillTokenIdAndAuthId(
+//                        preBillTokenId
+//                        , userDTO.getId()
+//                );
+//        if (null != relCacheDao) {
+//            relCacheDao.addRel(placeDTO);
+//            relCacheRepository.save(relCacheDao);
+//        } else {
+//            //  TODO 超时，重新加载redis
+//            throw new RuntimeException("操他妈redis挂了!");
+//        }
     }
 
     /**
@@ -255,11 +250,11 @@ public class PlaceRedisEntity {
     /**
      * 新增分录
      *
-     * @param billTokenId
-     * @param billMetaId
-     * @param tokenDataDto
-     * @param entryMetaId
-     * @return
+     * @param billTokenId  表头token id
+     * @param billMetaId   表头meta id
+     * @param tokenDataDto 分录数据
+     * @param entryMetaId  分录meta id
+     * @return result
      */
     public Result createEntryToken(String billTokenId, String billMetaId, TokenDataDto tokenDataDto, String entryMetaId) {
         this.saveEntryToken(billTokenId, billMetaId, tokenDataDto, entryMetaId);
@@ -269,13 +264,12 @@ public class PlaceRedisEntity {
     /**
      * 保存分录
      *
-     * @param billTokenId
-     * @param billMetaId
-     * @param tokenDataDto
-     * @param entryMetaId
-     * @return
+     * @param billTokenId  表头token id
+     * @param billMetaId   表头meta id
+     * @param tokenDataDto 分录数据
+     * @param entryMetaId  分录meta id
      */
-    public Result saveEntryToken(String billTokenId, String billMetaId, TokenDataDto tokenDataDto, String entryMetaId) {
+    private void saveEntryToken(String billTokenId, String billMetaId, TokenDataDto tokenDataDto, String entryMetaId) {
         try {
             String authId = userQueryFacadeEntity.findByAccessToken().getId();
             BillTokenSaveResultDTO billTokenSaveResultDTO = new BillTokenSaveResultDTO(
@@ -287,10 +281,10 @@ public class PlaceRedisEntity {
             );
 //            savePlaceProducer.saveEntryToken(billTokenSaveResultDTO);
             //  5.返回result(BillTokenSaveResultDTO)
-            return Result.success(billTokenSaveResultDTO);
+            Result.success(billTokenSaveResultDTO);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResultErrorModel(e).getResult();
+            new ResultErrorModel(e);
         }
 
     }
@@ -298,18 +292,17 @@ public class PlaceRedisEntity {
     /**
      * 保存表头 TODO
      *
-     * @param tokenDataDto
-     * @param metaId
-     * @return
+     * @param tokenDataDto 表头数据
+     * @param metaId       表头meta id
      */
-    public Result saveBillToken(TokenDataDto tokenDataDto, String metaId) {
+    public void saveBillToken(TokenDataDto tokenDataDto, String metaId) {
         try {
             String authId = userQueryFacadeEntity.findByAccessToken().getId();
             savePlaceProducer.saveBillToken(new BillTokenSaveResultDTO(metaId, tokenDataDto, authId));
-            return Result.success();
+            Result.success();
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResultErrorModel(e).getResult();
+            new ResultErrorModel(e);
         }
     }
 
@@ -533,41 +526,41 @@ public class PlaceRedisEntity {
         return null;//TODO
     }
 
-    /**
-     * 删除单据关联信息
-     * 仅删除和关联源单据的关系不删除数据
-     *
-     * @param billTokenId 表头tokenId
-     * @return Result
-     */
-    public Result deleteBillToken(String billTokenId) {
-        try {
-            // 1.取得库所model
-            String authId = userQueryFacadeEntity.findByAccessToken().getId();
-            PlaceSession placeSession = this.placeSessionModel.get().authIdExist(authId);
-            MerklePlaceModel merklePlaceModel = placeSession.getMerkleByTokenId(billTokenId);
-            // 2.清理关系
-            // 2.1 如果存在父关系 清理父关系
-            if (null != merklePlaceModel.getPlaceDTO().getPreMetaTokenRelationDTO()) {
-                RelCacheDao relCacheDao = this.findAllByBillTokenIdAndAuthId(merklePlaceModel.getPlaceDTO().getPreMetaTokenRelationDTO().getSourceBillTokenId(), authId);
-                if (null != relCacheDao)
-                    relCacheRepository.save(relCacheDao.cleanCertificates(billTokenId));
-            }
-            // 2.2 删除自己本身
-//            relCacheRepository.deleteById(merklePlaceModel.getCacheId());
-
-            // 3.删除线程中的placeDTO
-//            placeSession.getMerklePlaceModels().remove(merklePlaceModel);
-
-            // 4.消息队列删除ES关系
-            deletePlaceProducer.deleteBillData(new PlaceReduceDTO().build(merklePlaceModel.getPlaceDTO()));
-            return Result.success();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new TopException(TopErrorCode.GENERAL_ERR);
-        }
-
-    }
+//    /**
+//     * 删除单据关联信息
+//     * 仅删除和关联源单据的关系不删除数据
+//     *
+//     * @param billTokenId 表头tokenId
+//     * @return Result
+//     */
+//    public Result deleteBillToken(String billTokenId) {
+//        try {
+//            // 1.取得库所model
+//            String authId = userQueryFacadeEntity.findByAccessToken().getId();
+//            PlaceSession placeSession = this.placeSessionModel.get().authIdExist(authId);
+//            MerklePlaceModel merklePlaceModel = placeSession.getMerkleByTokenId(billTokenId);
+//            // 2.清理关系
+//            // 2.1 如果存在父关系 清理父关系
+//            if (null != merklePlaceModel.getPlaceDTO().getPreMetaTokenRelationDTO()) {
+//                RelCacheDao relCacheDao = this.findAllByBillTokenIdAndAuthId(merklePlaceModel.getPlaceDTO().getPreMetaTokenRelationDTO().getSourceBillTokenId(), authId);
+//                if (null != relCacheDao)
+//                    relCacheRepository.save(relCacheDao.cleanCertificates(billTokenId));
+//            }
+//            // 2.2 删除自己本身
+////            relCacheRepository.deleteById(merklePlaceModel.getCacheId());
+//
+//            // 3.删除线程中的placeDTO
+////            placeSession.getMerklePlaceModels().remove(merklePlaceModel);
+//
+//            // 4.消息队列删除ES关系
+//            deletePlaceProducer.deleteBillData(new PlaceReduceDTO().build(merklePlaceModel.getPlaceDTO()));
+//            return Result.success();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw new TopException(TopErrorCode.GENERAL_ERR);
+//        }
+//
+//    }
 
     /**
      * 根据billTokenId和authId查询对应的库所关联结构

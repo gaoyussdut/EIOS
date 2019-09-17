@@ -38,6 +38,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Setter
 @Getter
+@Deprecated
 public class PlaceDTO extends BasePlaceDTO {
 
     private static final long serialVersionUID = 6588124626387054060L;

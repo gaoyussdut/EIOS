@@ -2,7 +2,7 @@ package top.toptimus.merkle;
 
 import lombok.Getter;
 import top.toptimus.merkle.baseModel.MerkleBaseModel;
-import top.toptimus.place.place_deprecated.PlaceDTO;
+import top.toptimus.place.PlaceDTO;
 import top.toptimus.tokendata.TokenDataDto;
 
 import java.util.UUID;

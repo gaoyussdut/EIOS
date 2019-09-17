@@ -11,7 +11,6 @@ import top.toptimus.dao.meta.MetaRelationDao;
 import top.toptimus.dao.token.MetaTokenRelationDao;
 import top.toptimus.entity.meta.query.MetaQueryFacadeEntity;
 import top.toptimus.entity.security.query.UserQueryFacadeEntity;
-import top.toptimus.merkle.MerklePlaceModel;
 import top.toptimus.meta.MetaRelation.MasterBillMetaRelationDTO;
 import top.toptimus.meta.MetaRelation.MasterMetaInfoDTO;
 import top.toptimus.meta.MetaRelation.MetaRelationDTO;
@@ -144,18 +143,18 @@ public class TokenMetaQueryFacadeEntity {
         };
     }
 
-    /**
-     * 创建单据的关联关系，创建place接口，用来放在缓存中
-     *
-     * @param merklePlaceModel 所model，带缓存主键
-     * @return 库所
-     */
-    public PlaceDTO buildCachePlace(MerklePlaceModel merklePlaceModel) {
-        return this.buildCachePlace(
-                merklePlaceModel.getPlaceDTO().getPreMetaTokenRelationDTO().getSourceBillTokenId()
-                , merklePlaceModel.getPlaceDTO().getPreMetaTokenRelationDTO().getSourceBillMetaId()
-        );
-    }
+//    /**
+//     * 创建单据的关联关系，创建place接口，用来放在缓存中
+//     *
+//     * @param merklePlaceModel 所model，带缓存主键
+//     * @return 库所
+//     */
+//    public PlaceDTO buildCachePlace(MerklePlaceModel merklePlaceModel) {
+//        return this.buildCachePlace(
+//                merklePlaceModel.getPlaceDTO().getPreMetaTokenRelationDTO().getSourceBillTokenId()
+//                , merklePlaceModel.getPlaceDTO().getPreMetaTokenRelationDTO().getSourceBillMetaId()
+//        );
+//    }
 
 
     /**

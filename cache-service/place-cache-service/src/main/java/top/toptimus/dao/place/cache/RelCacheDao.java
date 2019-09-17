@@ -10,7 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 import top.toptimus.merkle.MerklePlaceModel;
-import top.toptimus.place.place_deprecated.PlaceDTO;
+import top.toptimus.place.PlaceDTO;
 import top.toptimus.tokendata.TokenDataDto;
 
 import java.util.ArrayList;
@@ -81,7 +81,8 @@ public class RelCacheDao {
      * @param placeDTO 关联单据
      */
     public void addRel(PlaceDTO placeDTO) {
-        this.getCertificates().add(new CacheRelToken(placeDTO));
+        //  TODO
+//        this.getCertificates().add(new CacheRelToken(placeDTO));
     }
 
     /**
@@ -90,32 +91,33 @@ public class RelCacheDao {
      * @param placeDTO placeDTO
      */
     private void buildRel(PlaceDTO placeDTO) {
-        //编辑与前置单据的关联信息
-        if (null != placeDTO.getPreMetaTokenRelationDTO()) {
-            this.preCacheRelToken = new CacheRelToken(placeDTO.getPreMetaTokenRelationDTO());
-        }
-
-        //编辑后续单据的关联信息
-        placeDTO.getMetaTokenRelationDTOS().forEach(metaTokenRelationDTO -> placeDTO.getRelationEntryMetaIds().forEach(masterMetaInfoDTO -> {
-            if (metaTokenRelationDTO.getTargetBillMetaId().equals(masterMetaInfoDTO.getEntryMasterMetaId())) {
-                switch (masterMetaInfoDTO.getMetaRelEnum()) {
-//                        case MEMORANDVN:
-//                            this.memorandums.add(new CacheRelToken(metaTokenRelationDTO));
-//                            break;
-                    case CERTIFICATE:
-                        this.certificates.add(new CacheRelToken(metaTokenRelationDTO));
-                        break;
-//                        case BUSINESSRECORD:
-//                            this.businessRecord.add(new CacheRelToken(metaTokenRelationDTO));
-//                            break;
-                    // 其他关联信息 TODO
-
-                    default:
-                        break;
-                }
-            }
-
-        }));
+        //  TODO
+//        //编辑与前置单据的关联信息
+//        if (null != placeDTO.getPreMetaTokenRelationDTO()) {
+//            this.preCacheRelToken = new CacheRelToken(placeDTO.getPreMetaTokenRelationDTO());
+//        }
+//
+//        //编辑后续单据的关联信息
+//        placeDTO.getMetaTokenRelationDTOS().forEach(metaTokenRelationDTO -> placeDTO.getRelationEntryMetaIds().forEach(masterMetaInfoDTO -> {
+//            if (metaTokenRelationDTO.getTargetBillMetaId().equals(masterMetaInfoDTO.getEntryMasterMetaId())) {
+//                switch (masterMetaInfoDTO.getMetaRelEnum()) {
+////                        case MEMORANDVN:
+////                            this.memorandums.add(new CacheRelToken(metaTokenRelationDTO));
+////                            break;
+//                    case CERTIFICATE:
+//                        this.certificates.add(new CacheRelToken(metaTokenRelationDTO));
+//                        break;
+////                        case BUSINESSRECORD:
+////                            this.businessRecord.add(new CacheRelToken(metaTokenRelationDTO));
+////                            break;
+//                    // 其他关联信息 TODO
+//
+//                    default:
+//                        break;
+//                }
+//            }
+//
+//        }));
     }
 
     /**

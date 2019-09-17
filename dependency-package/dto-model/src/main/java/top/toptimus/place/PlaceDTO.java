@@ -1,13 +1,18 @@
 package top.toptimus.place;
 
+import com.google.common.base.Strings;
 import top.toptimus.common.enums.MetaTypeEnum;
+import top.toptimus.exception.TopErrorCode;
+import top.toptimus.exception.TopException;
 import top.toptimus.meta.relation.MetaRelDTO;
 import top.toptimus.place.basePlace.BasePlaceDTO;
 import top.toptimus.schema.BillPreviewDTO;
 import top.toptimus.token.relation.TokenRelDTO;
 import top.toptimus.tokenTemplate.TokenTemplateDefinitionDTO;
+import top.toptimus.tokendata.TokenDataDto;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 库所新设计
@@ -92,5 +97,20 @@ public class PlaceDTO extends BasePlaceDTO {
                 )        // 首先找出schemaId
                 .buildMetaRels(this.metaRelDTOS)
                 .buildTokenRels(this.billTokenId, this.tokenRelDTOS);
+    }
+
+    /**
+     * 校验数据，如果tokenId不存在报错
+     * 如果tokenId为空 存入了redis  会取不到数据
+     */
+    public void intendedEffectData() {
+        Map<String, List<TokenDataDto>> datas = this.datas;
+        for (String metaId : datas.keySet()) {
+            for (TokenDataDto tokenDataDto : datas.get(metaId)) {
+                if (Strings.isNullOrEmpty(tokenDataDto.getTokenId())) {
+                    throw new TopException(TopErrorCode.TOKEN_ID_NOT_EXIST);
+                }
+            }
+        }
     }
 }
