@@ -16,11 +16,9 @@ import top.toptimus.entity.query.BusinessUnitFacadeQueryEntity;
 import top.toptimus.entity.tokendata.query.TokenQueryFacadeEntity;
 import top.toptimus.entity.tokentemplate.query.TokenTemplateQueryFacadeEntity;
 import top.toptimus.meta.TokenMetaInformationDto;
-import top.toptimus.meta.relation.MetaRelDTO;
+import top.toptimus.place.PlaceDTO;
 import top.toptimus.resultModel.ResultErrorModel;
 import top.toptimus.schema.BillPreviewDTO;
-import top.toptimus.schema.BillSchemaDTO;
-import top.toptimus.token.relation.TokenRelDTO;
 import top.toptimus.tokenTemplate.TokenTemplateDefinitionDTO;
 import top.toptimus.tokendata.TokenDataDto;
 import top.toptimus.transformationService.TransformationService;
@@ -344,50 +342,49 @@ public class BusinessUnitService {
      * @return BillPreviewDTO billPreview
      */
     public BillPreviewDTO getPreview(String tokenTemplateId, String tokenId) {
-
         TokenTemplateDefinitionDTO tokenTemplateDefinitionDTO =
                 tokenTemplateQueryFacadeEntity.findById(tokenTemplateId);
 
-        // 首先找出schemaId
-        BillPreviewDTO billPreviewDTO = new BillPreviewDTO().build(
-                tokenTemplateId
-                , tokenTemplateDefinitionDTO.getBillMetaId()
-                , tokenId
-                , MetaTypeEnum.BILL
-        );
+        return new BillPreviewDTO()
+                .build(
+                        tokenTemplateId
+                        , tokenTemplateDefinitionDTO.getBillMetaId()
+                        , tokenId
+                        , MetaTypeEnum.BILL
+                )   // 首先找出schemaId
+                .buildMetaRels(
+                        metaQueryFacadeEntity.getRelMetasByTokenTemplateId(tokenTemplateDefinitionDTO.getBillMetaId())
+                )
+                .buildTokenRels(
+                        tokenId
+                        , tokenQueryFacadeEntity.getRelTokenByBillMetaIdAndBillTokenId(
+                                tokenTemplateDefinitionDTO.getBillMetaId()
+                                , tokenId
+                        )
+                );
+    }
 
-        List<MetaRelDTO> metaRelDTOS =
-                metaQueryFacadeEntity.getRelMetasByTokenTemplateId(tokenTemplateDefinitionDTO.getBillMetaId());
-        if (metaRelDTOS != null && metaRelDTOS.size() > 0) {
-            metaRelDTOS.forEach(metaRelDTO -> {
-                billPreviewDTO
-                        .getRelBillDTOList()
-                        .add(
-                                new BillSchemaDTO(
-                                        metaRelDTO.getRelTokenTemplateId()
-                                        , metaRelDTO.getEntryMetaId()
-                                        , metaRelDTO.getMetaType()
-                                        , metaRelDTO.getOrder_())
-                        );
-            });
-        }
-        if (tokenId != null) {
-            List<TokenRelDTO> tokenRelDTOs =
-                    tokenQueryFacadeEntity
-                            .getRelTokenByBillMetaIdAndBillTokenId(
-                                    tokenTemplateDefinitionDTO.getBillMetaId()
-                                    , tokenId
-                            );
-            billPreviewDTO.getRelBillDTOList().forEach(relBillDTO -> {
-                tokenRelDTOs.forEach(tokenRelDTO -> {
-                    if (relBillDTO.getMetaId().equals(tokenRelDTO.getEntryMetaId())) {
-                        relBillDTO.build(tokenRelDTO.getEntryTokenId());
-                    }
-                });
-            });
-        }
+    /**
+     * 获取schemaDTO
+     *
+     * @param tokenTemplateId ttid
+     * @param tokenId         表头token id
+     * @return BillPreviewDTO billPreview
+     */
+    public BillPreviewDTO getBillPreview(String tokenTemplateId, String tokenId) {
+        TokenTemplateDefinitionDTO tokenTemplateDefinitionDTO =
+                tokenTemplateQueryFacadeEntity.findById(tokenTemplateId);
 
-        return billPreviewDTO;
+        //  TODO    下面这堆卵子封装在entity中
+        PlaceDTO placeDTO = new PlaceDTO();    //  TODO，从缓存中取出
+        return placeDTO.build(
+                tokenTemplateDefinitionDTO
+                , tokenQueryFacadeEntity.getRelTokenByBillMetaIdAndBillTokenId(
+                        tokenTemplateDefinitionDTO.getBillMetaId()
+                        , tokenId
+                )
+                , metaQueryFacadeEntity.getRelMetasByTokenTemplateId(tokenTemplateDefinitionDTO.getBillMetaId())
+        ).generateBillPreviewDTO();
     }
 
 }
