@@ -248,20 +248,6 @@ public class PlaceRedisEntity {
     }
 
     /**
-     * 新增分录
-     *
-     * @param billTokenId  表头token id
-     * @param billMetaId   表头meta id
-     * @param tokenDataDto 分录数据
-     * @param entryMetaId  分录meta id
-     * @return result
-     */
-    public Result createEntryToken(String billTokenId, String billMetaId, TokenDataDto tokenDataDto, String entryMetaId) {
-        this.saveEntryToken(billTokenId, billMetaId, tokenDataDto, entryMetaId);
-        return Result.success(tokenDataDto);
-    }
-
-    /**
      * 保存分录
      *
      * @param billTokenId  表头token id
@@ -269,10 +255,10 @@ public class PlaceRedisEntity {
      * @param tokenDataDto 分录数据
      * @param entryMetaId  分录meta id
      */
-    private void saveEntryToken(String billTokenId, String billMetaId, TokenDataDto tokenDataDto, String entryMetaId) {
+    public BillTokenSaveResultDTO saveEntryToken(String billTokenId, String billMetaId, TokenDataDto tokenDataDto, String entryMetaId) {
         try {
             String authId = userQueryFacadeEntity.findByAccessToken().getId();
-            BillTokenSaveResultDTO billTokenSaveResultDTO = new BillTokenSaveResultDTO(
+            return new BillTokenSaveResultDTO(
                     billTokenId
                     , billMetaId
                     , tokenDataDto
@@ -281,12 +267,12 @@ public class PlaceRedisEntity {
             );
 //            savePlaceProducer.saveEntryToken(billTokenSaveResultDTO);
             //  5.返回result(BillTokenSaveResultDTO)
-            Result.success(billTokenSaveResultDTO);
+//            Result.success(billTokenSaveResultDTO);
         } catch (Exception e) {
             e.printStackTrace();
             new ResultErrorModel(e);
+            throw  new RuntimeException("分录创建失败");
         }
-
     }
 
     /**

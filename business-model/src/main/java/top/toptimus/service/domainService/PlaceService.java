@@ -70,7 +70,7 @@ public class PlaceService {
     /**
      * 创建表头数据
      *
-     * @param metaId       表头meta
+     * @param metaId 表头meta
      * @return Result
      */
     public Result createBillToken(String metaId) {
@@ -81,7 +81,7 @@ public class PlaceService {
     }
 
     /**
-     * 保存表头数据
+     * 保存表头数据   TODO,这么做前端就要做实时更新，要注意交互
      *
      * @param tokenDataDto tokendata
      * @param metaId       表头meta
@@ -89,6 +89,33 @@ public class PlaceService {
      */
     public Result saveBillToken(TokenDataDto tokenDataDto, String metaId) {
         return placeRedisEntity.saveBillToken(tokenDataDto, metaId);
+    }
+
+    /**
+     * 保存分录
+     *
+     * @param billTokenId  表头token id
+     * @param billMetaId   表头meta id
+     * @param tokenDataDto 分录数据
+     * @param entryMetaId  分录meta id
+     * @param entryType    保存关联单据用，比较复杂，TODO
+     * @return Result
+     */
+    public Result saveEntryToken(String billTokenId, String billMetaId, TokenDataDto tokenDataDto, String entryMetaId, MetaTypeEnum entryType) {
+        BillTokenSaveResultDTO billTokenSaveResultDTO =
+                placeRedisEntity.saveEntryToken(billTokenId, billMetaId, tokenDataDto, entryMetaId);
+
+        tokenEventEntity.saveDatas(
+                billTokenSaveResultDTO
+                        .getBillTokenResultBody()
+                        .getEntryTokenData()
+                , billTokenSaveResultDTO
+                        .getBillTokenResultBody()
+                        .getEntryMetaId()
+        );
+        //2.同步关系到pg
+        tokenEventEntity.saveRel(billTokenSaveResultDTO);
+        return Result.success(billTokenSaveResultDTO);
     }
 
     /**
@@ -149,37 +176,6 @@ public class PlaceService {
 
     }
 
-    /**
-     * 保存分录
-     *
-     * @param billTokenId  表头token id
-     * @param billMetaId   表头meta id
-     * @param tokenDataDto 分录数据
-     * @param entryMetaId  分录meta id
-     * @param entryType    保存关联单据用，比较复杂，TODO
-     * @return Result
-     */
-    public Result saveEntryToken(String billTokenId, String billMetaId, TokenDataDto tokenDataDto, String entryMetaId, MetaTypeEnum entryType) {
-        String authId = userQueryFacadeEntity.findByAccessToken().getId();
-        BillTokenSaveResultDTO billTokenSaveResultDTO = new BillTokenSaveResultDTO(
-                billTokenId
-                , billMetaId
-                , tokenDataDto
-                , entryMetaId
-                , authId
-        );
-        tokenEventEntity.saveDatas(
-                billTokenSaveResultDTO
-                        .getBillTokenResultBody()
-                        .getEntryTokenData()
-                , billTokenSaveResultDTO
-                        .getBillTokenResultBody()
-                        .getEntryMetaId()
-        );
-        //2.同步关系到pg
-        tokenEventEntity.saveRel(billTokenSaveResultDTO);
-        return Result.success(billTokenSaveResultDTO);
-    }
 
     /**
      * 删除分录
