@@ -31,9 +31,9 @@ import java.util.Map;
  * @since 2019-01-22
  */
 @Service
-public class PlaceService {
+public class PlaceService_Deprecated {
 
-    public static Logger logger = LoggerFactory.getLogger(PlaceService.class);
+    public static Logger logger = LoggerFactory.getLogger(PlaceService_Deprecated.class);
 
     @Autowired
     private TokenQueryFacadeEntity tokenQueryFacadeEntity;

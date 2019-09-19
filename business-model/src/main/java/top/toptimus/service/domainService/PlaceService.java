@@ -68,6 +68,19 @@ public class PlaceService {
     }
 
     /**
+     * 创建表头数据
+     *
+     * @param metaId       表头meta
+     * @return Result
+     */
+    public Result createBillToken(String metaId) {
+        return placeRedisEntity.saveBillToken(
+                placeRedisEntity.createBill(metaId)
+                , metaId
+        );
+    }
+
+    /**
      * 保存表头数据
      *
      * @param tokenDataDto tokendata
@@ -79,7 +92,7 @@ public class PlaceService {
     }
 
     /**
-     * 缓存库所数据
+     * 从数据库中加载并缓存库所数据
      *
      * @param billTokenId     表头token id
      * @param tokenTemplateId ttid
